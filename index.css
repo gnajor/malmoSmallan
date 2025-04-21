@@ -1,0 +1,180 @@
+:root{
+    --white-color: #FFF;
+    --yellow-color: #FFC20D;
+    --light-gray-color: #A1A1A1; 
+    --black-color:#000;
+    --home-button-border-color: #CECECE;
+
+    --footer-header-height: 5.625rem;
+}
+
+html{
+    font-size: 16px;
+}
+
+*{
+    box-sizing: border-box;
+    font-family: sans-serif, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
+}
+
+body{
+    margin:0;
+}
+
+input{
+    width: 1.5rem;
+    text-align: center;
+    border-radius: 0;
+    border: 0;
+}
+
+h2{
+    margin: 0;
+}
+
+header{
+    height: var(--footer-header-height);
+    width: 100%;
+}
+
+button{
+    border: 0;
+}
+
+footer{
+    position: fixed;
+    height: var(--footer-header-height);
+    width: 100%;
+    background-color: var(--black-color);
+    bottom: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer button{
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--black-color) 0%, #282828 100%);
+    border: 2px solid var(--home-button-border-color);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer button #inner-square{
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid var(--home-button-border-color);
+    border-radius: 4px;
+}
+
+
+#notes-page header{
+    background-color: var(--white-color);
+    color: var(--yellow-color);
+
+    position: fixed;
+    top:0;
+    z-index: 10;
+
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+}
+
+
+#notes-page header a{
+    padding: 1.25rem;
+}
+
+#notes-page header #notes-back-button{
+    font-size: 1.125rem;
+}
+
+#notes-page main h1{
+    margin-top:calc(2.5rem + var(--footer-header-height));
+    margin-bottom: 2.5rem;
+    font-size: 2rem;
+}
+
+#notes-page main{
+    margin-bottom: calc(2.5rem + var(--footer-header-height));
+    padding:0 1.25rem;
+}
+
+#notes-page main h2{
+    font-size: 1.5rem;
+    font-weight: normal;
+    line-height: 1.25;
+}
+
+#notes-page main .notes-mini-game{
+    display: flex;
+    flex-direction: column;
+    gap:0.5rem;
+}
+
+#notes-page main .word-input-container{
+    height: 7.5rem;
+    transition:600ms height ease-in-out;
+
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.75rem;
+    row-gap: 0.625rem;
+}
+
+#notes-page main #notes-minigames-container{
+    display: flex;
+    flex-direction: column;
+    gap: 3.75rem;
+}
+
+#notes-page main .word-input-container .word{
+    height: fit-content;
+}
+
+#notes-page main .word-input-container .word input{
+    border: 2px solid var(--light-gray-color);
+    border-right:0;
+}
+
+#notes-page main .word-input-container .word input:first-child{
+    border-radius: 2px 0 0 2px;
+}
+
+#notes-page main .word-input-container .word input:last-child{
+    border-radius: 0 2px 2px 0;
+    border-right: 2px solid var(--light-gray-color);
+}
+
+#notes-page main .word-input-container.no-height{
+    height: 0px;
+}
+
+#notes-page main input{
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.25rem;
+
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+}
+
+#notes-page input.done{
+    background-color: lime;
+}
+
+
+#notes-page input.wrong{
+    background-color: red;
+}
