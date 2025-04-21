@@ -1,4 +1,4 @@
-function renderFooter(parent, func){
+export function renderFooter(parent, func){
     parent.innerHTML = `<button id="outer-circle">
                             <div id="inner-square"></div>
                         </button>`;

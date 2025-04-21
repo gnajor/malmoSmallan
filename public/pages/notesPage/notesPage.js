@@ -1,4 +1,6 @@
-function renderNotesPage(parent){
+import {renderFooter} from "../../components/footer/footer.js"; 
+
+export function renderNotesPage(parent){
     const notes = [
         {
             rightWord: "Ta Möllan tigern och sälj den",
@@ -35,7 +37,6 @@ function renderNotesPage(parent){
 
     const footer = parent.querySelector("footer");
     renderFooter(footer, () => {});
-    //dyr pengar
 
     for(const note of notes){
         const noteMinigame = new notesMinigame(
@@ -198,4 +199,3 @@ class notesMinigame{
     }    
 }
 
-renderNotesPage(document.querySelector("body"));
