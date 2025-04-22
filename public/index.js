@@ -138,41 +138,41 @@ const gameData = {
 
     friendMessages: [
         { sender: "Spelaren", text: "Vi kör svamppasta, hittade riktigt fina svampar på torget", normal: true },
-        { sender: "Kompis", text: "Det blir dunder", normal: true },
+        { sender: "Alex", text: "Det blir dunder", normal: true },
         { sender: "Spelaren", text: "Har några öl i kylen, köper du en flaska vin?", normal: true },
-        { sender: "Kompis", text: "Jag fixar!", normal: true },
+        { sender: "Alex", text: "Jag fixar!", normal: true },
         { sender: "Spelaren", text: "Kom vid 18, ta på dig något fint", normal: true },
         { sender: "Spelaren", text: "Kom till star bar", time: "Igår 21:15" },
-        { sender: "Kompis", text: "Jag är hemma nu" },
+        { sender: "Alex", text: "Jag är hemma nu" },
         { sender: "Spelaren", text: "Kom till mascot", time: "Igår 21:30" },
         { sender: "Spelaren", text: "Kom till Ved", time: "Igår 23:00" },
-        { sender: "Kompis", text: "Ska sova nu" },
+        { sender: "Alex", text: "Ska sova nu" },
         { sender: "Spelaren", text: "Kom till Gallia", time: "Idag 00:00" },
-        { sender: "Kompis", text: "Vem är du med?" },
+        { sender: "Alex", text: "Vem är du med?" },
         { sender: "Spelaren", text: "Kom till Squareside", time: "Idag 00:30" },
         { sender: "Spelaren", text: "Kom till azalee", time: "Idag 01:00" },
         { sender: "Spelaren", text: "Jag bjuder" },
         { sender: "Spelaren", text: "Det står en limo utanför dig nu", time: "Idag 01:30" },
-        { sender: "Kompis", text: "Vad händerrrr???????" },
+        { sender: "Alex", text: "Vad händerrrr???????" },
         { sender: "Spelaren", text: "Svart eller röd?" },
-        { sender: "Kompis", text: "Fattar ingenting, vad håller du på med??!!" },
+        { sender: "Alex", text: "Fattar ingenting, vad håller du på med??!!" },
         { sender: "Spelaren", text: "Hallå?" },
-        { sender: "Kompis", text: "vad händer" },
-        { sender: "Kompis", text: "Jag är på möllan vart är du?", time: "Idag 02:55" },
-        { sender: "Kompis", text: "Hallå. Vart är du på väg?", time: "Idag 03:01" },
+        { sender: "Alex", text: "vad händer" },
+        { sender: "Alex", text: "Jag är på möllan vart är du?", time: "Idag 02:55" },
+        { sender: "Alex", text: "Hallå. Vart är du på väg?", time: "Idag 03:01" },
         { sender: "Spelaren", text: "Måste fixa en sak" },
         { sender: "Spelaren", text: "Kan du swosha mig?" },
-        { sender: "Kompis", text: "Vad fan hände med dig igår?", time: "Idag 9:35" },
+        { sender: "Alex", text: "Vad fan hände med dig igår?", time: "Idag 9:35" },
         { sender: "Spelaren", text: "Minns bara att jag var med er, sen minns jag inget.", canSend: true },
-        { sender: "Kompis", text: "Sist jag såg dig sprang du mot Pildammstornet med en svart väska. Du skrek att du behövde gömma pengar eller nåt. Du hade gps framme medan du sprang. (Du kan kolla där.)" },
+        { sender: "Alex", text: "Sist jag såg dig sprang du mot Pildammstornet med en svart väska. Du skrek att du behövde gömma pengar eller nåt. Du hade gps framme medan du sprang. (Du kan kolla där.)" },
     ],
     friendMessagesNormal: [
         { sender: "Spelaren", text: "Vi kör svamppasta, hittade riktigt fina svampar på torget" },
-        { sender: "Kompis", text: "Det blir dunder" },
+        { sender: "Alex", text: "Det blir dunder" },
         { sender: "Spelaren", text: "Har några öl i kylen, köper du en flaska vin?" },
-        { sender: "Kompis", text: "Jag fixar!" },
+        { sender: "Alex", text: "Jag fixar!" },
         { sender: "Spelaren", text: "Kom vid 18, ta på dig något fint" },
-        { sender: "Kompis", text: "Vad var det för svampar igår, har mått riktigt konstigt." },
+        { sender: "Alex", text: "Vad var det för svampar igår, har mått riktigt konstigt." },
         { sender: "Spelaren", text: "Så sjukt… vaknade precis upp på Möllan,tror jag hallucinerade.", canSend: true },
     ],
     dealer: [
@@ -185,7 +185,7 @@ const gameData = {
 
 renderMessagesContactPage(document.querySelector("#wrapper"));
 
-// renderMessagesPage(document.querySelector("#wrapper"), gameData.friendMessages, "Alex");
+// renderMessagesPage(document.querySelector("#wrapper"), gameData.friendMessages, gameData.friendMessages[1].sender);
 
 // renderBankPage(document.querySelector("#wrapper"), gameData.transactions);
 
