@@ -7,34 +7,34 @@ export function renderBankPage(parent, transactions){
                             </header>
                             <main>
                                 <div id="account-swosh-box">
-                                    <div id="account-box">
-                                        <h3>Konton</h3>
-                                        <div id="account">
-                                            <div id="left-side">
-                                                <span id="account-title">Privat konto</span>
-                                                <span>420-1,234 112 69-9</span>
+                                    <div id="account-swosh">
+                                        <div id="account-box">
+                                            <h3>Konton</h3>
+                                            <div id="account">
+                                                <div id="left-side">
+                                                    <span id="account-title">Privat konto</span>
+                                                    <span>420-1,234 112 69-9</span>
+                                                </div>
+                                                <div id="right-side">
+                                                    <span>4,20</span>
+                                                </div>
                                             </div>
-                                            <div id="right-side">
-                                                <span>4,20</span>
+                                        </div>
+                                        <div id="swosh-box">
+                                            <h3>Swosh</h3>
+                                            <div id="inputs-box">
+                                                <div id="number-input">
+                                                    <span>Mottagarens nummer</span>
+                                                    <input>
+                                                </div>
+                                                <div id="sum-input">
+                                                    <span>Summa</span>
+                                                    <input>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="swosh-box">
-                                        <h3>Swosh</h3>
-                                        <div id="inputs-box">
-                                            <div id="number-input">
-                                                <span>Mottagarens nummer</span>
-                                                <input>
-                                            </div>
-                                            <div id="sum-input">
-                                                <span>Summa</span>
-                                                <input>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button>
-                                        Swoooosh
-                                    </button>
+                                    <button>Swoooosh</button>
                                 </div>
                                 <div id="transactions-box">
                                     <h3>Senaste transaktioner</h3>
@@ -48,6 +48,24 @@ export function renderBankPage(parent, transactions){
         parent.querySelector("footer"),
         () => {}
     );
+
+
+    parent.querySelector("main button").addEventListener("click", () => {
+        const sumInputValue = parent.querySelector("#sum-input input").value;
+        const numberInputValue = parent.querySelector("#number-input input").value;
+
+        const newTransaction = {
+            icon: "money.svg",
+            name: "Swosh",
+            date: "2025-04-07",
+            sum: "-" + sumInputValue + ",00"
+        }
+
+        renderTransaction(
+            parent.querySelector("#transactions"),
+            newTransaction
+        );
+    });
 
     for(const transaction of transactions){
         renderTransaction(

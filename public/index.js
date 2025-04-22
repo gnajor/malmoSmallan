@@ -55,52 +55,22 @@ const gameData = {
 
     transactions: [
         {
-            icon: "wine.svg",
-            name: "Ölcaféet",
+            icon: "truck.svg",
+            name: "Limousine",
             date: "2025-04-06",
-            sum: "-414,40"
-        },
-        {
-            icon: "wine.svg",
-            name: "Star bar",
-            date: "2025-04-06",
-            sum: "-79,99"
-        },   
-        {
-            icon: "wine.svg",
-            name: "Mascot",
-            date: "2025-04-06",
-            sum: "-975,00"
-        },
-        {
-            icon: "shopping.svg",
-            name: "Indian Express 2",
-            date: "2025-04-06",
-            sum: "-243,00"
-        },    
-        {
-            icon: "money.svg",
-            name: "Bankomat",
-            date: "2025-04-06",
-            sum: "+10000,00"
-        }, 
-        {
-            icon: "utensils.svg",
-            name: "V.E.D",
-            date: "2025-04-06",
-            sum: "-2000,00"
-        },   
-        {
-            icon: "utensils.svg",
-            name: "Sibylla",
-            date: "2025-04-06",
-            sum: "-693,00"
+            sum: "-5500,00"
         },  
         {
-            icon: "utensils.svg",
-            name: "Gallia",
+            icon: "wine.svg",
+            name: "Azalee-casino",
             date: "2025-04-06",
-            sum: "-2999,00"
+            sum: "-3000,00"
+        },  
+        {
+            icon: "wine.svg",
+            name: "Azalee",
+            date: "2025-04-06",
+            sum: "-3775,00"
         },  
         {
             icon: "wine.svg",
@@ -109,23 +79,53 @@ const gameData = {
             sum: "-180,00"
         },  
         {
-            icon: "wine.svg",
-            name: "Azalee",
+            icon: "utensils.svg",
+            name: "Gallia",
             date: "2025-04-06",
-            sum: "-3775,00"
-        },
+            sum: "-2999,00"
+        },   
         {
-            icon: "truck.svg",
-            name: "Limousine",
+            icon: "utensils.svg",
+            name: "Sibylla",
             date: "2025-04-06",
-            sum: "-2000,00"
+            sum: "-693,00"
         },
         {
             icon: "utensils.svg",
-            name: "Vegan bar",
+            name: "V.E.D",
             date: "2025-04-06",
-            sum: "-140,00"
-        }  
+            sum: "-1999,00"
+        },
+        {
+            icon: "money.svg",
+            name: "Bankomat",
+            date: "2025-04-06",
+            sum: "+10000,00"
+        }, 
+        {
+            icon: "shopping.svg",
+            name: "Indian Express 2",
+            date: "2025-04-06",
+            sum: "-243,00"
+        },
+        {
+            icon: "wine.svg",
+            name: "Mascot",
+            date: "2025-04-06",
+            sum: "-975,00"
+        },
+        {
+            icon: "wine.svg",
+            name: "Star bar",
+            date: "2025-04-06",
+            sum: "-79,99"
+        }, 
+        {
+            icon: "wine.svg",
+            name: "Ölcaféet",
+            date: "2025-04-06",
+            sum: "-414,40"
+        },  
     ]
 }
 
