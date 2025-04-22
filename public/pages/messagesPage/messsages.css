@@ -1,0 +1,110 @@
+#messages-page {
+    padding-bottom: calc(1.8 * var(--footer-header-height));
+}
+
+#messages-header {
+    background: rgba(247, 247, 247, 0.65);
+    background-blend-mode: color-dodge, normal;
+    backdrop-filter: blur(17.5px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--side-spacing);
+    font-size: 17px;
+    position: sticky;
+    top: 0;
+}
+
+#messages-header img {
+    position: absolute;
+    left: 1.25rem;
+}
+
+#messages-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.message-time {
+    text-align: center;
+    color: #A9A8AD;
+    font-size: 14px;
+    margin: 0.5rem;
+}
+
+.message {
+    max-width: calc(100vw - 2 * var(--side-spacing) - (100vw - 80%));
+    padding: 0.5rem 0.7rem;
+    width: fit-content;
+}
+
+.message p {
+    margin: 0;
+}
+
+.player-message {
+    margin-left: auto;
+    color: var(--white-color);
+    border-radius: 15px 15px 0px 15px;
+}
+
+.other-message {
+    border-radius: 15px 15px 15px 0px;
+    font-size: 17px;
+}
+
+.other-message.normal {
+    background-color: var(--other-message-color-normal);
+}
+
+.other-message.alt {
+    background-color: var(--other-message-color-alt);
+}
+
+.player-message.normal {
+    background-color: var(--player-message-color-normal);
+}
+
+.player-message.alt {
+    background-color: var(--player-message-color-alt);
+}
+
+#messages-sender {
+    position: fixed;
+    bottom: var(--footer-header-height);
+    left: 0;
+    width: 100vw;
+    background-color: rgb(255, 255, 255, 0.65);
+    background-blend-mode: color-dodge, normal;
+    backdrop-filter: blur(17.5px);
+    padding: 0.5rem var(--side-spacing);
+}
+
+#messages-textbox {
+    border-radius: 16px;
+    border: 1px solid #A9A8AD;
+    background-color: var(--white-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+}
+
+#messages-text {
+    margin: 0;
+    width: 95%;
+}
+
+#messages-send-button {
+    background-color: var(--player-message-color-normal);
+    border-radius: 50%;
+    height: 1.5rem;
+    width: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
