@@ -1,5 +1,6 @@
 import { renderBankPage } from "./pages/bankPage/bankPage.js";
 import { renderHomePage } from "./pages/homePage/homePage.js";
+import { renderMessagesContactPage } from "./pages/messagesContact/messagesContact.js";
 import { renderMessagesPage } from "./pages/messagesPage/messages.js";
 import { renderNotesPage } from "./pages/notesPage/notesPage.js";
 
@@ -181,6 +182,8 @@ const gameData = {
 
     ]
 }
+
+renderMessagesContactPage(document.querySelector("#wrapper"));
 
 // renderMessagesPage(document.querySelector("#wrapper"), gameData.friendMessages, "Alex");
 
