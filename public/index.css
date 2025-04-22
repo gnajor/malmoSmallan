@@ -1,53 +1,60 @@
-:root{
+:root {
     --white-color: #FFF;
     --yellow-color: #FFC20D;
-    --light-gray-color: #A1A1A1; 
+    --light-gray-color: #A1A1A1;
     --lightest-gray-color: #D8D8D8;
-    --black-color:#000;
+    --black-color: #000;
     --home-button-border-color: #CECECE;
     --bank-color: #2F0DFF;
+    --player-message-color-normal: #7CBA27;
+    --player-message-color-alt: #609D0E;
+    --other-message-color-normal: #E9E9EB;
+    --other-message-color-alt: #D6D6D6;
 
     --footer-header-height: 5.625rem;
     --app-size: 4rem;
-    --app-radius:12px;
-    --side-spacing:1.25rem;
+    --app-radius: 12px;
+    --side-spacing: 1.25rem;
 
     --header-font-size: 1.125rem;
 }
 
-html{
+html {
     font-size: 16px;
 }
 
-*{
+* {
     box-sizing: border-box;
     font-family: sans-serif, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
 }
 
-body{
-    margin:0;
+body {
+    margin: 0;
 }
 
-input{
+input {
     border-radius: 0;
     border: 0;
     width: 100%;
 }
 
-h1, h2 , h3 ,h4{
+h1,
+h2,
+h3,
+h4 {
     margin: 0;
 }
 
-span{
+span {
     display: block;
 }
 
-header{
+header {
     height: var(--footer-header-height);
     width: 100%;
 }
 
-button{
+button {
     border: 0;
     padding: 0;
     background-color: transparent;
@@ -55,15 +62,15 @@ button{
     cursor: pointer;
 }
 
-a{
+a {
     cursor: pointer;
 }
 
-main{
-    padding:0 var(--side-spacing);
+main {
+    padding: 0 var(--side-spacing);
 }
 
-footer{
+footer {
     position: fixed;
     height: var(--footer-header-height);
     width: 100%;
@@ -75,7 +82,7 @@ footer{
     align-items: center;
 }
 
-footer button{
+footer button {
     height: 4rem;
     width: 4rem;
     border-radius: 50%;
@@ -87,7 +94,7 @@ footer button{
     align-items: center;
 }
 
-footer button #inner-square{
+footer button #inner-square {
     width: 1.5rem;
     height: 1.5rem;
     border: 2px solid var(--home-button-border-color);
