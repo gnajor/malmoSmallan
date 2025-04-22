@@ -11,7 +11,6 @@ export function serverRequests(request: Request){
         fsRoot: "public",
         urlRoot: ""
     });
-
 }
 
 Deno.serve(serverRequests);

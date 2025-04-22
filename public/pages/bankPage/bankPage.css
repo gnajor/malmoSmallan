@@ -108,6 +108,7 @@
 
 #bank-page main #transactions .transaction .img-title-date{
     display: flex;
+    gap:1rem;
 }
 
 #bank-page main #transactions .transaction img{
