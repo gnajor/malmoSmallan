@@ -1,6 +1,6 @@
 import {renderFooter} from "../../components/footer/footer.js"; 
 
-export function renderNotesPage(parent){
+export function renderNotesPage(parent, notes){
     const notes = [
         {
             rightWord: "Ta Möllan tigern och sälj den",
@@ -25,7 +25,7 @@ export function renderNotesPage(parent){
 
                                 <a id="favourite-button">
                                     <span>Favorit</span>
-                                    <img>
+                                    <img src="">
                                 </a>
                             </header>
                             <main>

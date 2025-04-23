@@ -1,4 +1,5 @@
 import { renderBankPage } from "./pages/bankPage/bankPage.js";
+import { renderCallPage } from "./pages/callPage/callPage.js";
 import { renderHomePage } from "./pages/homePage/homePage.js";
 import { renderNotesPage } from "./pages/notesPage/notesPage.js";
 
@@ -129,8 +130,10 @@ const gameData = {
     ]
 }
 
-renderBankPage(document.querySelector("#wrapper"), gameData.transactions);
+/* renderCallPage(document.querySelector("#wrapper"), "Okänt Nummer"); */
+
+/* renderBankPage(document.querySelector("#wrapper"), gameData.transactions); */
 
 /* renderHomePage(document.querySelector("#wrapper"), gameData.apps) */
 
-/* renderNotesPage(document.querySelector("#wrapper")) */
+renderNotesPage(document.querySelector("#wrapper"));
