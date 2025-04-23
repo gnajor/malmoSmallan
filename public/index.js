@@ -1,4 +1,5 @@
 import { renderBankPage } from "./pages/bankPage/bankPage.js";
+import { renderCallPage } from "./pages/callPage/callPage.js";
 import { renderHomePage } from "./pages/homePage/homePage.js";
 import { renderMessagesContactPage } from "./pages/messagesContact/messagesContact.js";
 import { renderMessagesPage } from "./pages/messagesPage/messages.js";
@@ -6,7 +7,6 @@ import { renderNotesPage } from "./pages/notesPage/notesPage.js";
 
 const state = {
     progression: undefined,
-
 }
 
 const gameData = {
@@ -179,8 +179,9 @@ const gameData = {
         { sender: "Knarklangare", text: "Du måste hålla pengarna till imorgon, polisen är efter mig.", time: "" },
         { sender: "Knarklangare", text: "Jag tror att jag kommit undan. Möt mig på triangeln imorgon." },
         { sender: "Knarklangare", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express." },
-
     ]
+
+    
 }
 
 // let lastMessage = [gameData.friendMessages[gameData.friendMessages.length - 1]];
@@ -192,4 +193,4 @@ const gameData = {
 
 /* renderHomePage(document.querySelector("#wrapper"), gameData.apps) */
 
-/* renderNotesPage(document.querySelector("#wrapper")) */
+renderNotesPage(document.querySelector("#wrapper"));
