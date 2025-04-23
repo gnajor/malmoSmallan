@@ -179,9 +179,22 @@ const gameData = {
         { sender: "Knarklangare", text: "Du måste hålla pengarna till imorgon, polisen är efter mig.", time: "" },
         { sender: "Knarklangare", text: "Jag tror att jag kommit undan. Möt mig på triangeln imorgon." },
         { sender: "Knarklangare", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express." },
-    ]
+    ],
 
-    
+    notes: [
+        {
+            rightWord: "Ta Möllan tigern och sälj den",
+            scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE"
+        },
+        {
+            rightWord: "Ta Möllan tigern och sälj den",
+            scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE"
+        },
+        {
+            rightWord: "Ta Möllan tigern och sälj den",
+            scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE"
+        }
+    ]
 }
 
 // let lastMessage = [gameData.friendMessages[gameData.friendMessages.length - 1]];

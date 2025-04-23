@@ -1,21 +1,6 @@
 import {renderFooter} from "../../components/footer/footer.js"; 
 
 export function renderNotesPage(parent, notes){
-    const notes = [
-        {
-            rightWord: "Ta Möllan tigern och sälj den",
-            scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE"
-        },
-        {
-            rightWord: "Ta Möllan tigern och sälj den",
-            scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE"
-        },
-        {
-            rightWord: "Ta Möllan tigern och sälj den",
-            scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE"
-        }
-    ];
-
     parent.innerHTML = `<div id="notes-page">
                             <header>
                                 <a id="notes-back-button">
