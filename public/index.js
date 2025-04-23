@@ -183,7 +183,8 @@ const gameData = {
     ]
 }
 
-renderMessagesContactPage(document.querySelector("#wrapper"));
+// let lastMessage = [gameData.friendMessages[gameData.friendMessages.length - 1]];
+// renderMessagesContactPage(document.querySelector("#wrapper"), lastMessage);
 
 // renderMessagesPage(document.querySelector("#wrapper"), gameData.friendMessages, gameData.friendMessages[1].sender);
 

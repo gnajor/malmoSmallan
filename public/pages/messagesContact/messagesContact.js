@@ -1,9 +1,9 @@
 import { renderFooter } from "../../components/footer/footer.js";
 
-export function renderMessagesContactPage(parent) {
+export function renderMessagesContactPage(parent, messages) {
     parent.innerHTML = `<div id="messages-contact-page">
-                            <header></header>
-                            <main></main>
+                            <header id="messages-contacts-header"></header>
+                            <main id="messages-contacts-main"></main>
                             <footer></footer>
                         </div>`;
 
@@ -16,37 +16,60 @@ export function renderMessagesContactPage(parent) {
         parent.querySelector("header")
     );
     renderMessagesContactsMain(
-        parent.querySelector("main")
+        parent.querySelector("main"), messages
     );
 }
 
 function renderMessagesContactsHeader(parent) {
     const header = document.createElement("h1");
-    header.id = "messages-contacts-header";
+    header.id = "messages-contacts-h1";
     header.innerHTML = "Meddelanden";
     parent.appendChild(header);
 }
 
-// profilbild - namn - meddelande - pil
-function renderMessagesContactsMain(parent) {
+function renderMessagesContactsMain(parent, lastMessage) {
     for (let i = 0; i < 5; i++) {
         const messanger = document.createElement("div");
+        const imgCon = document.createElement("div");
         const img = document.createElement("img");
+        const textCon = document.createElement("div");
+        const leftCon = document.createElement("div");
         const name = document.createElement("p");
         const message = document.createElement("p");
         const arrow = document.createElement("img");
 
         messanger.className = "messanger";
         img.className = "messanger-img";
+        imgCon.className = "messanger-img-con";
+        leftCon.className = "messanger-left-con";
+        textCon.className = "messanger-text-con";
         name.className = "messanger-name";
         message.className = "messanger-message";
         arrow.className = "messanger-arrow";
 
-        messanger.appendChild(img);
-        messanger.appendChild(name);
-        messanger.appendChild(message);
+        img.src = "../../media/messages-contacts-icon/profile.svg";
+        arrow.src = "../../media/messages-contacts-icon/arrow.svg";
+
+        if (lastMessage[i]) {
+            name.innerHTML = lastMessage[i].sender;
+            message.innerHTML = lastMessage[i].text.substring(0, 30) + "...";
+            leftCon.appendChild(imgCon);
+            imgCon.appendChild(img);
+            messanger.addEventListener("click", () => {
+                // let findMessages = gameData.friendMessages.filter((message) => message.sender == lastMessage[i].sender);
+                // renderMessagesPage(document.querySelectorquery("#wrapper"), gameData.friendMessages, lastMessage[i].sender);
+            });
+        } else {
+            name.innerHTML = "Fel";
+            message.innerHTML = "Kunde inte hitta konversationen";
+            messanger.classList.add("error");
+        }
+
+        messanger.appendChild(leftCon);
+        leftCon.appendChild(textCon);
+        textCon.appendChild(name);
+        textCon.appendChild(message);
         messanger.appendChild(arrow);
         parent.appendChild(messanger);
-
     }
 }

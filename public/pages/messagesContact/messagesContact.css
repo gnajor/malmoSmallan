@@ -1,0 +1,62 @@
+#messages-contact-page p {
+    margin: 0;
+}
+
+
+#messages-contacts-header {
+    padding: 0 var(--side-spacing);
+    display: flex;
+    align-items: end;
+}
+
+#messages-contacts-main {
+    display: flex;
+    flex-direction: column;
+}
+
+.messanger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #E5E5E6;
+    padding: var(--side-spacing) 0;
+}
+
+.messanger:first-child {
+    border-top: 2px solid #E5E5E6;
+}
+
+.messanger-left-con {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.messanger-img-con {
+    background-color: #A1A1A1;
+    padding: 8px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.messanger-text-con {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.messanger-text-con p:first-child {
+    font-weight: 600;
+}
+
+.error p:first-child {
+    color: #C01717;
+}
+
+.error img:last-child {
+    display: none;
+}
