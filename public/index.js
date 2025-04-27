@@ -206,4 +206,4 @@ const gameData = {
 
 /* renderHomePage(document.querySelector("#wrapper"), gameData.apps) */
 
-renderNotesPage(document.querySelector("#wrapper"));
+renderNotesPage(document.querySelector("#wrapper"), gameData.notes);

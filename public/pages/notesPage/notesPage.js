@@ -1,16 +1,18 @@
 import {renderFooter} from "../../components/footer/footer.js"; 
 
 export function renderNotesPage(parent, notes){
+    const srcWdIcon = "../../media/note-icons/"
+
     parent.innerHTML = `<div id="notes-page">
                             <header>
                                 <a id="notes-back-button">
-                                    <img>
+                                    <img src="${srcWdIcon}back-icon.svg">
                                     <span>Anteckningar</span>
                                 </a>
 
                                 <a id="favourite-button">
                                     <span>Favorit</span>
-                                    <img src="">
+                                    <img src="${srcWdIcon}star.svg">
                                 </a>
                             </header>
                             <main>
@@ -24,11 +26,11 @@ export function renderNotesPage(parent, notes){
     renderFooter(footer, () => {});
 
     for(const note of notes){
-        const noteMinigame = new notesMinigame(
+        new notesMinigame(
             parent.querySelector("#notes-minigames-container"),
             note.rightWord,
             note.scrambledWord
-        )
+        );
     }
 }
 
@@ -141,6 +143,8 @@ class notesMinigame{
                 if((inputs.length) % amountSameTime === inputs.length - (i * amountSameTime)){
                     input.addEventListener("transitionend", (event) => {
                         this.containerAnimation();
+                        
+
                     }, {once: true});
                 }
                 counter++;
@@ -157,7 +161,6 @@ class notesMinigame{
                 setTimeout(() => {
                     element.remove();
                 }, 1000);
-                    
             }, {once: true});
         });
     }   

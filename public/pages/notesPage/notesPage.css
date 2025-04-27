@@ -16,10 +16,22 @@
 
 #notes-page header a{
     padding: 1.25rem;
+    display: flex;
+    gap:0.5rem;
 }
 
 #notes-page header #notes-back-button{
     font-size: var(--header-font-size);
+}
+
+#notes-page header a#favourite-button img{
+    height: 1rem;
+    align-self: center;
+}
+
+#notes-page header a#notes-back-button img{
+    height: 1.125rem;
+    align-self: center;
 }
 
 #notes-page main h1{
