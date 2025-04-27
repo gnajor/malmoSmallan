@@ -1,4 +1,5 @@
 import { renderFooter } from "../../components/footer/footer.js";
+import { pageHandler } from "../../pageHandler/pageHandler.js";
 
 export function renderMessagesContactPage(parent, messages) {
     parent.innerHTML = `<div id="messages-contact-page">
@@ -7,17 +8,9 @@ export function renderMessagesContactPage(parent, messages) {
                             <footer></footer>
                         </div>`;
 
-    renderFooter(
-        parent.querySelector("footer"),
-        () => { }
-    );
-
-    renderMessagesContactsHeader(
-        parent.querySelector("header")
-    );
-    renderMessagesContactsMain(
-        parent.querySelector("main"), messages
-    );
+    renderFooter(parent.querySelector("footer"));
+    renderMessagesContactsHeader(parent.querySelector("header"));
+    renderMessagesContactsMain(parent.querySelector("main"), messages);
 }
 
 function renderMessagesContactsHeader(parent) {
@@ -56,8 +49,7 @@ function renderMessagesContactsMain(parent, lastMessage) {
             leftCon.appendChild(imgCon);
             imgCon.appendChild(img);
             messanger.addEventListener("click", () => {
-                // let findMessages = gameData.friendMessages.filter((message) => message.sender == lastMessage[i].sender);
-                // renderMessagesPage(document.querySelectorquery("#wrapper"), gameData.friendMessages, lastMessage[i].sender);
+                pageHandler.handleMessagesPageRender();
             });
         } else {
             name.innerHTML = "Fel";
