@@ -22,8 +22,7 @@ export function renderNotesPage(parent, notes){
                             <footer></footer>
                         </div>`;
 
-    const footer = parent.querySelector("footer");
-    renderFooter(footer, () => {});
+    renderFooter(parent.querySelector("footer"));
 
     for(const note of notes){
         new notesMinigame(

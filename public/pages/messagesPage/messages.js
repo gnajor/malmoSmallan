@@ -10,10 +10,7 @@ export function renderMessagesPage(parent, messages, sender) {
                             <footer></footer>
                         </div>`;
 
-    renderFooter(
-        parent.querySelector("footer"),
-        () => { }
-    )
+    renderFooter(parent.querySelector("footer"));
 
     renderMessagesHeader(
         parent.querySelector("#messages-header"), sender

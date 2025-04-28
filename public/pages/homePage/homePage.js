@@ -6,14 +6,9 @@ export function renderHomePage(parent, apps){
                             <footer></footer>
                         </div>`;
 
-    renderFooter(
-        parent.querySelector("footer"),
-        () => {}
-    )
+    renderFooter(parent.querySelector("footer"))
 
     for(const app of apps){
-        console.log(app)
-
         renderApps(
             parent.querySelector("#app-container"),
             app
@@ -32,7 +27,5 @@ function renderApps(parent, app){
     appElement.innerHTML = `<img src="${srcWd + app.icon}" alt="a image of the app ${app.name}">
                             <span>${app.name}</span>`;
 
-    appElement.addEventListener("click", () => {
-        
-    });
+    appElement.addEventListener("click", app.func);
 }
