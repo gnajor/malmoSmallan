@@ -1,3 +1,5 @@
+const log = document.querySelector("#log");
+
 
 //type = findBag, swosh, phoneCall
 export function renderIphonePopUp(parent, type, texts, sound) {
@@ -101,23 +103,23 @@ function getUserLocation() {
             enableHighAccuracy: true
         });
     } else {
-        console.log("Geolocation stöds inte av din webbläsare.");
+        log.innerHTML = "Geolocation stöds inte av din webbläsare.";
     }
 }
 
 function showError(error) {
     switch (error.code) {
         case error.PERMISSION_DENIED:
-            console.log("Användaren nekade begäran om geolocation.");
+            log.innerHTML = "Användaren nekade begäran om geolocation.";
             break;
         case error.POSITION_UNAVAILABLE:
-            console.log("Positionen är inte tillgänglig.");
+            log.innerHTML = "Positionen är inte tillgänglig.";
             break;
         case error.TIMEOUT:
-            console.log("Tidsgränsen för begäran överskreds.");
+            log.innerHTML = "Tidsgränsen för begäran överskreds.";
             break;
         case error.UNKNOWN_ERROR:
-            console.log("Ett okänt fel inträffade.");
+            log.innerHTML = "Ett okänt fel inträffade.";
             break;
     }
 }
