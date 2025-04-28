@@ -47,11 +47,13 @@ function updateDistance(position) {
     }
 
     const distanceElement = document.getElementById('distance');
+    const coordsElement = document.getElementById('coords');
 
     const userLat = position.coords.latitude;
     const userLon = position.coords.longitude;
 
     const distance = calculateDistance(userLat, userLon, destination.latitude, destination.longitude);
+    coordsElement.textContent = `Lat: ${userLat.toFixed(6)}, Lon: ${userLon.toFixed(6)}`;
 
     if (distance <= 2) {
         distanceElement.textContent = "Du är framme vid destinationen!";
