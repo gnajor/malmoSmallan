@@ -54,7 +54,9 @@ function findBag(parent) {
     bottom.appendChild(bottomHeaderText);
     bottom.appendChild(bottomText);
 
-    getUserLocation();
+    bottom.addEventListener("click", getUserLocation)
+
+
 }
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
