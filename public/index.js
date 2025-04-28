@@ -41,15 +41,22 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 }
 
 function updateDistance(position) {
+    const destination = {
+        latitude: 55.608937,
+        longitude: 12.994438
+    }
+
+    const distanceElement = document.getElementById('distance');
+
     const userLat = position.coords.latitude;
     const userLon = position.coords.longitude;
+
     const distance = calculateDistance(userLat, userLon, destination.latitude, destination.longitude);
-    const distanceElement = document.getElementById('distance');
 
     if (distance <= 2) {
         distanceElement.textContent = "Du är framme vid destinationen!";
     } else {
-        distanceElement.textContent = `${Math.round(distance)} meter kvar`;
+        distanceElement.textContent = `${Math.round(distance)}m`;
     }
 }
 
@@ -73,7 +80,11 @@ function showError(error) {
 
 document.getElementById('startBtn').addEventListener('click', () => {
     if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(updateDistance, showError, { enableHighAccuracy: true });
+        navigator.geolocation.watchPosition(updateDistance, showError, {
+            enableHighAccuracy: true,
+            maximumAge: 0,
+            timeout: 5000
+        });
     } else {
         document.getElementById('log').textContent = "Geolocation stöds inte av din webbläsare.";
     }
