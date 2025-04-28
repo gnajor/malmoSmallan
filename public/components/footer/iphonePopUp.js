@@ -27,7 +27,7 @@ export function renderIphonePopUp(parent, type, texts, sound) {
 
 function findBag(parent) {
     const top = document.createElement("div");
-    const bottom = document.createElement("div");
+    const bottom = document.createElement("button");
     const topHeaderText = document.createElement("p");
     const topText = document.createElement("p");
     const bottomHeaderText = document.createElement("p");
@@ -37,14 +37,15 @@ function findBag(parent) {
     bottom.className = "popup-bottom";
     topHeaderText.className = "popup-header-text";
     topText.className = "popup-text";
-    bottomHeaderText.className = "popup-header-text";
+    bottomHeaderText.className = "popup-headerB-text";
     bottomText.className = "popup-text";
     bottomText.id = "distance";
+    bottomHeaderText.classList.add("startGame")
     parent.id = "findBag";
 
     topHeaderText.innerHTML = "Leta efter väska";
     topText.innerHTML = "(väska med pengar, veldigt viktigt)";
-    bottomHeaderText.innerHTML = "Gå mot Pildammstornet";
+    bottomHeaderText.innerHTML = "Börja leta";
     // bottomText.innerHTML = "50m";
 
     parent.appendChild(top);
@@ -54,12 +55,7 @@ function findBag(parent) {
     bottom.appendChild(bottomHeaderText);
     bottom.appendChild(bottomText);
 
-    const clickButton = document.createElement("button");
-
-    clickButton.textContent = "KLICKAAA";
-    parent.appendChild(clickButton);
-
-    clickButton.addEventListener("click", getUserLocation)
+    bottom.addEventListener("click", getUserLocation)
 
 
 }
@@ -83,6 +79,11 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
 
 function updateDistance(position) {
+    const bottomHeaderText = document.querySelector(".popup-headerB-text");
+    bottomHeaderText.classList.remove("startGame");
+    bottomHeaderText.innerHTML = "Gå mot Pildammstornet";
+
+
     // brevid pildammstornet 55.589879, 12.997736
     const destination = {
         latitude: 55.608937,

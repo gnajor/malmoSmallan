@@ -156,6 +156,14 @@ footer button #inner-square {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.popup-bottom .startGame {
+    font-size: 16px !important;
+    color: var(--bank-color)
 }
 
 #findBag .popup-bottom p:first-child {
