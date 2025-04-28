@@ -213,6 +213,7 @@ function phoneCall(parent) {
         bottomButton.className = "pedometer-text";
         bottom.className = "pedometer-bottom";
         top.className = "pedometer-top";
+        bottomButton.innerHTML = "100";
 
 
         let steps = 100;
