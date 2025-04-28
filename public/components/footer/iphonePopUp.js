@@ -54,7 +54,10 @@ function findBag(parent) {
     bottom.appendChild(bottomHeaderText);
     bottom.appendChild(bottomText);
 
-    bottom.addEventListener("click", getUserLocation)
+    const button = document.querySelector("button");
+    parent.appendChild(button);
+
+    button.addEventListener("click", getUserLocation)
 
 
 }
