@@ -210,10 +210,11 @@ function phoneCall(parent) {
         topText.remove();
 
         topHeader.innerHTML = "PEDOmeter";
+        bottomButton.innerHTML = "100";
         bottomButton.className = "pedometer-text";
         bottom.className = "pedometer-bottom";
         top.className = "pedometer-top";
-        bottomButton.innerHTML = "100";
+
 
 
         let steps = 100;
@@ -224,6 +225,8 @@ function phoneCall(parent) {
 
         // Funktion som beräknar och uppdaterar steg
         function handleDeviceMotion(event) {
+            topHeader.innerHTML = "PEDOmeter1";
+
             const x = event.accelerationIncludingGravity.x;
             const y = event.accelerationIncludingGravity.y;
             const z = event.accelerationIncludingGravity.z;
