@@ -172,7 +172,7 @@ export const gameData = {
         { sender: "Knarklangare", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express." },
     ],
 
-    notes: [
+    notesMinigame: [
         {
             rightWord: "Ta Möllan tigern och sälj den",
             scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE"
@@ -189,5 +189,44 @@ export const gameData = {
 
     phoneCallers: {
         nameLess: "Okänt Nummer"
+    }, 
+
+    notes: {
+        favorite: [
+            {
+                title: "veldgt vikigt!!",
+                text: "At NLMÖLA NITRGE COH ÄSJL NDE",
+                date: "4/9/2025"
+            }
+        ],
+        latest: [
+            {
+                title: "Inköpslista",
+                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a sagittis mi, et consequat nulla. Nullam a finibus arcu. Duis sit amet lectus sed mauris cursus dictum ac nec velit",
+                date: "4/9/2025"
+            },
+            {
+                title: "Inköpslista",
+                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a sagittis mi, et consequat nulla. Nullam a finibus arcu. Duis sit amet lectus sed mauris cursus dictum ac nec velit",
+                date: "4/9/2025"
+            },
+            {
+                title: "Inköpslista",
+                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a sagittis mi, et consequat nulla. Nullam a finibus arcu. Duis sit amet lectus sed mauris cursus dictum ac nec velit",
+                date: "4/9/2025"
+            },
+            {
+                title: "Inköpslista",
+                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a sagittis mi, et consequat nulla. Nullam a finibus arcu. Duis sit amet lectus sed mauris cursus dictum ac nec velit",
+                date: "4/9/2025"
+            }
+        ],
+        yesterday: [
+            {
+                title: "veldgt vikigt!!",
+                text: "At NLMÖLA NITRGE COH ÄSJL NDE",
+                date: "4/9/2025"
+            }
+        ]
     }
 }

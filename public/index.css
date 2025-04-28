@@ -2,6 +2,7 @@
     --white-color: #FFF;
     --yellow-color: #FFC20D;
     --light-gray-color: #A1A1A1;
+    --dark-gray-color: #606060;
     --lightest-gray-color: #D8D8D8;
     --black-color: #000;
     --home-button-border-color: #CECECE;
@@ -10,6 +11,7 @@
     --player-message-color-alt: #609D0E;
     --other-message-color-normal: #E9E9EB;
     --other-message-color-alt: #D6D6D6;
+    --note-text-color: #797979;
 
     --footer-header-height: 5.625rem;
     --app-size: 4rem;
@@ -41,7 +43,8 @@ input {
 h1,
 h2,
 h3,
-h4 {
+h4, 
+p{
     margin: 0;
 }
 

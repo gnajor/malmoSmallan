@@ -1,4 +1,5 @@
 import { pageHandler } from "./pageHandler/pageHandler.js";
+import { renderCallPage } from "./pages/callPage/callPage.js";
 
 const state = {
     beforePage: null,
@@ -17,4 +18,6 @@ const state = {
     }
 }
 
-state.startApp();
+pageHandler.handleNotesPageRender();
+
+/* renderCallPage(document.querySelector("#wrapper"), "Okänt Nummer"); */
