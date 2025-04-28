@@ -86,6 +86,22 @@
     break-inside: avoid;
 }
 
+#notes-page main .notes-container .note::before{
+    content: "";
+    background-color: var(--white-color);
+    position: absolute;
+    width: 0%;
+    height: 100%;
+    transition: 1000ms all ease-in-out;
+}
+
+#notes-page main .notes-container .note.animationStart::before{
+    width: 100%;
+    height: 100%;
+    top:0;
+    right:0;
+}
+
 #notes-page main .notes-container .note:not(:last-child){
     margin-bottom: 1rem;
 }

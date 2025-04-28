@@ -4,6 +4,7 @@ import { renderHomePage } from "../pages/homePage/homePage.js"
 import { renderMessagesContactPage } from "../pages/messagesContact/messagesContact.js";
 import { renderMessagesPage } from "../pages/messagesPage/messages.js";
 import { renderNotesPage } from "../pages/notesPage/notesPage.js";
+import { renderSpecifikNotesPage } from "../pages/notesPage/specifikNotesPage.js";
 import { gameData } from "./gameData.js";
 
 export const pageHandler = {
@@ -16,6 +17,10 @@ export const pageHandler = {
 
     handleMessagesPageRender(){
         renderMessagesPage(this.parent, this.pageData.friendMessages, this.pageData.friendMessages[1].sender);
+    },
+
+    handleSpecificNotesPageRender(){
+        renderSpecifikNotesPage(this.parent, this.pageData.notesMinigame);
     },
 
     handleCallPageRender(){

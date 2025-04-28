@@ -1,4 +1,5 @@
 import { renderFooter } from "../../components/footer/footer.js";
+import { pageHandler } from "../../pageHandler/pageHandler.js";
 
 export function renderNotesPage(parent, notes){
     parent.innerHTML = `<div id="notes-page">
@@ -85,7 +86,6 @@ class Notes{
     constructor(parent, notesData){
         this.parent = parent;
         this.notesData = notesData;
-        this.element = null;
     }
 
     renderNotes(){
@@ -96,7 +96,6 @@ class Notes{
 
     renderNote(parent, note){
         const noteContainer = document.createElement("div");
-        this.element = noteContainer;
         noteContainer.className = "note";
         parent.appendChild(noteContainer);
     
@@ -104,11 +103,17 @@ class Notes{
                                    <span class="note-date">${note.date}</span>
                                    <p class="class-content">${note.text}</p>`;
 
-        noteContainer.addEventListener("click", this.onClick);
+        noteContainer.addEventListener("click", this.onClick);  
     }
 
-    onClick(){
-        
+    onClick(event){
+        event.stopPropagation();
+        event.currentTarget.classList.add("animationStart");
+
+        setTimeout(() => {
+            pageHandler.handleSpecificNotesPageRender();
+        }, 1100);
+
     }
 
     remove(){
