@@ -3,6 +3,7 @@ import { renderHomePage } from "./pages/homePage/homePage.js";
 import { renderMessagesContactPage } from "./pages/messagesContact/messagesContact.js";
 import { renderMessagesPage } from "./pages/messagesPage/messages.js";
 import { renderNotesPage } from "./pages/notesPage/notesPage.js";
+import { renderIphonePopUp } from "../../components/footer/iphonePopUp.js";
 
 const state = {
     progression: undefined,
@@ -182,6 +183,8 @@ const gameData = {
 
     ]
 }
+
+renderIphonePopUp(document.querySelector("#wrapper"), "phoneCall");
 
 // let lastMessage = [gameData.friendMessages[gameData.friendMessages.length - 1]];
 // renderMessagesContactPage(document.querySelector("#wrapper"), lastMessage);
