@@ -56,7 +56,7 @@ function updateDistance(position) {
     if (distance <= 2) {
         distanceElement.textContent = "Du är framme vid destinationen!";
     } else {
-        distanceElement.textContent = `${Math.round(distance)}m`;
+        distanceElement.textContent = `${Math.round(distance)}m kvar!!!!`;
     }
 }
 
