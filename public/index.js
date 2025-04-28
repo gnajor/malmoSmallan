@@ -78,13 +78,17 @@ function showError(error) {
     }
 }
 
+let locationInterval;
+
 document.getElementById('startBtn').addEventListener('click', () => {
     if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(updateDistance, showError, {
-            enableHighAccuracy: true,
-            maximumAge: 0,
-            timeout: 5000
-        });
+        locationInterval = setInterval(() => {
+            navigator.geolocation.getCurrentPosition(updateDistance, showError, {
+                enableHighAccuracy: true,
+                maximumAge: 0,
+                timeout: 5000
+            });
+        }, 5000); // Hämta plats var 5:e sekund
     } else {
         document.getElementById('log').textContent = "Geolocation stöds inte av din webbläsare.";
     }
