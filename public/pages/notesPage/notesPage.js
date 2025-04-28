@@ -103,17 +103,18 @@ class Notes{
                                    <span class="note-date">${note.date}</span>
                                    <p class="class-content">${note.text}</p>`;
 
-        noteContainer.addEventListener("click", this.onClick);  
+        noteContainer.addEventListener("click", this.onClick);
+        noteContainer.addEventListener("transitionend", this.onTransEnd);  
+
     }
 
     onClick(event){
         event.stopPropagation();
         event.currentTarget.classList.add("animationStart");
+    }
 
-        setTimeout(() => {
-            pageHandler.handleSpecificNotesPageRender();
-        }, 1100);
-
+    onTransEnd(event){
+        pageHandler.handleSpecificNotesPageRender();
     }
 
     remove(){

@@ -20,4 +20,3 @@ const state = {
 
 pageHandler.handleNotesPageRender();
 
-/* renderCallPage(document.querySelector("#wrapper"), "Okänt Nummer"); */

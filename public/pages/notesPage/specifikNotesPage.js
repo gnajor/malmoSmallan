@@ -1,4 +1,5 @@
 import {renderFooter} from "../../components/footer/footer.js"; 
+import { pageHandler } from "../../pageHandler/pageHandler.js";
 
 export function renderSpecifikNotesPage(parent, notes){
     const srcWdIcon = "../../media/note-icons/"
@@ -15,28 +16,59 @@ export function renderSpecifikNotesPage(parent, notes){
                                 </a>
                             </header>
                             <main>
-                                <h1>VELDGT VIKIGT</h1>
+                                <h1>veldgt vikigt!!</h1>
                                 <div id="notes-minigames-container"></div>
                             </main>
                             <footer></footer>
                         </div>`;
 
     renderFooter(parent.querySelector("footer"));
+    const minigames = [];
 
     for(const note of notes){
-        new notesMinigame(
-            parent.querySelector("#notes-minigames-container"),
-            note.rightWord,
-            note.scrambledWord
+        minigames.push(
+            new notesMinigame(
+                parent.querySelector("#notes-minigames-container"),
+                note.rightWord,
+                note.scrambledWord,
+                checkIfMiniGamesDone
+            )
         );
     }
+
+    function checkIfMiniGamesDone(){
+        const inputs = parent.querySelector("#notes-minigames-container").querySelectorAll("input");
+
+        for(let i = 0; i < inputs.length; i++){
+            const element = inputs[i];
+            
+            if(element.classList[1] !== "done"){
+                return;
+            }
+        }
+
+        for(const minigame of minigames){
+            minigame.onMiniGameComplete();
+        }
+    }
+
+    parent.querySelector("#notes-back-button").addEventListener("click", (event) => {
+        const page = parent.querySelector("#note-specific-page");
+
+        page.classList.add("animationStart");
+        page.addEventListener("transitionend", () => {
+            pageHandler.handleNotesPageRender();
+        }, {once: true});
+    });
 }
 
 
 class notesMinigame{
-    constructor(parent, rightWord, scrambledWord){
+    constructor(parent, rightWord, scrambledWord, checkIfMiniGamesDone){
         this.parent = parent;
+        this.element = null;
         this.rightWord = rightWord;
+        this.checkIfMiniGamesDone = checkIfMiniGamesDone;
         this.scrambledWord = scrambledWord;
         this.render();
     }
@@ -44,6 +76,7 @@ class notesMinigame{
     render(){  
         const notesMinigame = document.createElement("div");
         notesMinigame.className = "notes-mini-game";
+        this.element = notesMinigame;
         this.parent.appendChild(notesMinigame);
     
         notesMinigame.innerHTML = `<h2 class="word-title">${this.scrambledWord}</h2>
@@ -91,7 +124,7 @@ class notesMinigame{
                 inputDom.classList.add("wrong");
             }
     
-            this.checkIfMiniGameDone();
+            this.checkIfMiniGamesDone();
         });
     }
 
@@ -104,29 +137,16 @@ class notesMinigame{
         } 
     }
 
-    checkIfMiniGameDone(){
-        const inputs = this.parent.querySelectorAll("input");
-
-        for(let i = 0; i < inputs.length; i++){
-            const element = inputs[i];
-            
-            if(element.classList[1] !== "done"){
-                return false;
-            }
-        }
-
-        this.onMiniGameComplete()
-    }
-
     onMiniGameComplete(){
-        const inputs = this.shuffle(this.parent.querySelectorAll("input"));
+        const inputs = this.shuffle(this.element.querySelectorAll("input"));
+    
         const amountSameTime = 7;
         let counter = 0;
         let newAmountSameTime = amountSameTime;
 
         for(let i = 0; i < inputs.length/amountSameTime; i++){
             const startValue = 120;
-            const increase = i * 200;
+            const increase = i * 350;
 
             if((inputs.length) % amountSameTime === inputs.length - (i * amountSameTime)){
                 newAmountSameTime = (inputs.length % amountSameTime);
@@ -138,29 +158,27 @@ class notesMinigame{
                 input.style.transition = `left 2000ms ease-in-out ${increase}ms`;
                 input.style.left = `${startValue - i}vw`;
     
-                if((inputs.length) % amountSameTime === inputs.length - (i * amountSameTime)){
-                    input.addEventListener("transitionend", (event) => {
-                        this.containerAnimation();
-                        
+                if((inputs.length) % amountSameTime === newAmountSameTime && y === newAmountSameTime - 1){
 
+                    input.addEventListener("transitionend", (event) => {
+                        this.containerAnimation();      
                     }, {once: true});
                 }
                 counter++;
             }  
         }
     }
-
+    //height animation left
     containerAnimation(){
-        const wordInputContainer = this.parent.querySelectorAll(".word-input-container");
+        const wordInputContainer = this.element.querySelector(".word-input-container");
+        wordInputContainer.style.height = wordInputContainer.offsetHeigth + "px"
 
-        wordInputContainer.forEach(element => {
-            element.classList.add("no-height");
-            element.addEventListener("transitionend", () => {
-                setTimeout(() => {
-                    element.remove();
-                }, 1000);
-            }, {once: true});
-        });
+        wordInputContainer.classList.add("no-height");
+        wordInputContainer.addEventListener("transitionend", () => {
+            setTimeout(() => {
+                wordInputContainer.remove();
+            }, 1000);
+        }, {once: true});
     }   
 
     getRandomInt(max){

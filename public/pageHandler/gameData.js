@@ -181,10 +181,10 @@ export const gameData = {
             rightWord: "Ta Möllan tigern och sälj den",
             scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE"
         },
-        {
-            rightWord: "Ta Möllan tigern och sälj den",
-            scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE"
-        }
+      /*   {
+            rightWord: "Ta Möllan tigern och sälj den möllan möllan",
+            scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE möllan möllan"
+        } */
     ],
 
     phoneCallers: {
