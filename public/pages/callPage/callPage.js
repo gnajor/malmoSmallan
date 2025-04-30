@@ -1,4 +1,5 @@
 import { renderFooter } from "../../components/footer/footer.js";
+import { pageHandler } from "../../pageHandler/pageHandler.js";
 
 export function renderCallPage(parent, caller){
     const srcWdIcons = "../../media/call-icons/";
@@ -39,8 +40,8 @@ export function renderCallPage(parent, caller){
     const ringtone = new Audio(main, srcWdAudio + "ringtone.mp3", "ringtone");
     ringtone.play();
     ringtone.addOnEndListener((event) => {
-        //renderDifferentPage
-        //and then render this again
+        //renderBeforePage
+        pageHandler.handleHomePageRender();
     });
 
     const cryptedCall = new Audio(main, srcWdAudio + "cryptedCall.mp3", "crypted-call");
@@ -55,7 +56,8 @@ export function renderCallPage(parent, caller){
             secTitle.textContent = "call ended";
 
             setTimeout(() => {
-                //render a page back
+                //render a 
+                pageHandler.handleHomePageRender();
             }, 1000);
 
         }, halfAnimationTime)
@@ -79,8 +81,12 @@ export function renderCallPage(parent, caller){
         timer.stop();
         cryptedCall.pause();
 
-        //renderDifferentPage 
-        //and then render this again
+        //renderBeforePage
+        pageHandler.handleHomePageRender();
+
+        setTimeout(() => {
+            renderCallPage(parent, caller);
+        }, 4000);
     });
 }
 
