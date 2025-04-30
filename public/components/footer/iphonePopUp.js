@@ -239,7 +239,7 @@ function showCompletionPopup() {
 
     top.className = "popup-top";
     bottom.className = "popup-bottom";
-    bottom.className = "popup-button";
+    bottomButton.className = "popup-button";
     bottomButton.classList.add("startGame");
     topText.style.display = "default";
 
