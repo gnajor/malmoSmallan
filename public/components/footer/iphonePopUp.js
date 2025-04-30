@@ -242,17 +242,21 @@ function phoneCall(parent) {
 }
 
 let stepsRemaining = 100;
-let stepThreshold = 4; // justera tröskel vid behov
+let stepThreshold = 4;
 let stepCooldown = false;
 let lastMagnitude = 0;
-
+let userHasMoved = false;
+let startCoords = null;
+let geoWatchId = null;
 
 function updateCounter() {
     const counter = document.querySelector(".pedometer-text");
-    counter.innerHTML = `${stepsRemaining}`;
+    if (counter) counter.innerHTML = `${stepsRemaining}`;
 }
 
 function handleMotion(event) {
+    if (!userHasMoved) return; // ignorera om ingen rörelse upptäckts via GPS
+
     const acc = event.accelerationIncludingGravity;
     if (!acc) return;
 
@@ -267,11 +271,63 @@ function handleMotion(event) {
         stepCooldown = true;
         setTimeout(() => {
             stepCooldown = false;
-        }, 400); // förhindra dubbelräkning
+        }, 400);
     }
 
     if (stepsRemaining === 0) {
         window.removeEventListener("devicemotion", handleMotion);
+        if (geoWatchId) navigator.geolocation.clearWatch(geoWatchId);
         alert("Du har gått 100 steg!");
     }
+}
+
+function requestMotionPermission() {
+    if (typeof DeviceMotionEvent.requestPermission === 'function') {
+        DeviceMotionEvent.requestPermission().then(permissionState => {
+            if (permissionState === 'granted') {
+                window.addEventListener("devicemotion", handleMotion);
+            }
+        });
+    } else {
+        window.addEventListener("devicemotion", handleMotion);
+    }
+}
+
+function startGeolocation() {
+    geoWatchId = navigator.geolocation.watchPosition(position => {
+        const { latitude, longitude } = position.coords;
+
+        if (!startCoords) {
+            startCoords = { latitude, longitude };
+            return;
+        }
+
+        const distance = calculateDistancePhoneCall(startCoords.latitude, startCoords.longitude, latitude, longitude);
+
+        // Aktivera rörelsesensorn först när användaren gått minst 5 meter
+        if (distance > 5) {
+            userHasMoved = true;
+        }
+
+    }, error => {
+        console.error("Geolocation error:", error);
+    }, {
+        enableHighAccuracy: true,
+        maximumAge: 1000,
+        timeout: 5000
+    });
+}
+
+// Haversineformel för att räkna ut avstånd
+function calculateDistancePhoneCall(lat1, lon1, lat2, lon2) {
+    const R = 6371e3; // meter
+    const toRad = deg => deg * Math.PI / 180;
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+
+    const a = Math.sin(dLat / 2) ** 2 +
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+        Math.sin(dLon / 2) ** 2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
 }
