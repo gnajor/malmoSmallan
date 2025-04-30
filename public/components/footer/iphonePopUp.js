@@ -102,7 +102,7 @@ function updateDistance(position) {
 
     //meter
     if (distance <= 2) {
-        //
+        distanceElement.textContent = "Du är framme vid destinationen!";
     } else {
         distanceElement.textContent = `${Math.round(distance)}m`;
     }
@@ -195,6 +195,91 @@ function swosh(parent) {
 }
 
 // phoneCall
+let stepsRemaining = 15;
+let stepThreshold = 12;
+let stepCooldown = false;
+
+function updateCounter() {
+    const counter = document.querySelector(".pedometer-text");
+    if (counter) {
+        counter.textContent = `${stepsRemaining}`;
+    }
+}
+
+const handleMotion = (event) => {
+    const acc = event.accelerationIncludingGravity;
+    if (!acc) return;
+
+    const magnitude = Math.sqrt(acc.x ** 2 + acc.y ** 2 + acc.z ** 2);
+
+    if (magnitude > stepThreshold && !stepCooldown) {
+        stepsRemaining = Math.max(0, stepsRemaining - 1);
+        updateCounter();
+
+        stepCooldown = true;
+        setTimeout(() => {
+            stepCooldown = false;
+        }, 400);
+    }
+
+    if (stepsRemaining === 0) {
+        window.removeEventListener("devicemotion", handleMotion);
+        showCompletionPopup();
+    }
+}
+
+function showCompletionPopup() {
+    // Skapa en ny popup när användaren har uppnått 15 steg
+    const top = document.querySelector("pedometer-top");
+    const bottom = document.querySelector("pedometer-bottom");
+    const topHeader = document.querySelector("popup-header-text");
+    const topText = document.querySelector("pedometer-bottom");
+    const bottomButton = document.querySelector("popup-button");
+
+    top.className = "popup-top";
+    bottom.className = "popup-bottom";
+    bottom.classList.add("startGame");
+    topText.style.display = "default";
+
+    topHeader.innerHTML = "Avkryptering lyckades";
+    topText.innerHTML = "Samtalet finns nu bland röstmeddelanden.";
+    bottomButton.innerHTML = "Stäng";
+
+    // bottom.className = "pedometer-bottom";
+    // top.className = "pedometer-top";
+
+    // top.className = "popup-top";
+    // bottom.className = "popup-bottom";
+    // topHeader.className = "popup-header-text";
+    // topText.className = "popup-header-text";
+    // bottomButton.className = "popup-button";
+    // parent.id = "phoneCall";
+
+    // topHeader.innerHTML = "Samtals fel";
+    // topText.innerHTML = "Detta samtal är krypterat, för att avkryptera behöver du genomgå en 100 stegsverifiering.";
+    // bottomButton.innerHTML = "Acceptera";
+
+    popup.className = "completion-popup";
+    popupContent.className = "popup-content";
+    header.className = "popup-header";
+    message.className = "popup-message";
+    button.className = "popup-button";
+
+    header.innerText = "Verifikation Klar!";
+    message.innerText = "Grattis! Du har genomfört stegräknaren. Du kan nu fortsätta ditt samtal.";
+    button.innerText = "Fortsätt";
+
+    button.addEventListener("click", () => {
+        popup.remove(); // Stänger popupen när man klickar på knappen
+    });
+
+    popupContent.appendChild(header);
+    popupContent.appendChild(message);
+    popupContent.appendChild(button);
+    popup.appendChild(popupContent);
+    document.body.appendChild(popup);
+}
+
 function phoneCall(parent) {
     const top = document.createElement("div");
     const bottom = document.createElement("div");
@@ -210,7 +295,7 @@ function phoneCall(parent) {
     parent.id = "phoneCall";
 
     topHeader.innerHTML = "Samtals fel";
-    topText.innerHTML = "Detta samtal är krypterat, för att avkryptera behöver du genomgå en 100 stegsverifiering. ";
+    topText.innerHTML = "Detta samtal är krypterat, för att avkryptera behöver du genomgå en 100 stegsverifiering.";
     bottomButton.innerHTML = "Acceptera";
 
     parent.appendChild(top);
@@ -220,22 +305,15 @@ function phoneCall(parent) {
     bottom.appendChild(bottomButton);
 
     bottom.addEventListener("click", () => {
-        topText.remove();
+        topText.style.display = "none";
 
-        topHeader.innerHTML = "PEDOmeter";
-        bottomButton.innerHTML = "100";
+        topHeader.innerHTML = "Hopp Räknare";
+        bottomButton.innerHTML = `${stepsRemaining}`;
         bottomButton.className = "pedometer-text";
         bottom.className = "pedometer-bottom";
         top.className = "pedometer-top";
 
-        // const bottom = document.querySelector(".pedometer-text")
-        const statusText = document.createElement("p");
-        statusText.className = "pedometer-status";
-        statusText.innerText = "Börja gå för att starta stegräknaren...";
-        statusText.style.color = "#FFF";
-        bottom.appendChild(statusText);
-
-        if (typeof DeviceMotionEvent.requestPermission === 'function') {
+        if (typeof DeviceMotionEvent?.requestPermission === 'function') {
             DeviceMotionEvent.requestPermission().then(permissionState => {
                 if (permissionState === 'granted') {
                     window.addEventListener("devicemotion", handleMotion);
@@ -244,102 +322,7 @@ function phoneCall(parent) {
         } else {
             window.addEventListener("devicemotion", handleMotion);
         }
+
         updateCounter();
     });
-}
-
-let stepsRemaining = 100;
-let stepThreshold = 4;
-let stepCooldown = false;
-let lastMagnitude = 0;
-let userHasMoved = false;
-let startCoords = null;
-let geoWatchId = null;
-
-function updateCounter() {
-    const counter = document.querySelector(".pedometer-text");
-    if (counter) counter.innerHTML = `${stepsRemaining}`;
-}
-
-function handleMotion(event) {
-    if (!userHasMoved) {
-        return;
-    }; // ignorera om ingen rörelse upptäckts via GPS
-
-    const acc = event.accelerationIncludingGravity;
-    if (!acc) return;
-
-    const magnitude = Math.sqrt(acc.x ** 2 + acc.y ** 2 + acc.z ** 2);
-    const diff = Math.abs(magnitude - lastMagnitude);
-    lastMagnitude = magnitude;
-
-    if (diff > stepThreshold && !stepCooldown) {
-        stepsRemaining = Math.max(0, stepsRemaining - 1);
-        updateCounter();
-
-        stepCooldown = true;
-        setTimeout(() => {
-            stepCooldown = false;
-        }, 400);
-    }
-
-    if (stepsRemaining === 0) {
-        window.removeEventListener("devicemotion", handleMotion);
-        if (geoWatchId) navigator.geolocation.clearWatch(geoWatchId);
-        alert("Du har gått 100 steg!");
-    }
-}
-
-function requestMotionPermission() {
-    if (typeof DeviceMotionEvent.requestPermission === 'function') {
-        DeviceMotionEvent.requestPermission().then(permissionState => {
-            if (permissionState === 'granted') {
-                window.addEventListener("devicemotion", handleMotion);
-            }
-        });
-    } else {
-        window.addEventListener("devicemotion", handleMotion);
-    }
-}
-
-function startGeolocation() {
-    geoWatchId = navigator.geolocation.watchPosition(position => {
-        const { latitude, longitude } = position.coords;
-
-        if (!startCoords) {
-            startCoords = { latitude, longitude };
-            return;
-        }
-
-        const distance = calculateDistancePhoneCall(startCoords.latitude, startCoords.longitude, latitude, longitude);
-
-        // Aktivera rörelsesensorn först när användaren gått minst 5 meter
-        if (distance > 5) {
-            userHasMoved = true;
-            clearTimeout(geoTimeout);
-            const status = document.querySelector(".pedometer-status");
-            if (status) status.remove(); // ta bort meddelandet
-        }
-
-    }, error => {
-        console.error("Geolocation error:", error);
-    }, {
-        enableHighAccuracy: true,
-        maximumAge: 1000,
-        timeout: 5000
-    });
-}
-
-// Haversineformel för att räkna ut avstånd
-function calculateDistancePhoneCall(lat1, lon1, lat2, lon2) {
-    const R = 6371e3; // meter
-    const toRad = deg => deg * Math.PI / 180;
-    const dLat = toRad(lat2 - lat1);
-    const dLon = toRad(lon2 - lon1);
-
-    const a = Math.sin(dLat / 2) ** 2 +
-        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-        Math.sin(dLon / 2) ** 2;
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
 }

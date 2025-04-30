@@ -243,4 +243,6 @@ footer button #inner-square {
     color: #000;
     font-family: 'Digital';
     font-size: 64px;
+    line-height: 1;
+    padding: 1rem;
 }
