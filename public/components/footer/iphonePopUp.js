@@ -80,8 +80,10 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
 function updateDistance(position) {
     const bottomHeaderText = document.querySelector(".popup-headerB-text");
+    const bottomText = document.querySelector("#distance");
     bottomHeaderText.classList.remove("startGame");
     bottomHeaderText.classList.add("searching");
+    bottomText.classList.add("searching");
     bottomHeaderText.innerHTML = "Gå mot Pildammstornet";
 
 
