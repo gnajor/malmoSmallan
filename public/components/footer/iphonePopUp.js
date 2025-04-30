@@ -244,7 +244,7 @@ function showCompletionPopup() {
     bottom.style.display = "block";
     progressWrapper.style.display = "none";
     progressFill.style.display = "none";
-
+    top.style.borderBottom = "1px solid #E7E7E7";
 
     topHeader.innerHTML = "Avkryptering lyckades";
     topText.innerHTML = "Samtalet finns nu bland röstmeddelanden.";
