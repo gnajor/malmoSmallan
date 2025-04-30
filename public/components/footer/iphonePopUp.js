@@ -231,11 +231,11 @@ const handleMotion = (event) => {
 
 function showCompletionPopup() {
     log.textContent = "Visar sista";
-    const top = document.querySelector("pedometer-top");
-    const bottom = document.querySelector("pedometer-bottom");
-    const topHeader = document.querySelector("popup-header-text");
-    const topText = document.querySelector("popup-text");
-    const bottomButton = document.querySelector("popup-button");
+    const top = document.querySelector(".pedometer-top");
+    const bottom = document.querySelector(".pedometer-bottom");
+    const topHeader = document.querySelector(".popup-header-text");
+    const topText = document.querySelector(".popup-text");
+    const bottomButton = document.querySelector(".popup-button");
 
     top.className = "popup-top";
     bottom.className = "popup-bottom";
