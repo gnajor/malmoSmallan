@@ -166,6 +166,10 @@ footer button #inner-square {
     color: var(--bank-color)
 }
 
+.popup-bottom .searching {
+    color: var(--black-color)
+}
+
 #findBag .popup-bottom p:first-child {
     font-size: 12px;
 }
