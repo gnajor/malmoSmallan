@@ -229,7 +229,6 @@ const handleMotion = (event) => {
 }
 
 function showCompletionPopup() {
-    // Skapa en ny popup när användaren har uppnått 15 steg
     const top = document.querySelector("pedometer-top");
     const bottom = document.querySelector("pedometer-bottom");
     const topHeader = document.querySelector("popup-header-text");
@@ -245,32 +244,11 @@ function showCompletionPopup() {
     topText.innerHTML = "Samtalet finns nu bland röstmeddelanden.";
     bottomButton.innerHTML = "Stäng";
 
-    // bottom.className = "pedometer-bottom";
-    // top.className = "pedometer-top";
-
-    // top.className = "popup-top";
-    // bottom.className = "popup-bottom";
-    // topHeader.className = "popup-header-text";
-    // topText.className = "popup-header-text";
-    // bottomButton.className = "popup-button";
-    // parent.id = "phoneCall";
-
-    // topHeader.innerHTML = "Samtals fel";
-    // topText.innerHTML = "Detta samtal är krypterat, för att avkryptera behöver du genomgå en 100 stegsverifiering.";
-    // bottomButton.innerHTML = "Acceptera";
-
-    popup.className = "completion-popup";
-    popupContent.className = "popup-content";
-    header.className = "popup-header";
-    message.className = "popup-message";
-    button.className = "popup-button";
-
-    header.innerText = "Verifikation Klar!";
-    message.innerText = "Grattis! Du har genomfört stegräknaren. Du kan nu fortsätta ditt samtal.";
-    button.innerText = "Fortsätt";
-
     button.addEventListener("click", () => {
-        popup.remove(); // Stänger popupen när man klickar på knappen
+        const popup = document.querySelector(".popup-con");
+        const popupBg = document.querySelector(".background-darken");
+        popupBg.remove();
+        popup.remove();
     });
 
     popupContent.appendChild(header);
@@ -295,7 +273,7 @@ function phoneCall(parent) {
     parent.id = "phoneCall";
 
     topHeader.innerHTML = "Samtals fel";
-    topText.innerHTML = "Detta samtal är krypterat, för att avkryptera behöver du genomgå en 100 stegsverifiering.";
+    topText.innerHTML = "Detta samtal är krypterat, för att avkryptera behöver du genomgå en 15 hopp verifiering.";
     bottomButton.innerHTML = "Acceptera";
 
     parent.appendChild(top);
