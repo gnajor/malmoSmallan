@@ -200,7 +200,7 @@ function phoneCall(parent) {
     const bottom = document.createElement("div");
     const topHeader = document.createElement("p");
     const topText = document.createElement("p");
-    const bottomButton = document.createElement("p");
+    const bottomButton = document.createElement("button");
 
     top.className = "popup-top";
     bottom.className = "popup-bottom";

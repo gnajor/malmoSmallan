@@ -210,6 +210,10 @@ footer button #inner-square {
     font-size: 14px;
 }
 
+#phoneCall .popup-button {
+    font-size: 16px;
+}
+
 .pedometer-top {
     background-color: var(--black-color);
     color: var(--white-color);

@@ -19,4 +19,4 @@ const state = {
 }
 
 // state.startApp();
-renderIphonePopUp(document.querySelector("#wrapper"), 'findBag');
+renderIphonePopUp(document.querySelector("#wrapper"), 'phoneCall');
