@@ -244,18 +244,12 @@ function showCompletionPopup() {
     topText.innerHTML = "Samtalet finns nu bland röstmeddelanden.";
     bottomButton.innerHTML = "Stäng";
 
-    button.addEventListener("click", () => {
+    bottomButton.addEventListener("click", () => {
         const popup = document.querySelector(".popup-con");
         const popupBg = document.querySelector(".background-darken");
         popupBg.remove();
         popup.remove();
     });
-
-    popupContent.appendChild(header);
-    popupContent.appendChild(message);
-    popupContent.appendChild(button);
-    popup.appendChild(popupContent);
-    document.body.appendChild(popup);
 }
 
 function phoneCall(parent) {
