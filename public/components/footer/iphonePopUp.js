@@ -250,7 +250,7 @@ function showCompletionPopup() {
     topText.innerHTML = "Samtalet finns nu bland röstmeddelanden.";
     bottomButton.innerHTML = "Stäng";
 
-    bottomButton.addEventListener("click", () => {
+    bottom.addEventListener("click", () => {
         const popup = document.querySelector(".popup-con");
         const popupBg = document.querySelector(".background-darken");
         popupBg.remove();
