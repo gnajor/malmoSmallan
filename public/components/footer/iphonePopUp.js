@@ -225,12 +225,10 @@ const handleMotion = (event) => {
     if (stepsRemaining === 0) {
         window.removeEventListener("devicemotion", handleMotion);
         showCompletionPopup();
-        log.textContent = "KLARRR";
     }
 }
 
 function showCompletionPopup() {
-    log.textContent = "Visar sista";
     const top = document.querySelector(".pedometer-top");
     const bottom = document.querySelector(".pedometer-bottom");
     const topHeader = document.querySelector(".popup-header-text");
@@ -241,7 +239,7 @@ function showCompletionPopup() {
     bottom.className = "popup-bottom";
     bottomButton.className = "popup-button";
     bottomButton.classList.add("startGame");
-    topText.style.display = "default";
+    topText.style.display = "block";
 
     topHeader.innerHTML = "Avkryptering lyckades";
     topText.innerHTML = "Samtalet finns nu bland röstmeddelanden.";
