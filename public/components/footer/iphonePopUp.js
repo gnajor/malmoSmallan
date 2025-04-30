@@ -225,14 +225,16 @@ const handleMotion = (event) => {
     if (stepsRemaining === 0) {
         window.removeEventListener("devicemotion", handleMotion);
         showCompletionPopup();
+        log.textContent = "KLARRR";
     }
 }
 
 function showCompletionPopup() {
+    log.textContent = "Visar sista";
     const top = document.querySelector("pedometer-top");
     const bottom = document.querySelector("pedometer-bottom");
     const topHeader = document.querySelector("popup-header-text");
-    const topText = document.querySelector("pedometer-bottom");
+    const topText = document.querySelector("popup-text");
     const bottomButton = document.querySelector("popup-button");
 
     top.className = "popup-top";
@@ -262,7 +264,7 @@ function phoneCall(parent) {
     top.className = "popup-top";
     bottom.className = "popup-bottom";
     topHeader.className = "popup-header-text";
-    topText.className = "popup-header-text";
+    topText.className = "popup-text";
     bottomButton.className = "popup-button";
     parent.id = "phoneCall";
 
