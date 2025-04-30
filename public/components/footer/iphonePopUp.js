@@ -241,7 +241,7 @@ function showCompletionPopup() {
     const progressFill = document.querySelector(".progress-fill");
 
     topText.style.display = "block";
-    bottom.style.display = "block";
+    bottom.style.display = "flex";
     progressWrapper.style.display = "none";
     progressFill.style.display = "none";
     top.style.borderBottom = "1px solid #E7E7E7";
