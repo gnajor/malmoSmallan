@@ -242,7 +242,7 @@ function phoneCall(parent) {
 }
 
 let stepsRemaining = 100;
-let stepThreshold = 18; // justera tröskel vid behov
+let stepThreshold = 25; // justera tröskel vid behov
 let stepCooldown = false;
 
 
