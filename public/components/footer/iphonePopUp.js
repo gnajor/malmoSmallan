@@ -242,8 +242,9 @@ function phoneCall(parent) {
 }
 
 let stepsRemaining = 100;
-let stepThreshold = 25; // justera tröskel vid behov
+let stepThreshold = 4; // justera tröskel vid behov
 let stepCooldown = false;
+let lastMagnitude = 0;
 
 
 function updateCounter() {
@@ -256,15 +257,17 @@ function handleMotion(event) {
     if (!acc) return;
 
     const magnitude = Math.sqrt(acc.x ** 2 + acc.y ** 2 + acc.z ** 2);
+    const diff = Math.abs(magnitude - lastMagnitude);
+    lastMagnitude = magnitude;
 
-    if (magnitude > stepThreshold && !stepCooldown) {
+    if (diff > stepThreshold && !stepCooldown) {
         stepsRemaining = Math.max(0, stepsRemaining - 1);
         updateCounter();
 
         stepCooldown = true;
         setTimeout(() => {
             stepCooldown = false;
-        }, 400); // förhindra dubbelräkning, justera vid behov
+        }, 400); // förhindra dubbelräkning
     }
 
     if (stepsRemaining === 0) {
