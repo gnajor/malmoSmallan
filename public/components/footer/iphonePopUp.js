@@ -241,8 +241,10 @@ function showCompletionPopup() {
     const progressFill = document.querySelector(".progress-fill");
 
     topText.style.display = "block";
+    bottom.style.display = "block";
     progressWrapper.style.display = "none";
     progressFill.style.display = "none";
+
 
     topHeader.innerHTML = "Avkryptering lyckades";
     topText.innerHTML = "Samtalet finns nu bland röstmeddelanden.";
