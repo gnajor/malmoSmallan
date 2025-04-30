@@ -200,9 +200,12 @@ let stepThreshold = 12;
 let stepCooldown = false;
 
 function updateCounter() {
-    const counter = document.querySelector(".pedometer-text");
-    if (counter) {
-        counter.textContent = `${stepsRemaining}`;
+    const fill = document.querySelector(".progress-fill");
+    if (fill) {
+        const totalSteps = 15;
+        const stepsTaken = totalSteps - stepsRemaining;
+        const percentage = (stepsTaken / totalSteps) * 100;
+        fill.style.width = `${percentage}%`;
     }
 }
 
@@ -254,6 +257,8 @@ function showCompletionPopup() {
 }
 
 function phoneCall(parent) {
+    var audio = new Audio("../../media/audio-files/errorSound.mp3");
+    audio.play();
     const top = document.createElement("div");
     const bottom = document.createElement("div");
     const topHeader = document.createElement("p");
@@ -279,12 +284,20 @@ function phoneCall(parent) {
 
     bottom.addEventListener("click", () => {
         topText.style.display = "none";
+        bottom.style.display = "none";
+        top.style.borderBottom = "none";
 
-        topHeader.innerHTML = "Hopp Räknare";
-        bottomButton.innerHTML = `${stepsRemaining}`;
-        bottomButton.className = "pedometer-text";
-        bottom.className = "pedometer-bottom";
-        top.className = "pedometer-top";
+        const progressWrapper = document.createElement("div");
+        const progressFill = document.createElement("div");
+
+        progressWrapper.className = "progress-wrapper";
+        progressFill.className = "progress-fill";
+
+        top.appendChild(progressWrapper);
+        progressWrapper.appendChild(progressFill);
+
+
+        topHeader.innerHTML = "Räknar steg";
 
         if (typeof DeviceMotionEvent?.requestPermission === 'function') {
             DeviceMotionEvent.requestPermission().then(permissionState => {
