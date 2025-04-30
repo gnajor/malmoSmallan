@@ -232,17 +232,17 @@ const handleMotion = (event) => {
 }
 
 function showCompletionPopup() {
-    const top = document.querySelector(".pedometer-top");
-    const bottom = document.querySelector(".pedometer-bottom");
+    const top = document.querySelector(".popup-top");
+    const bottom = document.querySelector(".popup-bottom");
     const topHeader = document.querySelector(".popup-header-text");
     const topText = document.querySelector(".popup-text");
-    const bottomButton = document.querySelector(".pedometer-text");
+    const bottomButton = document.querySelector(".popup-button");
+    const progressWrapper = document.querySelector(".progress-wrapper");
+    const progressFill = document.querySelector(".progress-fill");
 
-    top.className = "popup-top";
-    bottom.className = "popup-bottom";
-    bottomButton.className = "popup-button";
-    bottomButton.classList.add("startGame");
     topText.style.display = "block";
+    progressWrapper.style.display = "none";
+    progressFill.style.display = "none";
 
     topHeader.innerHTML = "Avkryptering lyckades";
     topText.innerHTML = "Samtalet finns nu bland röstmeddelanden.";
@@ -273,7 +273,7 @@ function phoneCall(parent) {
     parent.id = "phoneCall";
 
     topHeader.innerHTML = "Samtals fel";
-    topText.innerHTML = "Detta samtal är krypterat, för att avkryptera behöver du genomgå en 15 hopp verifiering.";
+    topText.innerHTML = "Avkryptera meddelandet genom att gå 10 steg och skaka mobilen.";
     bottomButton.innerHTML = "Acceptera";
 
     parent.appendChild(top);
