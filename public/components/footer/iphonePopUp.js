@@ -102,7 +102,7 @@ function updateDistance(position) {
 
     //meter
     if (distance <= 2) {
-        distanceElement.textContent = "Du är framme vid destinationen!";
+        //
     } else {
         distanceElement.textContent = `${Math.round(distance)}m`;
     }
@@ -228,50 +228,47 @@ function phoneCall(parent) {
         bottom.className = "pedometer-bottom";
         top.className = "pedometer-top";
 
-
-
-        let steps = 100;
-
-        // Lyssna på DeviceMotionEvent för att uppskatta användarens steg
-        let lastX = 0, lastY = 0, lastZ = 0;
-        let threshold = 15; // Justera känsligheten
-
-        // Funktion som beräknar och uppdaterar steg
-        function handleDeviceMotion(event) {
-            topHeader.innerHTML = "PEDOmeter1";
-
-            const x = event.accelerationIncludingGravity.x;
-            const y = event.accelerationIncludingGravity.y;
-            const z = event.accelerationIncludingGravity.z;
-
-            // Beräkna förändringar i accelerationen
-            const deltaX = Math.abs(x - lastX);
-            const deltaY = Math.abs(y - lastY);
-            const deltaZ = Math.abs(z - lastZ);
-
-            // Om förändringarna är tillräckligt stora (det vill säga ett steg)
-            if (deltaX > threshold || deltaY > threshold || deltaZ > threshold) {
-                if (steps > 0) {
-                    steps--; // Minska antalet steg
-                    bottomButton.textContent = steps;
+        if (typeof DeviceMotionEvent.requestPermission === 'function') {
+            DeviceMotionEvent.requestPermission().then(permissionState => {
+                if (permissionState === 'granted') {
+                    window.addEventListener("devicemotion", handleMotion);
                 }
-            }
-
-            // Uppdatera gamla värden
-            lastX = x;
-            lastY = y;
-            lastZ = z;
-        }
-
-        // Lyssna på rörelser (DeviceMotionEvent)
-        if (window.DeviceMotionEvent) {
-            window.addEventListener('devicemotion', handleDeviceMotion, false);
+            });
         } else {
-            bottomButton.textContent = "ERROR";
+            window.addEventListener("devicemotion", handleMotion);
         }
-
-
-
-
+        updateCounter();
     });
+}
+
+let stepsRemaining = 100;
+let stepThreshold = 12; // justera tröskel vid behov
+let stepCooldown = false;
+
+
+function updateCounter() {
+    const counter = document.querySelector(".pedometer-text");
+    counter.innerHTML = `${stepsRemaining}`;
+}
+
+function handleMotion(event) {
+    const acc = event.accelerationIncludingGravity;
+    if (!acc) return;
+
+    const magnitude = Math.sqrt(acc.x ** 2 + acc.y ** 2 + acc.z ** 2);
+
+    if (magnitude > stepThreshold && !stepCooldown) {
+        stepsRemaining = Math.max(0, stepsRemaining - 1);
+        updateCounter();
+
+        stepCooldown = true;
+        setTimeout(() => {
+            stepCooldown = false;
+        }, 400); // förhindra dubbelräkning, justera vid behov
+    }
+
+    if (stepsRemaining === 0) {
+        window.removeEventListener("devicemotion", handleMotion);
+        alert("Du har gått 100 steg!");
+    }
 }
