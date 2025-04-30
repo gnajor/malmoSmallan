@@ -153,6 +153,29 @@ footer button #inner-square {
     color: #464646;
 }
 
+#findBagBg {
+    background-image: url('media/backgrounds/park-background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: brightness(50%);
+}
+
+#findBagLight {
+    display: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+
+#findBagTiger {
+    display: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
 .popup-bottom {
     display: flex;
     flex-direction: column;

@@ -26,6 +26,7 @@ export function renderIphonePopUp(parent, type, texts, sound) {
 }
 
 function findBag(parent) {
+    const bg = document.querySelector(".background-darken");
     const top = document.createElement("div");
     const bottom = document.createElement("button");
     const topHeaderText = document.createElement("p");
@@ -42,6 +43,7 @@ function findBag(parent) {
     bottomText.id = "distance";
     bottomHeaderText.classList.add("startGame")
     parent.id = "findBag";
+    bg.id = "findBagBg";
 
     topHeaderText.innerHTML = "Leta efter väska";
     topText.innerHTML = "(väska med pengar, veldigt viktigt)";
@@ -102,7 +104,23 @@ function updateDistance(position) {
 
     //meter
     if (distance <= 2) {
-        distanceElement.textContent = "Du är framme vid destinationen!";
+        const popupCon = document.querySelector(".popup-con");
+        const parent = document.querySelector("#wrapper");
+
+        popupCon.remove();
+
+        const tiger = document.createElement("img");
+        const light = document.createElement("img");
+
+        light.setAttribute("src", "./media/find-bag-icons/light.png");
+        tiger.setAttribute("src", "./media/find-bag-icons/tiger.png");
+
+        light.id = "findBagLight";
+        tiger.id = "findBadTiger";
+
+        parent.appendChild(light);
+        parent.appendChild(tiger);
+
     } else {
         distanceElement.textContent = `${Math.round(distance)}m`;
     }
