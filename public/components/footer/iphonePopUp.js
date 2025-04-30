@@ -228,6 +228,13 @@ function phoneCall(parent) {
         bottom.className = "pedometer-bottom";
         top.className = "pedometer-top";
 
+        // const bottom = document.querySelector(".pedometer-text")
+        const statusText = document.createElement("p");
+        statusText.className = "pedometer-status";
+        statusText.innerText = "Börja gå för att starta stegräknaren...";
+        statusText.style.color = "#FFF";
+        bottom.appendChild(statusText);
+
         if (typeof DeviceMotionEvent.requestPermission === 'function') {
             DeviceMotionEvent.requestPermission().then(permissionState => {
                 if (permissionState === 'granted') {
@@ -255,7 +262,9 @@ function updateCounter() {
 }
 
 function handleMotion(event) {
-    if (!userHasMoved) return; // ignorera om ingen rörelse upptäckts via GPS
+    if (!userHasMoved) {
+        return;
+    }; // ignorera om ingen rörelse upptäckts via GPS
 
     const acc = event.accelerationIncludingGravity;
     if (!acc) return;
@@ -307,6 +316,9 @@ function startGeolocation() {
         // Aktivera rörelsesensorn först när användaren gått minst 5 meter
         if (distance > 5) {
             userHasMoved = true;
+            clearTimeout(geoTimeout);
+            const status = document.querySelector(".pedometer-status");
+            if (status) status.remove(); // ta bort meddelandet
         }
 
     }, error => {
