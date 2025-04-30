@@ -235,11 +235,12 @@ function showCompletionPopup() {
     const bottom = document.querySelector(".pedometer-bottom");
     const topHeader = document.querySelector(".popup-header-text");
     const topText = document.querySelector(".popup-text");
-    const bottomButton = document.querySelector(".popup-button");
+    const bottomButton = document.querySelector(".pedometer-text");
 
     top.className = "popup-top";
     bottom.className = "popup-bottom";
-    bottom.classList.add("startGame");
+    bottom.className = "popup-button";
+    bottomButton.classList.add("startGame");
     topText.style.display = "default";
 
     topHeader.innerHTML = "Avkryptering lyckades";
