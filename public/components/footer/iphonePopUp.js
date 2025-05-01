@@ -105,6 +105,7 @@ function updateDistance(position) {
     if (distance <= 2000000) {
         const popupCon = document.querySelector(".popup-con");
         const parent = document.querySelector("#wrapper");
+        const bg = document.querySelector(".background-darken");
 
         popupCon.remove();
 
@@ -122,6 +123,13 @@ function updateDistance(position) {
         parent.appendChild(light);
         parent.appendChild(tiger);
         parent.appendChild(lightBg);
+
+        tiger.addEventListener("click", () => {
+            tiger.remove();
+            light.remove();
+            lightBg.remove();
+            bg.remove();
+        });
 
     } else {
         distanceElement.textContent = `${Math.round(distance)}m`;
