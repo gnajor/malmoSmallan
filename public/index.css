@@ -118,6 +118,7 @@ footer button #inner-square {
     position: absolute;
     top: 0;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 
 .popup-con {
@@ -129,6 +130,7 @@ footer button #inner-square {
     min-width: 250px;
     max-width: 250px;
     transform: translate(-50%, -50%);
+    z-index: 2;
 }
 
 .popup-con p {
@@ -266,4 +268,9 @@ footer button #inner-square {
     width: 0%;
     background-color: var(--bank-color);
     transition: width 0.3s ease-in-out;
+}
+
+#startVyBg {
+    background: rgba(105, 105, 105, 0.20);
+    backdrop-filter: blur(12.5px);
 }

@@ -1,7 +1,7 @@
 const log = document.querySelector("#log");
 
 
-//type = findBag, swosh, phoneCall
+//type = findBag, swosh, phoneCall, startVy
 export function renderIphonePopUp(parent, type, texts, sound) {
     const backgroundDarken = document.createElement("div");
     const popUpCon = document.createElement("div");
@@ -19,6 +19,9 @@ export function renderIphonePopUp(parent, type, texts, sound) {
             break;
         case "phoneCall":
             phoneCall(popUpCon);
+            break;
+        case "startVy":
+            startVy(popUpCon, backgroundDarken)
             break;
         default:
             break;
@@ -337,5 +340,42 @@ function phoneCall(parent) {
             window.addEventListener("devicemotion", handleMotion);
         }
         updateCounter();
+    });
+}
+
+// startVy
+
+function startVy(parent, bg) {
+    const top = document.createElement("div");
+    const bottom = document.createElement("div");
+    const topHeader = document.createElement("p");
+    const topText = document.createElement("p");
+    const bottomButton = document.createElement("button");
+
+    top.className = "popup-top";
+    bottom.className = "popup-bottom";
+    topHeader.className = "popup-header-text";
+    topText.className = "popup-text";
+    bottomButton.className = "popup-button";
+    parent.id = "phoneCall";
+    bg.id = "startVyBg";
+
+    topHeader.innerHTML = "Malmösmällan";
+    topText.innerHTML = `
+    En kall, tidig sommarmorgon sveper över Malmö, du vaknar plötsligt upp mitt på Möllevångstorget. Utan några minnesbilder från gårdagen. Allt du har på dig är din telefon, det enda verktyget som kan hjälpa dig ta reda på vad som egentligen hände den föregående natten.
+    <br/><br/>Glöm inte att tillåta platsinformation och slå på ljudet på din telefon för den allra bästa spelupplevelsen.
+    <br/><br/>Lycka till!
+    `;
+    bottomButton.innerHTML = "Börja spelet";
+
+    parent.appendChild(top);
+    parent.appendChild(bottom);
+    top.appendChild(topHeader);
+    top.appendChild(topText);
+    bottom.appendChild(bottomButton);
+
+    bottom.addEventListener("click", () => {
+        parent.remove();
+        bg.remove();
     });
 }
