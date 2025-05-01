@@ -48,7 +48,6 @@ function findBag(parent) {
     topHeaderText.innerHTML = "Leta efter väska";
     topText.innerHTML = "(väska med pengar, veldigt viktigt)";
     bottomHeaderText.innerHTML = "Börja leta";
-    // bottomText.innerHTML = "50m";
 
     parent.appendChild(top);
     parent.appendChild(bottom);
@@ -102,7 +101,7 @@ function updateDistance(position) {
     const distance = calculateDistance(userLat, userLon, destination.latitude, destination.longitude);
 
     //meter
-    if (distance <= 2000000) {
+    if (distance <= 2) {
         const popupCon = document.querySelector(".popup-con");
         const parent = document.querySelector("#wrapper");
         const bg = document.querySelector(".background-darken");
@@ -326,7 +325,6 @@ function phoneCall(parent) {
         top.appendChild(progressWrapper);
         progressWrapper.appendChild(progressFill);
 
-
         topHeader.innerHTML = "Räknar steg";
 
         if (typeof DeviceMotionEvent?.requestPermission === 'function') {
@@ -338,7 +336,6 @@ function phoneCall(parent) {
         } else {
             window.addEventListener("devicemotion", handleMotion);
         }
-
         updateCounter();
     });
 }
