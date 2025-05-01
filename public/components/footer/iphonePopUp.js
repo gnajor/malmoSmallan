@@ -88,11 +88,10 @@ function updateDistance(position) {
     bottomText.classList.add("searching");
     bottomHeaderText.innerHTML = "Gå mot Pildammstornet";
 
-
     // brevid pildammstornet 55.589879, 12.997736
     const destination = {
-        latitude: 55.608937,
-        longitude: 12.994438
+        latitude: 55.589879,
+        longitude: 12.997736
     }
 
     const distanceElement = document.getElementById('distance');
@@ -103,7 +102,7 @@ function updateDistance(position) {
     const distance = calculateDistance(userLat, userLon, destination.latitude, destination.longitude);
 
     //meter
-    if (distance <= 2) {
+    if (distance <= 2000000) {
         const popupCon = document.querySelector(".popup-con");
         const parent = document.querySelector("#wrapper");
 
@@ -111,15 +110,18 @@ function updateDistance(position) {
 
         const tiger = document.createElement("img");
         const light = document.createElement("img");
+        const lightBg = document.createElement("div");
 
-        light.setAttribute("src", "./media/find-bag-icons/light.png");
-        tiger.setAttribute("src", "./media/find-bag-icons/tiger.png");
+        light.setAttribute("src", "./media/find-bag-icons/light4.png");
+        tiger.setAttribute("src", "./media/find-bag-icons/tiger2.png");
 
         light.id = "findBagLight";
-        tiger.id = "findBadTiger";
+        tiger.id = "findBagTiger";
+        lightBg.id = "findBagLightBg";
 
         parent.appendChild(light);
         parent.appendChild(tiger);
+        parent.appendChild(lightBg);
 
     } else {
         distanceElement.textContent = `${Math.round(distance)}m`;
