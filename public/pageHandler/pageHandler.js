@@ -19,8 +19,8 @@ export const pageHandler = {
         renderMessagesPage(this.parent, this.pageData.friendMessages, this.pageData.friendMessages[1].sender);
     },
 
-    handleSpecificNotesPageRender(){
-        renderSpecifikNotesPage(this.parent, this.pageData.notesMinigame);
+    handleSpecificNotesPageRender(completed){
+        renderSpecifikNotesPage(this.parent, this.pageData.notesMinigame, completed);
     },
 
     handleCallPageRender(){

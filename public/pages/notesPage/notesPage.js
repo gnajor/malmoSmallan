@@ -67,7 +67,6 @@ export function renderNotesPage(parent, notes){
         yesterdayTitle.classList.remove("gone");
         latestNotes.classList.remove("gone");
         underLine.classList.remove("move");
-
     });
 
     parent.querySelector("button#favorite").addEventListener("click", (event) => {
@@ -103,18 +102,29 @@ class Notes{
                                    <span class="note-date">${note.date}</span>
                                    <p class="class-content">${note.text}</p>`;
 
-        noteContainer.addEventListener("click", this.onClick);
-        noteContainer.addEventListener("transitionend", this.onTransEnd);  
+                                   
+        if(note.title === "veldgt vikigt!!"){         
+            noteContainer.addEventListener("click", this.onClickSpecific);
+            noteContainer.addEventListener("transitionend", this.onTransEnd);  
+        }
+        else{
+            noteContainer.addEventListener("click", this.onClick);
+        }
 
     }
 
-    onClick(event){
+    onClickSpecific(event){
         event.stopPropagation();
         event.currentTarget.classList.add("animationStart");
     }
 
+    onClick(event){
+        event.stopPropagation();
+        //func
+    }
+
     onTransEnd(event){
-        pageHandler.handleSpecificNotesPageRender();
+        pageHandler.handleSpecificNotesPageRender(false);
     }
 
     remove(){

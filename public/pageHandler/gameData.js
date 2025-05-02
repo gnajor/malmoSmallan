@@ -174,12 +174,12 @@ export const gameData = {
 
     notesMinigame: [
         {
-            rightWord: "Ta Möllan tigern och sälj den",
-            scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE"
+            rightWord: "Ta möllan tigern och sälj den",
+            scrambledWord: "aT nlmöla nitrge coh äsjl nde"
         },
         {
-            rightWord: "Ta Möllan tigern och sälj den",
-            scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE"
+            rightWord: "Möllan tigern finns vid Malmö Market",
+            scrambledWord: "nölanMl gertign sinfn div ömlaMa takreM"
         },
       /*   {
             rightWord: "Ta Möllan tigern och sälj den möllan möllan",
@@ -197,27 +197,37 @@ export const gameData = {
                 title: "veldgt vikigt!!",
                 text: "At NLMÖLA NITRGE COH ÄSJL NDE",
                 date: "4/9/2025"
+            },
+            {
+                title: "Träning",
+                text: "- PB i marklyft 40kg <br> - PB i benpress 50kg <br> - PB i pull ups 1",
+                date: "4/9/2025"
             }
         ],
         latest: [
             {
-                title: "Inköpslista",
-                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a sagittis mi, et consequat nulla. Nullam a finibus arcu. Duis sit amet lectus sed mauris cursus dictum ac nec velit",
+                title: "Att göra",
+                text: "- Sök jobb <br> - Skriv klart uppsats <br> - Duscha <br> - Gå till biblioteket <br> - Städa",
                 date: "4/9/2025"
             },
             {
                 title: "Inköpslista",
-                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a sagittis mi, et consequat nulla. Nullam a finibus arcu. Duis sit amet lectus sed mauris cursus dictum ac nec velit",
+                text: "- Toalettpapper <br> - Fryspizza <br> - Chips <br>",
                 date: "4/9/2025"
             },
             {
-                title: "Inköpslista",
-                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a sagittis mi, et consequat nulla. Nullam a finibus arcu. Duis sit amet lectus sed mauris cursus dictum ac nec velit",
+                title: "Skyldig",
+                text: "- Swosha mamma 500kr",
                 date: "4/9/2025"
             },
             {
-                title: "Inköpslista",
-                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a sagittis mi, et consequat nulla. Nullam a finibus arcu. Duis sit amet lectus sed mauris cursus dictum ac nec velit",
+                title: "Träning",
+                text: "- PB i marklyft 40kg <br> - PB i benpress 50kg <br> - PB i pull ups 1",
+                date: "4/9/2025"
+            },
+            {
+                title: "Livsplan",
+                text: "Gör en livsplan. Planera frö de kommande tio åren. Lite resor och sådant",
                 date: "4/9/2025"
             }
         ],

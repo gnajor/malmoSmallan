@@ -1,7 +1,7 @@
 import {renderFooter} from "../../components/footer/footer.js"; 
 import { pageHandler } from "../../pageHandler/pageHandler.js";
 
-export function renderSpecifikNotesPage(parent, notes){
+export function renderSpecifikNotesPage(parent, notes, completed = false){
     const srcWdIcon = "../../media/note-icons/"
 
     parent.innerHTML = `<div id="note-specific-page">
@@ -23,18 +23,33 @@ export function renderSpecifikNotesPage(parent, notes){
                         </div>`;
 
     renderFooter(parent.querySelector("footer"));
+
+ 
     const minigames = [];
 
     for(const note of notes){
-        minigames.push(
-            new notesMinigame(
-                parent.querySelector("#notes-minigames-container"),
-                note.rightWord,
-                note.scrambledWord,
-                checkIfMiniGamesDone
-            )
-        );
+        const minigame = new notesMinigame(
+            parent.querySelector("#notes-minigames-container"),
+            note.rightWord,
+            note.scrambledWord,
+            checkIfMiniGamesDone
+        )
+
+        if(completed){
+            minigame.completed();
+        }
+
+        minigames.push(minigame);
     }
+
+    parent.querySelector("#notes-back-button").addEventListener("click", (event) => {
+        const page = parent.querySelector("#note-specific-page");
+
+        page.classList.add("animationStart");
+        page.addEventListener("transitionend", () => {
+            pageHandler.handleNotesPageRender();
+        }, {once: true});
+    });
 
     function checkIfMiniGamesDone(){
         const inputs = parent.querySelector("#notes-minigames-container").querySelectorAll("input");
@@ -51,15 +66,6 @@ export function renderSpecifikNotesPage(parent, notes){
             minigame.onMiniGameComplete();
         }
     }
-
-    parent.querySelector("#notes-back-button").addEventListener("click", (event) => {
-        const page = parent.querySelector("#note-specific-page");
-
-        page.classList.add("animationStart");
-        page.addEventListener("transitionend", () => {
-            pageHandler.handleNotesPageRender();
-        }, {once: true});
-    });
 }
 
 
@@ -67,6 +73,7 @@ class notesMinigame{
     constructor(parent, rightWord, scrambledWord, checkIfMiniGamesDone){
         this.parent = parent;
         this.element = null;
+        this.container = null;
         this.rightWord = rightWord;
         this.checkIfMiniGamesDone = checkIfMiniGamesDone;
         this.scrambledWord = scrambledWord;
@@ -76,6 +83,7 @@ class notesMinigame{
     render(){  
         const notesMinigame = document.createElement("div");
         notesMinigame.className = "notes-mini-game";
+        this.container = notesMinigame;
         this.element = notesMinigame;
         this.parent.appendChild(notesMinigame);
     
@@ -103,6 +111,8 @@ class notesMinigame{
             }
             counter++;
         }
+
+        this.setHeight(wordInputContainer);
     }
 
     renderInput(parent, rightLetter, inputIndex){
@@ -138,8 +148,15 @@ class notesMinigame{
     }
 
     onMiniGameComplete(){
+        const wordTitle = this.element.querySelector(".word-title");
+        wordTitle.classList.add("move");
+        wordTitle.addEventListener("transitionend", () => {
+            wordTitle.textContent = this.rightWord;
+        }, {once: true});  
+
+
         const inputs = this.shuffle(this.element.querySelectorAll("input"));
-    
+
         const amountSameTime = 7;
         let counter = 0;
         let newAmountSameTime = amountSameTime;
@@ -159,9 +176,9 @@ class notesMinigame{
                 input.style.left = `${startValue - i}vw`;
     
                 if((inputs.length) % amountSameTime === newAmountSameTime && y === newAmountSameTime - 1){
-
                     input.addEventListener("transitionend", (event) => {
-                        this.containerAnimation();      
+                        wordTitle.classList.remove("move");  
+                        wordTitle.addEventListener("transitionend", () => {this.containerAnimation();}, {once: true});  
                     }, {once: true});
                 }
                 counter++;
@@ -170,16 +187,25 @@ class notesMinigame{
     }
     //height animation left
     containerAnimation(){
+        this.parent.classList.add("smaller-gap")
         const wordInputContainer = this.element.querySelector(".word-input-container");
-        wordInputContainer.style.height = wordInputContainer.offsetHeigth + "px"
-
-        wordInputContainer.classList.add("no-height");
+        wordInputContainer.style.height = "0px";
         wordInputContainer.addEventListener("transitionend", () => {
             setTimeout(() => {
                 wordInputContainer.remove();
             }, 1000);
         }, {once: true});
-    }   
+    }
+    
+    completed(){
+        this.element.querySelector(".word-title").textContent = this.rightWord;
+        this.element.querySelector(".word-input-container").remove();
+        this.parent.classList.add("smaller-gap-no-animation");
+    }
+
+    setHeight(element){
+        element.style.height = element.offsetHeight + "px";
+    }
 
     getRandomInt(max){
         return Math.floor(Math.random() * max);
