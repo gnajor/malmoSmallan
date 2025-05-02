@@ -1,4 +1,5 @@
 const log = document.querySelector("#log");
+let watchPosition = null;
 
 
 //type = findBag, swosh, phoneCall, startVy
@@ -86,8 +87,6 @@ function updateDistance(position) {
     const bottomHeaderText = document.querySelector(".popup-headerB-text");
     const bottomText = document.querySelector("#distance");
     bottomHeaderText.classList.remove("startGame");
-    bottomHeaderText.classList.add("searching");
-    bottomText.classList.add("searching");
     bottomHeaderText.innerHTML = "Gå mot Pildammstornet";
 
     // brevid pildammstornet 55.589879, 12.997736
@@ -105,42 +104,67 @@ function updateDistance(position) {
 
     //meter
     if (distance <= 2) {
-        const popupCon = document.querySelector(".popup-con");
-        const parent = document.querySelector("#wrapper");
-        const bg = document.querySelector(".background-darken");
+        navigator.geolocation.clearWatch(watchPosition);
 
-        popupCon.remove();
+        if (!document.querySelector(".popup-button")) {
 
-        const tiger = document.createElement("img");
-        const light = document.createElement("img");
-        const lightBg = document.createElement("div");
+            const popupCon = document.querySelector(".popup-con");
+            const top = document.querySelector(".popup-top");
+            const bottom = document.querySelector(".popup-bottom");
 
-        light.setAttribute("src", "./media/find-bag-icons/light4.png");
-        tiger.setAttribute("src", "./media/find-bag-icons/tiger2.png");
+            bottom.remove();
 
-        light.id = "findBagLight";
-        tiger.id = "findBagTiger";
-        lightBg.id = "findBagLightBg";
+            const distanceText = document.createElement("p");
+            const bottomButton = document.createElement("button");
 
-        parent.appendChild(light);
-        parent.appendChild(tiger);
-        parent.appendChild(lightBg);
+            distanceText.innerHTML = "0m";
+            bottomButton.innerHTML = "Plocka upp";
 
-        tiger.addEventListener("click", () => {
-            tiger.remove();
-            light.remove();
-            lightBg.remove();
-            bg.remove();
-        });
+            bottomButton.className = "popup-button popup-pick-up";
+            bottomButton.id = "popup-pick-up";
+            distanceText.id = "popup-distance-text";
 
+            top.appendChild(distanceText);
+            popupCon.appendChild(bottomButton);
+
+            bottomButton.addEventListener("click", () => {
+                popupCon.remove();
+
+                const parent = document.querySelector("#wrapper");
+                const bg = document.querySelector(".background-darken");
+                const tiger = document.createElement("img");
+                const light = document.createElement("img");
+                const lightBg = document.createElement("div");
+
+                light.setAttribute("src", "./media/find-bag-icons/light4.png");
+                tiger.setAttribute("src", "./media/find-bag-icons/tiger2.png");
+
+                light.id = "findBagLight";
+                tiger.id = "findBagTiger";
+                lightBg.id = "findBagLightBg";
+
+                parent.appendChild(light);
+                parent.appendChild(tiger);
+                parent.appendChild(lightBg);
+
+                tiger.addEventListener("click", () => {
+                    tiger.remove();
+                    light.remove();
+                    lightBg.remove();
+                    bg.remove();
+                });
+            });
+        }
     } else {
         distanceElement.textContent = `${Math.round(distance)}m`;
     }
 }
 
-function getUserLocation() {
+function getUserLocation(event) {
+    event.stopPropagation();
+    removeEventListener("click", getUserLocation);
     if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(updateDistance, showError, {
+        watchPosition = navigator.geolocation.watchPosition(updateDistance, showError, {
             enableHighAccuracy: true
         });
     } else {
