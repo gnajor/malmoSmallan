@@ -172,22 +172,71 @@ export const gameData = {
         { sender: "Knarklangare", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express." },
     ],
 
-    notes: [
+    notesMinigame: [
         {
-            rightWord: "Ta Möllan tigern och sälj den",
-            scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE"
+            rightWord: "Ta möllan tigern och sälj den",
+            scrambledWord: "aT nlmöla nitrge coh äsjl nde"
         },
         {
-            rightWord: "Ta Möllan tigern och sälj den",
-            scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE"
+            rightWord: "Möllan tigern finns vid Malmö Market",
+            scrambledWord: "nölanMl gertign sinfn div ömlaMa takreM"
         },
-        {
-            rightWord: "Ta Möllan tigern och sälj den",
-            scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE"
-        }
+      /*   {
+            rightWord: "Ta Möllan tigern och sälj den möllan möllan",
+            scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE möllan möllan"
+        } */
     ],
 
     phoneCallers: {
         nameLess: "Okänt Nummer"
+    }, 
+
+    notes: {
+        favorite: [
+            {
+                title: "veldgt vikigt!!",
+                text: "At NLMÖLA NITRGE COH ÄSJL NDE",
+                date: "4/9/2025"
+            },
+            {
+                title: "Träning",
+                text: "- PB i marklyft 40kg <br> - PB i benpress 50kg <br> - PB i pull ups 1",
+                date: "4/9/2025"
+            }
+        ],
+        latest: [
+            {
+                title: "Att göra",
+                text: "- Sök jobb <br> - Skriv klart uppsats <br> - Duscha <br> - Gå till biblioteket <br> - Städa",
+                date: "4/9/2025"
+            },
+            {
+                title: "Inköpslista",
+                text: "- Toalettpapper <br> - Fryspizza <br> - Chips <br>",
+                date: "4/9/2025"
+            },
+            {
+                title: "Skyldig",
+                text: "- Swosha mamma 500kr",
+                date: "4/9/2025"
+            },
+            {
+                title: "Träning",
+                text: "- PB i marklyft 40kg <br> - PB i benpress 50kg <br> - PB i pull ups 1",
+                date: "4/9/2025"
+            },
+            {
+                title: "Livsplan",
+                text: "Gör en livsplan. Planera frö de kommande tio åren. Lite resor och sådant",
+                date: "4/9/2025"
+            }
+        ],
+        yesterday: [
+            {
+                title: "veldgt vikigt!!",
+                text: "At NLMÖLA NITRGE COH ÄSJL NDE",
+                date: "4/9/2025"
+            }
+        ]
     }
 }

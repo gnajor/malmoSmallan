@@ -1,8 +1,9 @@
 const log = document.querySelector("#log");
+let watchPosition = null;
 
 
-//type = findBag, swosh, phoneCall
-export function renderIphonePopUp(parent, type, texts, sound) {
+//type = findBag, swosh, phoneCall, startVy
+export function renderIphonePopUp(parent, type, title, text, buttonText) {
     const backgroundDarken = document.createElement("div");
     const popUpCon = document.createElement("div");
     popUpCon.className = "popup-con";
@@ -20,12 +21,19 @@ export function renderIphonePopUp(parent, type, texts, sound) {
         case "phoneCall":
             phoneCall(popUpCon);
             break;
+        case "startVy":
+            startVy(popUpCon, backgroundDarken)
+            break;
+        case "other":
+            other(popUpCon, backgroundDarken, title, text, buttonText)
+            break;
         default:
             break;
     }
 }
 
 function findBag(parent) {
+    const bg = document.querySelector(".background-darken");
     const top = document.createElement("div");
     const bottom = document.createElement("button");
     const topHeaderText = document.createElement("p");
@@ -42,11 +50,11 @@ function findBag(parent) {
     bottomText.id = "distance";
     bottomHeaderText.classList.add("startGame")
     parent.id = "findBag";
+    bg.id = "findBagBg";
 
     topHeaderText.innerHTML = "Leta efter väska";
     topText.innerHTML = "(väska med pengar, veldigt viktigt)";
     bottomHeaderText.innerHTML = "Börja leta";
-    // bottomText.innerHTML = "50m";
 
     parent.appendChild(top);
     parent.appendChild(bottom);
@@ -82,15 +90,12 @@ function updateDistance(position) {
     const bottomHeaderText = document.querySelector(".popup-headerB-text");
     const bottomText = document.querySelector("#distance");
     bottomHeaderText.classList.remove("startGame");
-    bottomHeaderText.classList.add("searching");
-    bottomText.classList.add("searching");
     bottomHeaderText.innerHTML = "Gå mot Pildammstornet";
-
 
     // brevid pildammstornet 55.589879, 12.997736
     const destination = {
-        latitude: 55.608937,
-        longitude: 12.994438
+        latitude: 55.589879,
+        longitude: 12.997736
     }
 
     const distanceElement = document.getElementById('distance');
@@ -102,15 +107,67 @@ function updateDistance(position) {
 
     //meter
     if (distance <= 2) {
-        //
+        navigator.geolocation.clearWatch(watchPosition);
+
+        if (!document.querySelector(".popup-button")) {
+
+            const popupCon = document.querySelector(".popup-con");
+            const top = document.querySelector(".popup-top");
+            const bottom = document.querySelector(".popup-bottom");
+
+            bottom.remove();
+
+            const distanceText = document.createElement("p");
+            const bottomButton = document.createElement("button");
+
+            distanceText.innerHTML = "0m";
+            bottomButton.innerHTML = "Plocka upp";
+
+            bottomButton.className = "popup-button popup-pick-up";
+            bottomButton.id = "popup-pick-up";
+            distanceText.id = "popup-distance-text";
+
+            top.appendChild(distanceText);
+            popupCon.appendChild(bottomButton);
+
+            bottomButton.addEventListener("click", () => {
+                popupCon.remove();
+
+                const parent = document.querySelector("#wrapper");
+                const bg = document.querySelector(".background-darken");
+                const tiger = document.createElement("img");
+                const light = document.createElement("img");
+                const lightBg = document.createElement("div");
+
+                light.setAttribute("src", "./media/find-bag-icons/light4.png");
+                tiger.setAttribute("src", "./media/find-bag-icons/tiger2.png");
+
+                light.id = "findBagLight";
+                tiger.id = "findBagTiger";
+                lightBg.id = "findBagLightBg";
+
+                parent.appendChild(light);
+                parent.appendChild(tiger);
+                parent.appendChild(lightBg);
+
+                tiger.addEventListener("click", () => {
+                    tiger.remove();
+                    light.remove();
+                    lightBg.remove();
+                    bg.remove();
+                });
+            });
+        }
     } else {
         distanceElement.textContent = `${Math.round(distance)}m`;
     }
 }
 
-function getUserLocation() {
+function getUserLocation(event) {
+    event.stopPropagation();
+    removeEventListener("click", getUserLocation);
     if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(updateDistance, showError, {
+        watchPosition = navigator.geolocation.watchPosition(updateDistance, showError, {
             enableHighAccuracy: true
         });
     } else {
@@ -195,63 +252,21 @@ function swosh(parent) {
 }
 
 // phoneCall
-function phoneCall(parent) {
-    const top = document.createElement("div");
-    const bottom = document.createElement("div");
-    const topHeader = document.createElement("p");
-    const topText = document.createElement("p");
-    const bottomButton = document.createElement("button");
-
-    top.className = "popup-top";
-    bottom.className = "popup-bottom";
-    topHeader.className = "popup-header-text";
-    topText.className = "popup-header-text";
-    bottomButton.className = "popup-button";
-    parent.id = "phoneCall";
-
-    topHeader.innerHTML = "Samtals fel";
-    topText.innerHTML = "Detta samtal är krypterat, för att avkryptera behöver du genomgå en 100 stegsverifiering. ";
-    bottomButton.innerHTML = "Acceptera";
-
-    parent.appendChild(top);
-    parent.appendChild(bottom);
-    top.appendChild(topHeader);
-    top.appendChild(topText);
-    bottom.appendChild(bottomButton);
-
-    bottom.addEventListener("click", () => {
-        topText.remove();
-
-        topHeader.innerHTML = "PEDOmeter";
-        bottomButton.innerHTML = "100";
-        bottomButton.className = "pedometer-text";
-        bottom.className = "pedometer-bottom";
-        top.className = "pedometer-top";
-
-        if (typeof DeviceMotionEvent.requestPermission === 'function') {
-            DeviceMotionEvent.requestPermission().then(permissionState => {
-                if (permissionState === 'granted') {
-                    window.addEventListener("devicemotion", handleMotion);
-                }
-            });
-        } else {
-            window.addEventListener("devicemotion", handleMotion);
-        }
-        updateCounter();
-    });
-}
-
-let stepsRemaining = 100;
-let stepThreshold = 12; // justera tröskel vid behov
+let stepsRemaining = 15;
+let stepThreshold = 12;
 let stepCooldown = false;
 
-
 function updateCounter() {
-    const counter = document.querySelector(".pedometer-text");
-    counter.innerHTML = `${stepsRemaining}`;
+    const fill = document.querySelector(".progress-fill");
+    if (fill) {
+        const totalSteps = 15;
+        const stepsTaken = totalSteps - stepsRemaining;
+        const percentage = (stepsTaken / totalSteps) * 100;
+        fill.style.width = `${percentage}%`;
+    }
 }
 
-function handleMotion(event) {
+const handleMotion = (event) => {
     const acc = event.accelerationIncludingGravity;
     if (!acc) return;
 
@@ -264,11 +279,161 @@ function handleMotion(event) {
         stepCooldown = true;
         setTimeout(() => {
             stepCooldown = false;
-        }, 400); // förhindra dubbelräkning, justera vid behov
+        }, 400);
     }
 
     if (stepsRemaining === 0) {
         window.removeEventListener("devicemotion", handleMotion);
-        alert("Du har gått 100 steg!");
+        showCompletionPopup();
     }
+}
+
+function showCompletionPopup() {
+    const top = document.querySelector(".popup-top");
+    const bottom = document.querySelector(".popup-bottom");
+    const topHeader = document.querySelector(".popup-header-text");
+    const topText = document.querySelector(".popup-text");
+    const bottomButton = document.querySelector(".popup-button");
+    const progressWrapper = document.querySelector(".progress-wrapper");
+    const progressFill = document.querySelector(".progress-fill");
+
+    topText.style.display = "block";
+    bottom.style.display = "flex";
+    progressWrapper.style.display = "none";
+    progressFill.style.display = "none";
+    top.style.borderBottom = "1px solid #E7E7E7";
+
+    topHeader.innerHTML = "Avkryptering lyckades";
+    topText.innerHTML = "Samtalet finns nu bland röstmeddelanden.";
+    bottomButton.innerHTML = "Stäng";
+
+    bottom.addEventListener("click", () => {
+        const popup = document.querySelector(".popup-con");
+        const popupBg = document.querySelector(".background-darken");
+        popupBg.remove();
+        popup.remove();
+    });
+}
+
+function phoneCall(parent) {
+    var audio = new Audio("../../media/audio-files/errorSound.mp3");
+    audio.play();
+    const top = document.createElement("div");
+    const bottom = document.createElement("div");
+    const topHeader = document.createElement("p");
+    const topText = document.createElement("p");
+    const bottomButton = document.createElement("button");
+
+    top.className = "popup-top";
+    bottom.className = "popup-bottom";
+    topHeader.className = "popup-header-text";
+    topText.className = "popup-text";
+    bottomButton.className = "popup-button";
+    parent.id = "phoneCall";
+
+    topHeader.innerHTML = "Samtals fel";
+    topText.innerHTML = "Avkryptera meddelandet genom att gå 10 steg och skaka mobilen.";
+    bottomButton.innerHTML = "Acceptera";
+
+    parent.appendChild(top);
+    parent.appendChild(bottom);
+    top.appendChild(topHeader);
+    top.appendChild(topText);
+    bottom.appendChild(bottomButton);
+
+    bottom.addEventListener("click", () => {
+        topText.style.display = "none";
+        bottom.style.display = "none";
+        top.style.borderBottom = "none";
+
+        const progressWrapper = document.createElement("div");
+        const progressFill = document.createElement("div");
+
+        progressWrapper.className = "progress-wrapper";
+        progressFill.className = "progress-fill";
+
+        top.appendChild(progressWrapper);
+        progressWrapper.appendChild(progressFill);
+
+        topHeader.innerHTML = "Räknar steg";
+
+        if (typeof DeviceMotionEvent?.requestPermission === 'function') {
+            DeviceMotionEvent.requestPermission().then(permissionState => {
+                if (permissionState === 'granted') {
+                    window.addEventListener("devicemotion", handleMotion);
+                }
+            });
+        } else {
+            window.addEventListener("devicemotion", handleMotion);
+        }
+        updateCounter();
+    });
+}
+
+// startVy
+
+function startVy(parent, bg) {
+    const top = document.createElement("div");
+    const bottom = document.createElement("div");
+    const topHeader = document.createElement("p");
+    const topText = document.createElement("p");
+    const bottomButton = document.createElement("button");
+
+    top.className = "popup-top";
+    bottom.className = "popup-bottom";
+    topHeader.className = "popup-header-text";
+    topText.className = "popup-text";
+    bottomButton.className = "popup-button";
+    parent.id = "phoneCall";
+    bg.id = "startVyBg";
+
+    topHeader.innerHTML = "Malmösmällan";
+    topText.innerHTML = `
+    En kall, tidig sommarmorgon sveper över Malmö, du vaknar plötsligt upp mitt på Möllevångstorget. Utan några minnesbilder från gårdagen. Allt du har på dig är din telefon, det enda verktyget som kan hjälpa dig ta reda på vad som egentligen hände den föregående natten.
+    <br/><br/>Glöm inte att tillåta platsinformation och slå på ljudet på din telefon för den allra bästa spelupplevelsen.
+    <br/><br/>Lycka till!
+    `;
+    bottomButton.innerHTML = "Börja spelet";
+
+    parent.appendChild(top);
+    parent.appendChild(bottom);
+    top.appendChild(topHeader);
+    top.appendChild(topText);
+    bottom.appendChild(bottomButton);
+
+    bottom.addEventListener("click", () => {
+        parent.remove();
+        bg.remove();
+    });
+}
+
+// Other
+function other(parent, bg, title, text, buttonText) {
+    const top = document.createElement("div");
+    const bottom = document.createElement("div");
+    const topHeader = document.createElement("p");
+    const topText = document.createElement("p");
+    const bottomButton = document.createElement("button");
+
+    top.className = "popup-top";
+    bottom.className = "popup-bottom";
+    topHeader.className = "popup-header-text";
+    topText.className = "popup-text";
+    bottomButton.className = "popup-button";
+    parent.id = "other";
+
+    topHeader.innerHTML = title;
+    topText.innerHTML = text;
+    bottomButton.innerHTML = buttonText;
+
+    parent.appendChild(top);
+    parent.appendChild(bottom);
+    top.appendChild(topHeader);
+    top.appendChild(topText);
+    bottom.appendChild(bottomButton);
+
+    bottom.addEventListener("click", () => {
+        parent.remove();
+        bg.remove();
+    });
 }

@@ -3,6 +3,8 @@ import { renderCallPage } from "../pages/callPage/callPage.js";
 import { renderHomePage } from "../pages/homePage/homePage.js"
 import { renderMessagesContactPage } from "../pages/messagesContact/messagesContact.js";
 import { renderMessagesPage } from "../pages/messagesPage/messages.js";
+import { renderNotesPage } from "../pages/notesPage/notesPage.js";
+import { renderSpecifikNotesPage } from "../pages/notesPage/specifikNotesPage.js";
 import { gameData } from "./gameData.js";
 
 export const pageHandler = {
@@ -17,6 +19,10 @@ export const pageHandler = {
         renderMessagesPage(this.parent, this.pageData.friendMessages, this.pageData.friendMessages[1].sender);
     },
 
+    handleSpecificNotesPageRender(completed){
+        renderSpecifikNotesPage(this.parent, this.pageData.notesMinigame, completed);
+    },
+
     handleCallPageRender(){
         renderCallPage(this.parent, this.pageData.phoneCallers.nameLess);
     },
@@ -29,4 +35,11 @@ export const pageHandler = {
         const lastMessage = [this.pageData.friendMessages[this.pageData.friendMessages.length - 1]];
         renderMessagesContactPage(this.parent, lastMessage);
     },
+
+    handleNotesPageRender(){
+        renderNotesPage(
+            this.parent,
+            this.pageData.notes
+        );
+    }
 }
