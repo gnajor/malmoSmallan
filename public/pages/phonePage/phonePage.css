@@ -1,0 +1,23 @@
+#phone-page{
+    min-height: calc(100dvh - var(--footer-header-height));
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#phone-page nav{
+    padding: 0 var(--side-spacing);
+    display: flex;
+}
+
+#phone-page nav a{
+    flex-basis: 0;
+    flex-grow: 1;
+    font-size: 0.75rem;
+    padding-bottom:0.5rem;
+    text-align: center;
+}
+
+#phone-page nav img{
+    width: 1.5rem;
+}
