@@ -112,6 +112,9 @@ footer button #inner-square {
     border-radius: 4px;
 }
 
+
+/* POPUPS */
+
 .background-darken {
     height: 100%;
     width: 100%;
@@ -284,4 +287,65 @@ footer button #inner-square {
 #startVyBg {
     background: rgba(105, 105, 105, 0.20);
     backdrop-filter: blur(12.5px);
+}
+
+/* Notifications */
+.noti-con * {
+    margin: 0;
+}
+
+.noti-con {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - var(--side-spacing) * 2);
+    max-width: 360px;
+
+    padding: calc(var(--side-spacing) * 0.6);
+    border-radius: 18px;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    background-color: rgba(235, 235, 235, 0.65);
+    background-blend-mode: color-dodge, normal;
+    backdrop-filter: blur(17.5px);
+
+    opacity: 0;
+    transition: top 0.4s ease, opacity 0.4s ease;
+    z-index: 1000;
+}
+
+.noti-con.show {
+    top: 20px;
+    opacity: 1;
+}
+
+.noti-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.noti-app-con {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.noti-app-img {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.noti-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.noti-bottom-header {
+    font-weight: 600;
 }
