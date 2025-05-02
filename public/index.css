@@ -232,7 +232,6 @@ footer button #inner-square {
     font-size: 32px;
 }
 
-
 #swosh .popup-top {
     display: flex;
     flex-direction: column;
@@ -288,6 +287,20 @@ footer button #inner-square {
     background: rgba(105, 105, 105, 0.20);
     backdrop-filter: blur(12.5px);
 }
+
+
+#other .popup-top p:first-child {
+    font-weight: 500;
+}
+
+#other .popup-top p:last-child {
+    font-size: 14px;
+}
+
+#other .popup-button {
+    font-size: 16px;
+}
+
 
 /* Notifications */
 .noti-con * {

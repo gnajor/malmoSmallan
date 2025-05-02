@@ -3,7 +3,7 @@ let watchPosition = null;
 
 
 //type = findBag, swosh, phoneCall, startVy
-export function renderIphonePopUp(parent, type, texts, sound) {
+export function renderIphonePopUp(parent, type, title, text, buttonText) {
     const backgroundDarken = document.createElement("div");
     const popUpCon = document.createElement("div");
     popUpCon.className = "popup-con";
@@ -23,6 +23,9 @@ export function renderIphonePopUp(parent, type, texts, sound) {
             break;
         case "startVy":
             startVy(popUpCon, backgroundDarken)
+            break;
+        case "other":
+            other(popUpCon, backgroundDarken, title, text, buttonText)
             break;
         default:
             break;
@@ -391,6 +394,37 @@ function startVy(parent, bg) {
     <br/><br/>Lycka till!
     `;
     bottomButton.innerHTML = "Börja spelet";
+
+    parent.appendChild(top);
+    parent.appendChild(bottom);
+    top.appendChild(topHeader);
+    top.appendChild(topText);
+    bottom.appendChild(bottomButton);
+
+    bottom.addEventListener("click", () => {
+        parent.remove();
+        bg.remove();
+    });
+}
+
+// Other
+function other(parent, bg, title, text, buttonText) {
+    const top = document.createElement("div");
+    const bottom = document.createElement("div");
+    const topHeader = document.createElement("p");
+    const topText = document.createElement("p");
+    const bottomButton = document.createElement("button");
+
+    top.className = "popup-top";
+    bottom.className = "popup-bottom";
+    topHeader.className = "popup-header-text";
+    topText.className = "popup-text";
+    bottomButton.className = "popup-button";
+    parent.id = "other";
+
+    topHeader.innerHTML = title;
+    topText.innerHTML = text;
+    bottomButton.innerHTML = buttonText;
 
     parent.appendChild(top);
     parent.appendChild(bottom);
