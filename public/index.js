@@ -1,4 +1,5 @@
 import { pageHandler } from "./pageHandler/pageHandler.js";
+import { renderPhonePage } from "./pages/phonePage/phonePage.js";
 
 const state = {
     beforePage: null,
