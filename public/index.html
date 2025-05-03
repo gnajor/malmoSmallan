@@ -13,13 +13,24 @@
     <link rel="stylesheet" href="./pages/callPage/callPage.css">
     <link rel="stylesheet" href="./pages/newsPage/newsPage.css">
     <link rel="stylesheet" href="./pages/phonePage/phonePage.css">
+    <link rel="stylesheet" href="./pages/mapPage/mapPage.css">
     <title>Document</title>
 </head>
 
 <body>
     <div id="wrapper"></div>
     <p id="log"></p>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="crossorigin=""></script>
     <script type="module" src="/index.js"></script>
+    <script>
+            var map = L.map('map').setView([51.505, -0.09], 13);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+    </script>
 </body>
 
 </html>

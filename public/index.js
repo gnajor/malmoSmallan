@@ -1,4 +1,5 @@
 import { pageHandler } from "./pageHandler/pageHandler.js";
+import { renderMapPage } from "./pages/mapPage/mapPage.js";
 import { renderNewsPage } from "./pages/newsPage/newsPage.js";
 
 
@@ -19,7 +20,9 @@ const state = {
     }
 }
 
-state.startApp();
+/* state.startApp(); */
+
+renderMapPage(document.querySelector("#wrapper"));
 // renderIphonePopUp(document.querySelector("#wrapper"), 'other', 'Fel', 'Felmeddelande', 'Stäng');
 // renderNotification(document.querySelector("#wrapper"), 'sms', 'Alex', 'Vad fan hände med dig igår?');
 /* pageHandler.handleNotesPageRender(); */
