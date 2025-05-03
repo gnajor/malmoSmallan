@@ -50,7 +50,11 @@
       "integrity": "a9d26b1988cdd7aa7b1f4b51e1c36c1557f3f252880fa6cc5b9f37078b1a5035"
     }
   },
+  "redirects": {
+    "https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js": "https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"
+  },
   "remote": {
+    "https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js": "5be82043430886d1b92da52b053b51a941474f49bd3274d526a7a3dcad8fcf60",
     "https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js": "39ee93464f11fe3847137e50c0dc8189f706c460e36989ea7871bf7d540f3306"
   },
   "workspace": {

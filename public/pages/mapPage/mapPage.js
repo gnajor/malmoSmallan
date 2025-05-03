@@ -1,18 +1,63 @@
-import * as L from 'https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js';
+let map;
+let routeControl;
+let userPosition = null;
+let userMarker = null;
 
-export function renderMapPage(parent){
-    parent.innerHTML = `<div id="map"></div>`
+export async function renderMapPage(parent){
+    parent.innerHTML = `<div id="map"></div>`;
     
-    const map = L.map('map').setView([51.505, -0.09], 13);
-    
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; OpenStreetMap & CartoDB',
+    map = L.map('map').setView([55.48, 13.49], 13);
+    const cleanLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         subdomains: 'abcd',
         maxZoom: 19
-    }).addTo(map);
-    
-    // Add a marker
-    L.marker([51.505, -0.09]).addTo(map)
-    .bindPopup('Waypoint')
-    .openPopup();
+    });
+    cleanLayer.addTo(map);
+ 
+    map.on('locationfound', onLocationFound);
+    map.locate({ maxZoom: 16, watch: true, enableHighAccuracy: true });
+
+}
+
+function onLocationFound(event){
+    userPosition = event.latlng;
+    const destination = L.latLng(55.481, 13.49);
+
+    if (!userMarker) {
+        userMarker = L.circleMarker(userPosition, {
+            radius: 8,
+            fillColor: "#3388ff",
+            color: "#ffffff",
+            weight: 2,
+            opacity: 1,
+            fillOpacity: 1
+        }).addTo(map);
+    } else {
+        userMarker.setLatLng(userPosition); 
+    }
+
+    if (routeControl) {
+        routeControl.setWaypoints([userPosition, destination]);
+    }
+    else{
+        routeControl = L.Routing.control({
+            waypoints: [userPosition, destination],
+            createMarker: (i, wp, n) => {
+                if (i === 0) return null; 
+                return L.marker(wp.latLng);
+            },
+            routeWhileDragging: false,
+            addWaypoints: false,
+            draggableWaypoints: false,
+            fitSelectedRoutes: true,
+            show: false,
+            lineOptions: {
+                addWaypoints: false,
+                styles: [{ color: '#3388ff', weight: 5 }]
+            }
+        }).addTo(map);
+    }
+
+/*     routeControl.on('routingstart', showLoading);
+    routeControl.on('routesfound', hideLoading);
+    routeControl.on('routingerror', hideLoading); */
 }
