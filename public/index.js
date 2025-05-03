@@ -19,11 +19,11 @@ const state = {
     }
 }
 
-// state.startApp();
+state.startApp();
 // renderIphonePopUp(document.querySelector("#wrapper"), 'other', 'Fel', 'Felmeddelande', 'Stäng');
 // renderNotification(document.querySelector("#wrapper"), 'sms', 'Alex', 'Vad fan hände med dig igår?');
 /* pageHandler.handleNotesPageRender(); */
-pageHandler.handleHomePageRender();
+/* pageHandler.handleHomePageRender(); */
 
 /* renderNewsPage(document.querySelector("#wrapper"), [
     "Man efterlyst för grov narkotikahandel - Sågs senast vid Möllevångstorget",

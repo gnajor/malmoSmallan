@@ -20,14 +20,14 @@ export const gameData = {
             icon: "notes-app.jpg",
             name: "Anteckningar",
             func: () => {
-                
+                pageHandler.handleNotesPageRender();
             }
         },
         {
             icon: "phone-app.png",
             name: "Telefon",
             func: () => {
-
+                pageHandler.handleCallPageRender();
             }
         },
         {
@@ -41,7 +41,7 @@ export const gameData = {
             icon: "news-app.jpg",
             name: "Malmöbladet",
             func: () => {
-
+                pageHandler.handleNewsPageRender();
             }
         }
     ],
@@ -238,5 +238,11 @@ export const gameData = {
                 date: "4/9/2025"
             }
         ]
-    }
+    },
+
+    news: [
+        "Man efterlyst för grov narkotikahandel - Sågs senast vid Möllevångstorget",
+        "Malmöbo vägrade lämna cykelbanan - bott där i tre veckor",
+        "Man sålde olagliga svampar - utgav sig för att vara torghandlare"
+    ]
 }
