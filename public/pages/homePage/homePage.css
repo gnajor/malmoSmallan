@@ -5,10 +5,11 @@
 }
 
 #home-page main{
-    display: flex;
-    flex-wrap: wrap;
-    gap:1rem;
-    padding-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(4, var(--app-size));
+    gap:1.5rem;
+    padding-top: 4rem;
+    justify-content: center;
 }
 
 #home-page .app{

@@ -316,7 +316,7 @@ function showCompletionPopup() {
 }
 
 function phoneCall(parent) {
-    var audio = new Audio("../../media/audio-files/errorSound.mp3");
+    const audio = new Audio("../../media/audio-files/errorSound.mp3");
     audio.play();
     const top = document.createElement("div");
     const bottom = document.createElement("div");
