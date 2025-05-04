@@ -1,5 +1,5 @@
 #map {
-    height: 100vh;
+    height: calc(100dvh - var(--footer-header-height));
     width: 100%;
-  }
+}
 

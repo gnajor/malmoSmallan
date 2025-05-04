@@ -1,12 +1,23 @@
 import { renderFooter } from "../../components/footer/footer.js";
+import { renderIphonePopUp } from "../../components/footer/iphonePopUp.js";
 
-export function renderHomePage(parent, apps){
+export function renderHomePage(parent, apps, start = false){
     parent.innerHTML = `<div id="home-page">
                             <main id="app-container"></main>
                             <footer></footer>
                         </div>`;
 
-    renderFooter(parent.querySelector("footer"))
+    renderFooter(parent.querySelector("footer"));
+
+    if(start){
+        renderIphonePopUp(
+            parent.querySelector("#home-page"),
+            "startVy",
+            null,
+            null,
+            null,
+        );
+    }
 
     for(const app of apps){
         renderApps(
@@ -27,5 +38,10 @@ function renderApps(parent, app){
     appElement.innerHTML = `<img src="${srcWd + app.icon}" alt="a image of the app ${app.name}">
                             <span>${app.name}</span>`;
 
-    appElement.addEventListener("click", app.func);
+    if(!app.locked){
+        appElement.addEventListener("click", app.func);
+    }
+    else{
+        appElement.classList.add("locked");
+    }
 }

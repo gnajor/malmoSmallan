@@ -1,4 +1,5 @@
 import { renderFooter } from "../../components/footer/footer.js";
+import { pageHandler } from "../../pageHandler/pageHandler.js";
 
 export function renderMessagesPage(parent, messages, sender) {
     parent.innerHTML = `<div id="messages-page">
@@ -62,6 +63,7 @@ function renderMessagesSender(parent, lastMessage) {
         if (text.innerHTML == "") return;
         renderMessage(parent, { text: textBox.querySelector("#messages-text").innerHTML, normal: true, sender: "Spelaren", canSend: false });
         text.innerHTML = "";
+        pageHandler.handleProgression(); //move in the progression state
 
         setTimeout(() => {
             renderMessage(parent, lastMessage);

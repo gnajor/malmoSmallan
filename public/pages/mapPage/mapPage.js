@@ -1,10 +1,17 @@
+import { renderFooter } from "../../components/footer/footer.js";
+
 let map;
 let routeControl;
 let userPosition = null;
 let userMarker = null;
 
-export async function renderMapPage(parent){
-    parent.innerHTML = `<div id="map"></div>`;
+export function renderMapPage(parent, cords){
+    parent.innerHTML = `<div id="map-page">
+                            <div id="map"></div>
+                            <footer></footer>
+                        </div>`;
+
+    renderFooter(parent.querySelector("footer"));
     
     map = L.map('map').setView([55.48, 13.49], 13);
     const cleanLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -13,14 +20,16 @@ export async function renderMapPage(parent){
     });
     cleanLayer.addTo(map);
  
-    map.on('locationfound', onLocationFound);
+    map.on('locationfound', (event) => {
+        onLocationFound(event, cords)
+    });
     map.locate({ maxZoom: 16, watch: true, enableHighAccuracy: true });
 
 }
 
-function onLocationFound(event){
+function onLocationFound(event, cords){
     userPosition = event.latlng;
-    const destination = L.latLng(55.481, 13.49);
+    const destination = L.latLng(cords[0], cords[1]);
 
     if (!userMarker) {
         userMarker = L.circleMarker(userPosition, {

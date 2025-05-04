@@ -19,6 +19,7 @@
     gap:0.25rem;
 }
 
+
 #home-page .app img{
     height: var(--app-size);
     width: var(--app-size);
@@ -28,4 +29,8 @@
 
 #home-page .app span{
     color: var(--white-color);
+}
+
+#home-page .app.locked{
+    filter: brightness(0.5);
 }

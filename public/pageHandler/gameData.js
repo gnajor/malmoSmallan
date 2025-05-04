@@ -5,6 +5,7 @@ export const gameData = {
         {
             icon: "sms-app.jpg",
             name: "Meddelanden",
+            locked: true, 
             func: () => {
                 pageHandler.handleMessageContactPageRender();
             }
@@ -12,13 +13,15 @@ export const gameData = {
         {
             icon: "maps-app.jpg",
             name: "Kartor",
+            locked: false, 
             func: () => {
-
+                pageHandler.handleMapPageRender();
             }
         },
         {
             icon: "notes-app.jpg",
             name: "Anteckningar",
+            locked: true, 
             func: () => {
                 pageHandler.handleNotesPageRender();
             }
@@ -26,13 +29,15 @@ export const gameData = {
         {
             icon: "phone-app.png",
             name: "Telefon",
+            locked: true, 
             func: () => {
-                pageHandler.handleCallPageRender();
+                pageHandler.handlePhonePageRender();
             }
         },
         {
             icon: "bank-app.jpg",
             name: "DegBanken",
+            locked: false, 
             func: () => {
                 pageHandler.handleBankPageRender();
             }
@@ -40,6 +45,7 @@ export const gameData = {
         {
             icon: "news-app.jpg",
             name: "Malmöbladet",
+            locked: true, 
             func: () => {
                 pageHandler.handleNewsPageRender();
             }
@@ -181,10 +187,6 @@ export const gameData = {
             rightWord: "Möllan tigern finns vid Malmö Market",
             scrambledWord: "nölanMl gertign sinfn div ömlaMa takreM"
         },
-      /*   {
-            rightWord: "Ta Möllan tigern och sälj den möllan möllan",
-            scrambledWord: "At NLMÖLA NITRGE COH ÄSJL NDE möllan möllan"
-        } */
     ],
 
     phoneCallers: {
@@ -240,9 +242,23 @@ export const gameData = {
         ]
     },
 
+    voicemessages: [
+        {
+            caller: "Okänt nummer",
+            date: "Idag",
+        }
+    ],
+
     news: [
         "Man efterlyst för grov narkotikahandel - Sågs senast vid Möllevångstorget",
         "Malmöbo vägrade lämna cykelbanan - bott där i tre veckor",
         "Man sålde olagliga svampar - utgav sig för att vara torghandlare"
-    ]
+    ],
+
+    mapCords: {
+        start: [55.59, 13.00],
+        park: [55.59, 12.99],
+        triangle: [55.592, 13.00],
+        market: [],
+    }
 }

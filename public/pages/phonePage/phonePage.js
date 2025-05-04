@@ -52,8 +52,6 @@ export function renderPhonePage(parent, voiceMessages){
             voiceMessage,
             true
         );
-        
-        console.log(voiceMessage)
     }
 }
 
@@ -83,14 +81,11 @@ class Voicemessage{
                                     </div>
                                     <div class="right">
                                         <span class="date">${this.voicemessageData.date}</span>
-                                        <span class="time">${this.voicemessageData.time}</span>     
+                                        <span class="time"></span>     
                                     </div>`;
 
-        const boxLine = document.createElement("div");
-        boxLine.className = "line";
-        this.parent.appendChild(boxLine);
         let audioMessage = new Audio(this.element, "../../media/audio-files/cryptedCall.mp3", "encryptedMessage");
-
+        const timeElement = this.element.querySelector(".time");
 
         if(!this.decrypted){
             audioMessage = new Audio(this.element, "../../media/audio-files/cryptedCall.mp3", "encryptedMessage");
@@ -99,6 +94,15 @@ class Voicemessage{
         this.element.addEventListener("click", () => {
             audioMessage.play();
         });
+
+        setTimeout(() => {
+
+        });
+       
+
+        const boxLine = document.createElement("div");
+        boxLine.className = "line";
+        this.parent.appendChild(boxLine);
     } 
 }
 
@@ -116,6 +120,7 @@ class Audio{
         this.audioElement = audioElement;
         audioElement.id = this.id;
         this.parent.appendChild(audioElement);
+/*         audioElement.setAttribute("controls", true) */
 
         audioElement.innerHTML = `<source src="${this.src}" type="audio/mpeg">
                                 "Your browser does not support the audio element"`; 
@@ -131,5 +136,30 @@ class Audio{
 
     play(){
         this.audioElement.play();
+    }
+
+    getDuration(){
+        console.log(this.audioElement.duration)
+
+       /*  return this.makeIntoMinutes(Number(this.audioElement.duration)); */
+    }
+
+    makeIntoMinutes(inputSeconds){
+        let seconds = inputSeconds % 60;
+        const num = (inputSeconds / 60).toString();
+        let minutes = num.substring(0, 1);
+
+        if(num > 9){
+            minutes = num.substring(0, 2);
+        }
+        else{
+            minutes = "0" + minutes;
+        }
+
+        if(seconds < 9){
+            seconds = "0" + seconds; 
+        }
+
+        return `${minutes}:${seconds}`;
     }
 }

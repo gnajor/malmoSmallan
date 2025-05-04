@@ -50,6 +50,7 @@ function renderMessagesContactsMain(parent, lastMessage) {
             imgCon.appendChild(img);
             messanger.addEventListener("click", () => {
                 pageHandler.handleMessagesPageRender();
+                //will need to have another func to drug dealer
             });
         } else {
             name.innerHTML = "Fel";

@@ -1,5 +1,5 @@
 // app = sms, news, bank, maps, notes, phone
-export function renderNotification(parent, app, title, text) {
+export function renderNotification(parent, app, title, text, func) {
     const notiCon = document.createElement("div");
     const top = document.createElement("div");
     const appCon = document.createElement("div");
@@ -60,6 +60,10 @@ export function renderNotification(parent, app, title, text) {
     notiCon.appendChild(bottom);
     bottom.appendChild(bottomHeader);
     bottom.appendChild(bottomText);
+
+    notiCon.addEventListener("click", () => {
+        func();
+    });
 
     setTimeout(() => {
         notiCon.classList.add("show");
