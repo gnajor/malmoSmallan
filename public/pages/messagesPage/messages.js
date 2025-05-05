@@ -64,6 +64,7 @@ function renderMessagesSender(parent, lastMessage) {
         renderMessage(parent, { text: textBox.querySelector("#messages-text").innerHTML, normal: true, sender: "Spelaren", canSend: false });
         text.innerHTML = "";
         pageHandler.handleProgression(); //move in the progression state
+        
 
         setTimeout(() => {
             renderMessage(parent, lastMessage);

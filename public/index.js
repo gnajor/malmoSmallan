@@ -23,7 +23,7 @@ export const progressionState = {
                 articleNotification: false,
                 articleRead: false,
                 calling: false,
-                phoneAppUnlocked: false,
+                listenedToPhoneCall: false,
                 decryptPhoneCallPopUp: false,
                 countingStepsPopUp: false,
                 decryptCompletePopUp: false,

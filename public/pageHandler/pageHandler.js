@@ -66,6 +66,7 @@ export const pageHandler = {
 
     handleCallPageRender(){
         pageState.setCurrentPage(renderCallPage);
+        this.handleProgression();
         renderCallPage(this.parent, gameData.phoneCallers.nameLess);
     },
 
@@ -132,6 +133,40 @@ export const pageHandler = {
     },
     
     handleFindBagRender(){
+        this.parent.innerHTML = "";
         renderIphonePopUp(this.parent, "findBag");
+    },
+
+    handleBeforePageRender(){
+        if(progressionState.currentStageState === "articleNotification"){
+            pageState.setAppUnlocked("Malmöbladet");
+            this.handleHomePageRender();
+
+            setTimeout(() => {
+                renderNotification(
+                    this.parent, 
+                    "news", 
+                    "Just Nu", 
+                    "Möllantigern stulen - Ägaren erbjuder hittelön",
+                    () => {
+                        this.handleNewsPageRender();
+                        this.handleProgression();
+
+                        setTimeout(() => {
+                            this.handleProgression();
+                            this.handleCallPageRender();
+                            pageState.setAppUnlocked("Telefon");
+                        }, 3000);
+                    }
+                );
+            }, 3000);
+        }
+        else if(progressionState.currentStageState === ""){
+
+        }
+
+        else{
+            this.handleHomePageRender();
+        }
     }
 }

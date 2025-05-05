@@ -14,7 +14,6 @@ export function startBackgroundWatcher(){
         (position) => {
             const latlong = [position.coords.latitude, position.coords.longitude];
             locationListeners.forEach(listener => listener(latlong));
-
             const currentStageCoords = gameData.mapCords[progressionState.currentStage].coords;
             
             const distance = calculateDistance(
@@ -22,14 +21,17 @@ export function startBackgroundWatcher(){
                 ,latlong[0], latlong[1]
             );
 
+
+
        /*      const distance = calculateDistance(
                 latlong[0], latlong[1]
                 ,currentStageCoords[0], currentStageCoords[1]
             ); */
 
             if(distance < 50){
+                console.log(progressionState.currentStageState)
+
                 if(progressionState.currentStageState === "gps"){
-                    console.log("testing")
 
                     switch(progressionState.currentStage){
                         case "start":

@@ -44,7 +44,7 @@ html {
 
 body {
     margin: 0;
-    background-color: whitesmoke;
+    background-color: var(--white-color);
 }
 
 input {
@@ -172,6 +172,7 @@ body:has(.background-darken){
     background-size: cover;
     background-repeat: no-repeat;
     filter: brightness(50%);
+    z-index: 0;
 }
 
 #popup-pick-up {

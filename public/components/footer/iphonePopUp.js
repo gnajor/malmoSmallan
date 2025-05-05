@@ -50,7 +50,7 @@ function findBag(parent) {
     bottomHeaderText.className = "popup-headerB-text";
     bottomText.className = "popup-text";
     bottomText.id = "distance";
-    bottomHeaderText.classList.add("startGame")
+    bottomHeaderText.classList.add("startGame");
     parent.id = "findBag";
     bg.id = "findBagBg";
 
@@ -161,10 +161,8 @@ function updateDistance(position) {
                     light.classList.add("hideFindBag");
 
                     light.addEventListener("transitionend", () => {
-                        tiger.remove();
-                        light.remove();
-                        lightBg.remove();
-                        bg.remove();
+                        pageHandler.handleProgression();
+                        pageHandler.handleBeforePageRender();
                     });
                 });
             });
