@@ -1,3 +1,4 @@
+import { startBackgroundWatcher } from "./logic/locationWatcher.js";
 import { pageHandler } from "./pageHandler/pageHandler.js";
 
 export const progressionState = {
@@ -97,6 +98,7 @@ export const progressionState = {
 export const state = {
     startApp() {
         pageHandler.handleHomePageRender();
+        startBackgroundWatcher();
     },
 
     setCurrentPage(renderFunc) {
