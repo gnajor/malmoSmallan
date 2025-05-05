@@ -8,6 +8,7 @@ export const progressionState = {
         start: {
             state: {
                 startPopUp: false,
+                //gps: false
                 //bankAppUnlocked: false,
                 messageNotification: false,
                 //messageAppUnlocked: false,
@@ -16,7 +17,7 @@ export const progressionState = {
         },
         park: {  
             state: {
-                findObject: false,
+                gps: false,
                 foundObject: false,
                 tigerPopUp: false,
                 articleNotification: false,
@@ -70,6 +71,10 @@ export const progressionState = {
         const index = keys.indexOf(this.currentStage);
         const stateKeys = Object.keys(currentObject.state);
 
+        const nextKey = keys[index + 1];
+        const nextStage = this.progression[nextKey].state;
+        const nextStageKey = Object.keys(nextStage)[0];
+
         for(let i = 0; i < stateKeys.length; i++){
             const stateKey = stateKeys[i];
             const currentValue = currentObject.state[stateKey];
@@ -83,7 +88,12 @@ export const progressionState = {
             }
 
             else{
-                this.currentStageState = stateKeys[i + 1];
+                if(!stateKeys[i + 1]){
+                    this.currentStageState = nextStageKey;
+                }
+                else{
+                    this.currentStageState = stateKeys[i + 1];
+                }
                 currentObject.state[stateKey] = true;
                 return;
             }
@@ -111,6 +121,8 @@ export const state = {
 }
 
 state.startApp();
+
+
 
 // renderIphonePopUp(document.querySelector("#wrapper"), 'other', 'Fel', 'Felmeddelande', 'Stäng');
 // renderNotification(document.querySelector("#wrapper"), 'sms', 'Alex', 'Vad fan hände med dig igår?');

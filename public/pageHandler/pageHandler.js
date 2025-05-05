@@ -11,6 +11,7 @@ import { renderPhonePage } from "../pages/phonePage/phonePage.js";
 import { progressionState } from "../index.js";
 import { gameData } from "./gameData.js";
 import { renderNotification } from "../components/footer/notification.js";
+import { renderIphonePopUp } from "../components/footer/iphonePopUp.js";
 
 
 export const pageState = {
@@ -42,31 +43,30 @@ export const pageState = {
 
 export const pageHandler = {
     parent: document.querySelector("#wrapper"),
-    pageData: gameData,
 
     handleHomePageRender(){
         if(progressionState.currentStage === "start" && progressionState.currentStageState === "startPopUp"){
-            renderHomePage(this.parent, this.pageData.apps, true);
+            renderHomePage(this.parent, gameData.apps, true);
             this.handleProgression();
             return;
         }
-        renderHomePage(this.parent, this.pageData.apps);
+        renderHomePage(this.parent, gameData.apps);
     },
 
     handleMessagesPageRender(){
         pageState.setCurrentApp("Meddelanden");
         pageState.setCurrentPage(renderMessagesPage);
-        renderMessagesPage(this.parent, this.pageData.friendMessages, this.pageData.friendMessages[1].sender);
+        renderMessagesPage(this.parent, gameData.friendMessages, gameData.friendMessages[1].sender);
     },
 
     handleSpecificNotesPageRender(completed){
         pageState.setCurrentPage(renderSpecifikNotesPage);
-        renderSpecifikNotesPage(this.parent, this.pageData.notesMinigame, completed);
+        renderSpecifikNotesPage(this.parent, gameData.notesMinigame, completed);
     },
 
     handleCallPageRender(){
         pageState.setCurrentPage(renderCallPage);
-        renderCallPage(this.parent, this.pageData.phoneCallers.nameLess);
+        renderCallPage(this.parent, gameData.phoneCallers.nameLess);
     },
 
     handleBankPageRender(){
@@ -74,7 +74,7 @@ export const pageHandler = {
         pageState.setCurrentApp("DegBanken");
 
         if(progressionState.currentStage === "start" && progressionState.currentStageState === "messageNotification"){
-            const messageNeeded = this.pageData.friendMessages.find(obj => obj.text.includes("Vad fan"));
+            const messageNeeded = gameData.friendMessages.find(obj => obj.text.includes("Vad fan"));
 
             setTimeout(() => {
                 renderNotification(
@@ -89,33 +89,33 @@ export const pageHandler = {
             },3000);
 
         }
-        renderBankPage(this.parent, this.pageData.transactions);
+        renderBankPage(this.parent, gameData.transactions);
     },
 
     handleMessageContactPageRender(){
         pageState.setCurrentApp("Meddelanden");
         pageState.setCurrentPage(renderMessagesContactPage);
-        const lastMessage = [this.pageData.friendMessages[this.pageData.friendMessages.length - 1]];
+        const lastMessage = [gameData.friendMessages[gameData.friendMessages.length - 1]];
         renderMessagesContactPage(this.parent, lastMessage);
     },
 
     handleNewsPageRender(){
         pageState.setCurrentApp("Malmöbladet");
         pageState.setCurrentPage(renderNewsPage);
-        renderNewsPage(this.parent, this.pageData.news);
+        renderNewsPage(this.parent, gameData.news);
     },
 
     handleMapPageRender(){
         pageState.setCurrentApp("Kartor");
         pageState.setCurrentPage(renderMapPage);
-        renderMapPage(this.parent, this.pageData.mapCords[progressionState.currentStage]);
+        renderMapPage(this.parent, gameData.mapCords[progressionState.currentStage].coords);
         progressionState.makeGpsProgress();
     },
 
     handlePhonePageRender(){
         pageState.setCurrentApp("Telefon");
         pageState.setCurrentPage(renderPhonePage);
-        renderPhonePage(this.parent, this.pageData.voicemessages);
+        renderPhonePage(this.parent, gameData.voicemessages);
     },
 
     handleNotesPageRender(){
@@ -123,11 +123,15 @@ export const pageHandler = {
         pageState.setCurrentPage(renderNotesPage);
         renderNotesPage(
             this.parent,
-            this.pageData.notes
+            gameData.notes
         );
     },
 
     handleProgression(){
         progressionState.makeProgress();
+    },
+    
+    handleFindBagRender(){
+        renderIphonePopUp(this.parent, "findBag");
     }
 }

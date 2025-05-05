@@ -1,3 +1,5 @@
+import { pageHandler } from "../../pageHandler/pageHandler.js";
+
 const log = document.querySelector("#log");
 let watchPosition = null;
 
@@ -64,8 +66,6 @@ function findBag(parent) {
     bottom.appendChild(bottomText);
 
     bottom.addEventListener("click", getUserLocation)
-
-
 }
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -103,14 +103,14 @@ function updateDistance(position) {
     const userLat = position.coords.latitude;
     const userLon = position.coords.longitude;
 
-    const distance = calculateDistance(userLat, userLon, destination.latitude, destination.longitude);
+    const distance = calculateDistance(userLat, userLon, userLat, userLon/* destination.latitude, destination.longitude */);
 
     //meter
     if (distance <= 2) {
         navigator.geolocation.clearWatch(watchPosition);
+        pageHandler.handleProgression();
 
         if (!document.querySelector(".popup-button")) {
-
             const popupCon = document.querySelector(".popup-con");
             const top = document.querySelector(".popup-top");
             const bottom = document.querySelector(".popup-bottom");
