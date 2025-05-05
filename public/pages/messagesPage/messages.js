@@ -45,7 +45,6 @@ function renderMessagesHeader(parent, sender) {
 }
 
 function renderMessagesSender(parent, lastMessage) {
-
     const textBox = document.createElement("div");
     textBox.id = "messages-textbox";
     parent.querySelector("#messages-sender").appendChild(textBox);
@@ -56,6 +55,7 @@ function renderMessagesSender(parent, lastMessage) {
 
     const sendButton = document.createElement("button");
     sendButton.id = "messages-send-button";
+    sendButton.classList.add("sendBtnInactive");
     sendButton.innerHTML = "<img src=\"../../media/messages-icon/sendArrow.svg\">";
     textBox.appendChild(sendButton);
 
@@ -65,12 +65,42 @@ function renderMessagesSender(parent, lastMessage) {
         text.innerHTML = "";
         pageHandler.handleProgression(); //move in the progression state
         
+        if (text.textContent == "Minns bara att jag var med er, sen minns jag inget.") {
+            renderMessage(parent, { text: textBox.querySelector("#messages-text").innerHTML, sender: "Spelaren" });
+            text.innerHTML = "";
+            pageHandler.handleProgression(); //move in the progression state
 
-        setTimeout(() => {
-            renderMessage(parent, lastMessage);
+            const typingBubble = document.createElement("div");
+            typingBubble.classList.add("message", "other-message", "typing-bubble");
+            parent.querySelector("#messages-container").appendChild(typingBubble);
+
+            for (let i = 0; i < 3; i++) {
+                const dot = document.createElement("div");
+                dot.classList.add("typingDot");
+                typingBubble.appendChild(dot);
+            }
+
             window.scrollTo(0, document.body.scrollHeight);
-        }, 5000);
-    })
+
+            const dots = typingBubble.querySelectorAll(".typingDot");
+            let activeIndex = 0;
+            setInterval(() => {
+                dots.forEach(dot => dot.classList.remove("currentDot"));
+                dots[activeIndex].classList.add("currentDot");
+                activeIndex = (activeIndex + 1) % dots.length;
+            }, 250);
+
+            setTimeout(() => {
+                typingBubble.remove();
+
+                const reply = { ...lastMessage, canSend: false };
+                renderMessage(parent, reply);
+                window.scrollTo(0, document.body.scrollHeight);
+            }, 5000);
+        } else {
+            return;
+        }
+    });
 }
 
 function renderMessage(parent, message) {
@@ -82,8 +112,8 @@ function renderMessage(parent, message) {
     }
 
     if (message.canSend == true) {
-        parent.querySelector("#messages-text").innerHTML = `${message.text}`
-        window.scrollTo(0, document.body.scrollHeight);
+        const textBox = parent.querySelector("#messages-textbox");
+        textBox.addEventListener("click", typeMessage);
         return;
     }
 
@@ -103,4 +133,29 @@ function renderMessage(parent, message) {
     parent.querySelector("#messages-container").appendChild(messageElement);
 
     messageElement.innerHTML = `<p class="message-text">${message.text}</p>`
+}
+
+function typeMessage() {
+    const message = { sender: "Spelaren", text: "Minns bara att jag var med er, sen minns jag inget.", canSend: true };
+
+    const textElement = document.querySelector("#messages-text");
+    textElement.innerHTML = "";
+    document.getElementById("messages-send-button").classList.remove("sendBtnInactive");
+    typeText(message.text, textElement);
+
+
+    const textBox = document.querySelector("#messages-textbox");
+    textBox.removeEventListener("click", typeMessage);
+}
+
+function typeText(text, element, delay = 50) {
+    let i = 0;
+    function type() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, delay);
+        }
+    }
+    type();
 }
