@@ -137,6 +137,21 @@ export const pageHandler = {
         renderIphonePopUp(this.parent, "findBag");
     },
 
+    handleDecryptCallRender(){
+        renderIphonePopUp(this.parent, "phoneCall");
+    },
+
+    handleSmsNotificationRender(){
+        renderNotification(
+            this.parent, 
+            "sms", 
+            "Knarklangare", 
+            "Du måste hålla pengarna till imorgon, polisen är efter mig.", 
+            () => {
+                
+            });
+    },
+
     handleBeforePageRender(){
         if(progressionState.currentStageState === "articleNotification"){
             pageState.setAppUnlocked("Malmöbladet");
@@ -161,8 +176,9 @@ export const pageHandler = {
                 );
             }, 3000);
         }
-        else if(progressionState.currentStageState === ""){
-
+        else if(progressionState.currentStageState === "decryptPhoneCallPopUp"){
+            pageHandler.handleDecryptCallRender();  
+            pageHandler.handleProgression();
         }
 
         else{

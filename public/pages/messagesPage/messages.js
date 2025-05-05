@@ -68,7 +68,6 @@ function renderMessagesSender(parent, lastMessage) {
         if (text.textContent == "Minns bara att jag var med er, sen minns jag inget.") {
             renderMessage(parent, { text: textBox.querySelector("#messages-text").innerHTML, sender: "Spelaren" });
             text.innerHTML = "";
-            pageHandler.handleProgression(); //move in the progression state
 
             const typingBubble = document.createElement("div");
             typingBubble.classList.add("message", "other-message", "typing-bubble");

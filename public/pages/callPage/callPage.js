@@ -59,8 +59,8 @@ export function renderCallPage(parent, caller){
             secTitle.textContent = "call ended";
 
             setTimeout(() => {
-                pageHandler.handleBeforePageRender();
                 pageHandler.handleProgression();
+                pageHandler.handleBeforePageRender();
             }, 1000);
 
         }, halfAnimationTime);

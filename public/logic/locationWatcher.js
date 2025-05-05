@@ -39,6 +39,18 @@ export function startBackgroundWatcher(){
                         case "park":
                             pageHandler.handleFindBagRender();
                             pageHandler.handleProgression();
+                            break;
+                        case "triangle":
+                            pageHandler.handleProgression();
+                            pageHandler.handleSmsNotificationRender();
+                            break;
+                        case "market":
+                            break;
+                        case "ending":
+                            break;
+                        default:
+                            console.error("progression state does not exist");
+                            break;
                     }
                 }
             }

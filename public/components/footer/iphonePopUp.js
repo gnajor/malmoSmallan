@@ -24,10 +24,10 @@ export function renderIphonePopUp(parent, type, title, text, buttonText) {
             phoneCall(popUpCon);
             break;
         case "startVy":
-            startVy(popUpCon, backgroundDarken)
+            startVy(popUpCon, backgroundDarken);
             break;
         case "other":
-            other(popUpCon, backgroundDarken, title, text, buttonText)
+            other(popUpCon, backgroundDarken, title, text, buttonText);
             break;
         default:
             break;
@@ -264,8 +264,8 @@ function swosh(parent) {
 }
 
 // phoneCall
-let stepsRemaining = 15;
-let stepThreshold = 12;
+let stepsRemaining = 0; //15
+let stepThreshold = 12; //12
 let stepCooldown = false;
 
 function updateCounter() {
@@ -275,6 +275,8 @@ function updateCounter() {
         const stepsTaken = totalSteps - stepsRemaining;
         const percentage = (stepsTaken / totalSteps) * 100;
         fill.style.width = `${percentage}%`;
+        showCompletionPopup(); //should not be here
+        pageHandler.handleProgression(); //should not be here
     }
 }
 
@@ -297,6 +299,7 @@ const handleMotion = (event) => {
     if (stepsRemaining === 0) {
         window.removeEventListener("devicemotion", handleMotion);
         showCompletionPopup();
+        pageHandler.handleProgression();
     }
 }
 
@@ -320,10 +323,8 @@ function showCompletionPopup() {
     bottomButton.innerHTML = "Stäng";
 
     bottom.addEventListener("click", () => {
-        const popup = document.querySelector(".popup-con");
-        const popupBg = document.querySelector(".background-darken");
-        popupBg.remove();
-        popup.remove();
+        pageHandler.handleProgression();
+        pageHandler.handleBeforePageRender();
     });
 }
 

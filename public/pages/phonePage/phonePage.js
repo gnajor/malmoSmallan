@@ -56,11 +56,10 @@ export function renderPhonePage(parent, voiceMessages){
 }
 
 class Voicemessage{
-    constructor(parent, voicemessageData, decrypted){
+    constructor(parent, voicemessageData){
         this.parent = parent;
         this.voicemessageData = voicemessageData;
         this.srcWdIcons = "../../media/phone-icons/";
-        this.decrypted = decrypted;
         this.element = null;
         this.audioElement = null;
         this.render();
@@ -87,17 +86,11 @@ class Voicemessage{
         let audioMessage = new Audio(this.element, "../../media/audio-files/cryptedCall.mp3", "encryptedMessage");
         const timeElement = this.element.querySelector(".time");
 
-        if(!this.decrypted){
-            audioMessage = new Audio(this.element, "../../media/audio-files/cryptedCall.mp3", "encryptedMessage");
-        }
-
         this.element.addEventListener("click", () => {
             audioMessage.play();
         });
 
-        setTimeout(() => {
 
-        });
        
 
         const boxLine = document.createElement("div");
