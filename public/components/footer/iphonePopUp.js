@@ -106,7 +106,7 @@ function updateDistance(position) {
     const distance = calculateDistance(userLat, userLon, destination.latitude, destination.longitude);
 
     //meter
-    if (distance <= 2) {
+    if (distance <= 20000) {
         navigator.geolocation.clearWatch(watchPosition);
 
         if (!document.querySelector(".popup-button")) {
@@ -150,11 +150,22 @@ function updateDistance(position) {
                 parent.appendChild(tiger);
                 parent.appendChild(lightBg);
 
+                setTimeout(() => {
+                    tiger.classList.add("showTiger");
+                    lightBg.classList.add("showLightBg");
+                }, 100);
+
                 tiger.addEventListener("click", () => {
-                    tiger.remove();
-                    light.remove();
-                    lightBg.remove();
-                    bg.remove();
+                    tiger.classList.add("hideFindBag");
+                    lightBg.classList.add("hideFindBag");
+                    light.classList.add("hideFindBag");
+
+                    light.addEventListener("transitionend", () => {
+                        tiger.remove();
+                        light.remove();
+                        lightBg.remove();
+                        bg.remove();
+                    });
                 });
             });
         }
