@@ -151,6 +151,8 @@ function updateDistance(position) {
                 parent.appendChild(lightBg);
 
                 setTimeout(() => {
+                    const audio = new Audio("../../media/audio-files/tigerSound.mp3");
+                    audio.play();
                     tiger.classList.add("showTiger");
                     lightBg.classList.add("showLightBg");
                 }, 100);
