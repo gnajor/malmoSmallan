@@ -146,13 +146,14 @@ function updateDistance(position) {
                 tiger.id = "findBagTiger";
                 lightBg.id = "findBagLightBg";
 
+                const audio = new Audio("../../media/audio-files/tigerSound.mp3");
+                audio.play();
+
                 parent.appendChild(light);
                 parent.appendChild(tiger);
                 parent.appendChild(lightBg);
 
                 setTimeout(() => {
-                    const audio = new Audio("../../media/audio-files/tigerSound.mp3");
-                    audio.play();
                     tiger.classList.add("showTiger");
                     lightBg.classList.add("showLightBg");
                 }, 100);
