@@ -6,4 +6,5 @@ export function renderPoliceLights(parent) {
     `;
     const audio = new Audio("../../media/audio-files/policeSound.mp3");
     audio.play();
+    audio.loop = true;
 }
