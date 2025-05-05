@@ -47,7 +47,6 @@ function renderMessagesHeader(parent, sender) {
 }
 
 function renderMessagesSender(parent, lastMessage) {
-
     const textBox = document.createElement("div");
     textBox.id = "messages-textbox";
     parent.querySelector("#messages-sender").appendChild(textBox);
@@ -58,12 +57,13 @@ function renderMessagesSender(parent, lastMessage) {
 
     const sendButton = document.createElement("button");
     sendButton.id = "messages-send-button";
+    sendButton.classList.add("sendBtnInactive");
     sendButton.innerHTML = "<img src=\"../../media/messages-icon/sendArrow.svg\">";
     textBox.appendChild(sendButton);
 
     sendButton.addEventListener("click", () => {
         if (text.innerHTML == "") return;
-        renderMessage(parent, { text: textBox.querySelector("#messages-text").innerHTML, normal: true, sender: "Spelaren", canSend: false });
+        renderMessage(parent, { text: textBox.querySelector("#messages-text").innerHTML, sender: "Spelaren" });
         text.innerHTML = "";
 
         setTimeout(() => {
@@ -82,8 +82,8 @@ function renderMessage(parent, message) {
     }
 
     if (message.canSend == true) {
-        parent.querySelector("#messages-text").innerHTML = `${message.text}`
-        window.scrollTo(0, document.body.scrollHeight);
+        const textBox = parent.querySelector("#messages-textbox");
+        textBox.addEventListener("click", typeMessage);
         return;
     }
 
@@ -103,4 +103,29 @@ function renderMessage(parent, message) {
     parent.querySelector("#messages-container").appendChild(messageElement);
 
     messageElement.innerHTML = `<p class="message-text">${message.text}</p>`
+}
+
+function typeMessage() {
+    const message = { sender: "Spelaren", text: "Minns bara att jag var med er, sen minns jag inget.", canSend: true };
+
+    const textElement = document.querySelector("#messages-text");
+    textElement.innerHTML = "";
+    document.getElementById("messages-send-button").classList.remove("sendBtnInactive");
+    typeText(message.text, textElement);
+    window.scrollTo(0, document.body.scrollHeight);
+
+    const textBox = document.querySelector("#messages-textbox");
+    textBox.removeEventListener("click", typeMessage);
+}
+
+function typeText(text, element, delay = 50) {
+    let i = 0;
+    function type() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, delay);
+        }
+    }
+    type();
 }
