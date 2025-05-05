@@ -20,5 +20,5 @@ const state = {
 }
 
 // state.startApp();
-renderIphonePopUp(document.querySelector("#wrapper"), 'findBag');
+// renderIphonePopUp(document.querySelector("#wrapper"), 'findBag');
 // renderNotification(document.querySelector("#wrapper"), 'sms', 'Alex', 'Vad fan hände med dig igår?');
