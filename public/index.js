@@ -14,7 +14,7 @@ export const progressionState = {
                 userMessageSent: false,
             }
         },
-        park: {  
+        park: {
             state: {
                 findObject: false,
                 foundObject: false,
@@ -35,7 +35,7 @@ export const progressionState = {
                 messageNotification: false,
                 drugDealerConvo: false,
                 notesAppUnlocked: false,
-                notesMiniGameDone:false,
+                notesMiniGameDone: false,
             }
         },
         market: {
@@ -64,33 +64,33 @@ export const progressionState = {
         }
     },
 
-    makeProgress(){
+    makeProgress() {
         const keys = Object.keys(this.progression);
         const currentObject = this.progression[this.currentStage];
         const index = keys.indexOf(this.currentStage);
         const stateKeys = Object.keys(currentObject.state);
 
-        for(let i = 0; i < stateKeys.length; i++){
+        for (let i = 0; i < stateKeys.length; i++) {
             const stateKey = stateKeys[i];
             const currentValue = currentObject.state[stateKey];
 
-            if(i === stateKeys.length - 1){
+            if (i === stateKeys.length - 1) {
                 this.currentStage = keys[index + 1];
             }
 
-            if(currentValue === true){
+            if (currentValue === true) {
                 continue;
             }
 
-            else{
+            else {
                 this.currentStageState = stateKeys[i + 1];
                 currentObject.state[stateKey] = true;
                 return;
             }
-        } 
+        }
     },
 
-    makeGpsProgress(){
+    makeGpsProgress() {
         this.progression[this.currentStage].state.gps = true;
     }
 }
