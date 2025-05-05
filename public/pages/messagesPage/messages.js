@@ -62,15 +62,41 @@ function renderMessagesSender(parent, lastMessage) {
     textBox.appendChild(sendButton);
 
     sendButton.addEventListener("click", () => {
-        if (text.innerHTML == "") return;
-        renderMessage(parent, { text: textBox.querySelector("#messages-text").innerHTML, sender: "Spelaren" });
-        text.innerHTML = "";
+        if (text.textContent == "Minns bara att jag var med er, sen minns jag inget.") {
+            renderMessage(parent, { text: textBox.querySelector("#messages-text").innerHTML, sender: "Spelaren" });
+            text.innerHTML = "";
 
-        setTimeout(() => {
-            renderMessage(parent, lastMessage);
+            const typingBubble = document.createElement("div");
+            typingBubble.classList.add("message", "other-message", "typing-bubble");
+            parent.querySelector("#messages-container").appendChild(typingBubble);
+
+            for (let i = 0; i < 3; i++) {
+                const dot = document.createElement("div");
+                dot.classList.add("typingDot");
+                typingBubble.appendChild(dot);
+            }
+
             window.scrollTo(0, document.body.scrollHeight);
-        }, 5000);
-    })
+
+            const dots = typingBubble.querySelectorAll(".typingDot");
+            let activeIndex = 0;
+            setInterval(() => {
+                dots.forEach(dot => dot.classList.remove("currentDot"));
+                dots[activeIndex].classList.add("currentDot");
+                activeIndex = (activeIndex + 1) % dots.length;
+            }, 250);
+
+            setTimeout(() => {
+                typingBubble.remove();
+
+                const reply = { ...lastMessage, canSend: false };
+                renderMessage(parent, reply);
+                window.scrollTo(0, document.body.scrollHeight);
+            }, 5000);
+        } else {
+            return;
+        }
+    });
 }
 
 function renderMessage(parent, message) {
@@ -112,7 +138,7 @@ function typeMessage() {
     textElement.innerHTML = "";
     document.getElementById("messages-send-button").classList.remove("sendBtnInactive");
     typeText(message.text, textElement);
-    window.scrollTo(0, document.body.scrollHeight);
+
 
     const textBox = document.querySelector("#messages-textbox");
     textBox.removeEventListener("click", typeMessage);
