@@ -20,13 +20,6 @@ export function renderMapPage(parent, cords){
     }).addTo(map);
 
 
- 
-/*     map.on('locationfound', (event) => {
-        onLocationFound(event, cords)
-    });
-    map.locate({ maxZoom: 16, watch: true, enableHighAccuracy: true }); */
-
-
     function updateMapLocation(userCords){
         const userPosition = L.latLng(userCords[0], userCords[1]);
         const destination = L.latLng(cords[0], cords[1]);
