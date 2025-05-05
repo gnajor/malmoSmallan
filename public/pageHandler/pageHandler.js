@@ -56,7 +56,17 @@ export const pageHandler = {
     handleMessagesPageRender(){
         pageState.setCurrentApp("Meddelanden");
         pageState.setCurrentPage(renderMessagesPage);
-        renderMessagesPage(this.parent, gameData.friendMessages, gameData.friendMessages[1].sender);
+
+        console.log(progressionState.currentStage, progressionState.currentStageState)
+
+        if(progressionState.currentStage === "start" && progressionState.currentStageState === "userMessageSent"){
+            renderMessagesPage(this.parent, gameData.friendMessages, gameData.friendMessages[1].sender);
+        }
+
+        else if(progressionState.currentStage === "triangle" && progressionState.currentStageState === "drugDealerConvo"){
+            renderMessagesPage(this.parent, gameData.dealer, gameData.dealer[0].sender);
+        }
+
     },
 
     handleSpecificNotesPageRender(completed){
@@ -148,8 +158,11 @@ export const pageHandler = {
             "Knarklangare", 
             "Du måste hålla pengarna till imorgon, polisen är efter mig.", 
             () => {
-                
-            });
+                this.handleMessagesPageRender();
+            }
+        );
+        this.handleProgression();
+        
     },
 
     handleBeforePageRender(){

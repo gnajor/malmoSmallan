@@ -87,6 +87,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
 
 function updateDistance(position) {
+    console.log("hello")
     const bottomHeaderText = document.querySelector(".popup-headerB-text");
     const bottomText = document.querySelector("#distance");
     bottomHeaderText.classList.remove("startGame");
@@ -106,7 +107,7 @@ function updateDistance(position) {
     const distance = calculateDistance(userLat, userLon, userLat, userLon/* destination.latitude, destination.longitude */);
 
     //meter
-    if (distance <= 20000) {
+    if (distance < 20000) {
         navigator.geolocation.clearWatch(watchPosition);
         pageHandler.handleProgression();
 

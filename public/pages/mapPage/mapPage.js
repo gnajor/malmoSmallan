@@ -1,5 +1,5 @@
 import { renderFooter } from "../../components/footer/footer.js";
-import { addLocationListener } from "../../logic/locationWatcher.js";
+import { addLocationListener, removeLocationListener } from "../../logic/locationWatcher.js";
 
 let map;
 let routeControl;
@@ -11,7 +11,9 @@ export function renderMapPage(parent, cords){
                             <footer></footer>
                         </div>`;
 
-    renderFooter(parent.querySelector("footer"));
+    renderFooter(parent.querySelector("footer"), () => {
+        removeLocationListener(updateMapLocation);
+    });
     
     map = L.map('map').setView([55.48, 13.49], 13);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -58,9 +60,6 @@ export function renderMapPage(parent, cords){
                 }
             }).addTo(map);
         }
-        /*     routeControl.on('routingstart', showLoading);
-        routeControl.on('routesfound', hideLoading);
-        routeControl.on('routingerror', hideLoading); */
     }
     addLocationListener(updateMapLocation);
 }
