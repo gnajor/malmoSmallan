@@ -104,7 +104,7 @@ function updateDistance(position) {
     const userLat = position.coords.latitude;
     const userLon = position.coords.longitude;
 
-    const distance = calculateDistance(userLat, userLon, userLat, userLon, /* destination.latitude, destination.longitude */);
+    const distance = calculateDistance(userLat, userLon, destination.latitude, destination.longitude );
 
     //meter
     if (distance < 2) {
@@ -265,7 +265,7 @@ function swosh(parent) {
 }
 
 // phoneCall
-let stepsRemaining = 0; //15
+let stepsRemaining = 15; //15
 let stepThreshold = 12; //12
 let stepCooldown = false;
 
@@ -276,8 +276,6 @@ function updateCounter() {
         const stepsTaken = totalSteps - stepsRemaining;
         const percentage = (stepsTaken / totalSteps) * 100;
         fill.style.width = `${percentage}%`;
-        showCompletionPopup(); //should not be here
-        pageHandler.handleProgression(); //should not be here
     }
 }
 

@@ -147,7 +147,7 @@ export const pageHandler = {
                 this.handleProgression();
                 this.handleCallPageRender();
                 pageState.setAppUnlocked("Telefon");
-            }, 5000);
+            }, 20000);
         }
         else{
             renderNewsPage(this.parent, gameData.news);
@@ -207,22 +207,15 @@ export const pageHandler = {
     },
 
     handleDrugDealerSmsNotificationRender(){
-        const testing = document.createElement("p");
-        testing.textContent = "fuck you";
-        document.querySelector("main").appendChild(testing);
-
-        setTimeout(() => {
-
-            renderNotification(
-                this.parent, 
-                "sms", 
-                "Knarklangare", 
-                "Det är för mycket folk. Jag skriver var vi möts istället.", 
-                () => {
-                    this.handleMessagesPageRender();
-                }
-            );
-        }, 5000);
+        renderNotification(
+            this.parent, 
+            "sms", 
+            "Knarklangare", 
+            "Det är för mycket folk. Jag skriver var vi möts istället.", 
+            () => {
+                this.handleMessagesPageRender();
+            }
+        );
         this.handleProgression();
     },
 
@@ -253,7 +246,7 @@ export const pageHandler = {
                         this.handleNewsPageRender();
                     }
                 );
-            }, 5000);
+            }, 30000);
         }
         else if(progressionState.currentStageState === "decryptPhoneCallPopUp"){
             pageHandler.handleDecryptCallRender();  
