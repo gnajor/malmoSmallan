@@ -65,6 +65,10 @@ span {
     display: block;
 }
 
+.bold {
+    font-weight: 600;
+}
+
 header {
     height: var(--footer-header-height);
     width: 100%;

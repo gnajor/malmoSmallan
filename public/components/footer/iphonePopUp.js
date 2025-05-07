@@ -404,7 +404,7 @@ function startVy(parent, bg) {
     topHeader.innerHTML = "Malmösmällan";
     topText.innerHTML = `
     En kall, tidig sommarmorgon sveper över Malmö, du vaknar plötsligt upp mitt på Möllevångstorget. Utan några minnesbilder från gårdagen. Allt du har på dig är din telefon, det enda verktyget som kan hjälpa dig ta reda på vad som egentligen hände den föregående natten.
-    <br/><br/>Glöm inte att tillåta platsinformation och slå på ljudet på din telefon för den allra bästa spelupplevelsen.
+    <br/><br/><span class="bold">Glöm inte att tillåta platsinformation och slå på ljudet på din telefon för den allra bästa spelupplevelsen.</span>
     <br/><br/>Lycka till!
     `;
     bottomButton.innerHTML = "Börja spelet";
