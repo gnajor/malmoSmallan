@@ -259,27 +259,27 @@ export const gameData = {
     mapCords: {
         start: 
             {
-                coords: [55.59, 13.00], 
+                coords: [55.591563, 13.007938], 
                 func: () => {
 
                 }
             },
         park: 
             {
-                coords: [55.59, 12.99],
+                coords: [55.590122, 12.998134],
                 func: () => {
 
                 }
             },
         triangle: 
             {
-                coords: [55.592, 13.00],
+                coords: [55.594437, 13.000438],
                 func: () => {
                     
                 }
             },
         market:             {
-            coords: [55.592, 13.00],
+            coords: [55.590688, 13.008563],
             func: () => {
                 
             }

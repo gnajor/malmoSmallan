@@ -83,7 +83,7 @@ class Voicemessage{
                                         <span class="time"></span>     
                                     </div>`;
 
-        let audioMessage = new Audio(this.element, "../../media/audio-files/cryptedCall.mp3", "encryptedMessage");
+        const audioMessage = new Audio(this.element, "../../media/audio-files/decryptedCall.mp3", "encryptedMessage");
         const timeElement = this.element.querySelector(".time");
 
         this.element.addEventListener("click", () => {

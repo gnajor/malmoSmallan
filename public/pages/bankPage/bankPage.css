@@ -5,6 +5,15 @@
     --truck-color: #3683C2;
 }
 
+#bank-page.ending::before{
+    content: "";
+    inset: 0;
+    position: fixed;
+    background-color: black;
+    z-index: 1001;
+    overflow: hidden;
+}
+
 #bank-page h3{
     font-size: var(--header-font-size);
 }

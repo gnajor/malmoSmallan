@@ -14,46 +14,39 @@ export function startBackgroundWatcher(){
         (position) => {
             const latlong = [position.coords.latitude, position.coords.longitude];
             locationListeners.forEach(listener => listener(latlong));
-            const currentStageCoords = gameData.mapCords[progressionState.currentStage].coords;
+
+            if(progressionState.currentStage !== "ending" || progressionState.currentStage !== "afterEnding"){
+                const currentStageCoords = gameData.mapCords[progressionState.currentStage].coords;
             
-            const distance = calculateDistance(
-                latlong[0], latlong[1]
-                ,latlong[0], latlong[1]
-            );
+                const distance = calculateDistance(
+                    latlong[0], latlong[1],
+                    latlong[0], latlong[1]
+                    /* ,currentStageCoords[0], currentStageCoords[1] */
+                );
 
+                if(distance < 100){
+                    console.log(progressionState.currentStageState)
+                    if(progressionState.currentStageState === "gps"){
 
-
-       /*      const distance = calculateDistance(
-                latlong[0], latlong[1]
-                ,currentStageCoords[0], currentStageCoords[1]
-            ); */
-
-            if(distance < 50){
-                console.log(progressionState.currentStageState)
-
-                if(progressionState.currentStageState === "gps"){
-
-                    switch(progressionState.currentStage){
-                        case "start":
-                            break;
-                        case "park":
-                            pageHandler.handleProgression();
-                            pageHandler.handleFindBagRender();
-                            break;
-                        case "triangle":
-                            pageHandler.handleProgression();
-                            pageHandler.handleDrugDealerSmsNotificationRender();
-                            break;
-                        case "market":
-                            pageHandler.handleProgression();
-                            pageHandler.handlePaymentNotificationRender();
-                            break;
-                        case "ending":
-                            
-                            break;
-                        default:
-                            console.error("progression state does not exist");
-                            break;
+                        switch(progressionState.currentStage){
+                            case "start":
+                                break;
+                            case "park":
+                                pageHandler.handleProgression();
+                                pageHandler.handleFindBagRender();
+                                break;
+                            case "triangle":
+                                pageHandler.handleProgression();
+                                pageHandler.handleDrugDealerSmsNotificationRender();
+                                break;
+                            case "market":
+                                pageHandler.handleProgression();
+                                pageHandler.handlePaymentNotificationRender();
+                                break;
+                            default:
+                                console.error("progression state does not exist");
+                                break;
+                        }
                     }
                 }
             }

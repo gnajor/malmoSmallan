@@ -61,11 +61,16 @@ export function renderBankPage(parent, transactions){
             sum: "-" + sumInputValue + ",00"
         }
 
-        if(numberInputValue === "1930342"){
+        if(numberInputValue === "1930342" && sumInputValue === "10000"){
             renderTransaction(
                 parent.querySelector("#transactions"),
                 newTransaction
             );
+
+            setTimeout(() => {
+                const bankPage = document.querySelector("#bank-page");
+                bankPage.classList.add("ending");
+            });
         }
     });
 
