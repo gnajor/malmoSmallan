@@ -43,6 +43,7 @@ export const pageState = {
 
 export const pageHandler = {
     parent: document.querySelector("#wrapper"),
+    
 
     handleHomePageRender(){
         if(progressionState.currentStage === "start" && progressionState.currentStageState === "startPopUp"){
