@@ -30,7 +30,7 @@ export function renderNotification(parent, app, title, text, func) {
             name = "Malmöbladet";
             break;
         case 'bank':
-            name = "DegBanken";
+            name = "DegBanken - Swosh";
             break;
         case 'maps':
             name = "Kartor";
