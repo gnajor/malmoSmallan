@@ -207,6 +207,10 @@ export const pageHandler = {
     },
 
     handleDrugDealerSmsNotificationRender(){
+        const testing = document.createElement("p");
+        testing.textContent = "fuck you";
+        document.querySelector("main").appendChild(testing);
+
         setTimeout(() => {
 
             renderNotification(
@@ -218,10 +222,6 @@ export const pageHandler = {
                     this.handleMessagesPageRender();
                 }
             );
-            const testing = document.createElement("p");
-            testing.textContent = "fuck you";
-            document.querySelector("main").appendChild(testing);
-
         }, 5000);
         this.handleProgression();
     },
