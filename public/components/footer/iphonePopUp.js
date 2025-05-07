@@ -104,10 +104,10 @@ function updateDistance(position) {
     const userLat = position.coords.latitude;
     const userLon = position.coords.longitude;
 
-    const distance = calculateDistance(userLat, userLon, userLat, userLon/* destination.latitude, destination.longitude */);
+    const distance = calculateDistance(userLat, userLon, userLat, userLon, /* destination.latitude, destination.longitude */);
 
     //meter
-    if (distance < 20000) {
+    if (distance < 2) {
         navigator.geolocation.clearWatch(watchPosition);
         pageHandler.handleProgression();
 

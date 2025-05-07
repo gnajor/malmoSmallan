@@ -102,7 +102,7 @@ export const pageHandler = {
                 );
                 this.handleProgression();
                 pageState.setAppUnlocked("Meddelanden");
-            },3000);
+            }, 3000);
 
         }
 
@@ -146,7 +146,7 @@ export const pageHandler = {
                 this.handleProgression();
                 this.handleCallPageRender();
                 pageState.setAppUnlocked("Telefon");
-            }, 3000);
+            }, 5000);
         }
         else{
             renderNewsPage(this.parent, gameData.news);
@@ -178,7 +178,7 @@ export const pageHandler = {
             );
         }
 
-        if(progressionState.currentStageState === "notesAppUnlocked"){
+        else if(progressionState.progression.triangle.state.notesMiniGameDone){
             pageHandler.handleProgression();
             renderNotesPage(
                 this.parent,
@@ -245,7 +245,7 @@ export const pageHandler = {
                         this.handleNewsPageRender();
                     }
                 );
-            }, 3000);
+            }, 5000);
         }
         else if(progressionState.currentStageState === "decryptPhoneCallPopUp"){
             pageHandler.handleDecryptCallRender();  
