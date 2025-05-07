@@ -35,12 +35,14 @@ export function startBackgroundWatcher(){
                                 pageHandler.handleProgression();
                                 pageHandler.handleFindBagRender();
                                 break;
-                            case "triangle":
+                            case "triangle": {
+
                                 pageHandler.handleProgression();
                                 const testing = document.createElement("p");
                                 testing.textContent = "fuck you";
                                 document.querySelector("main").appendChild(testing);
                                 pageHandler.handleDrugDealerSmsNotificationRender();
+                            }
                                 break;
                             case "market":
                                 pageHandler.handleProgression();
