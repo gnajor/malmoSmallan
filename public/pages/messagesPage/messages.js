@@ -59,13 +59,11 @@ function renderMessagesSender(parent, lastMessage) {
     sendButton.innerHTML = "<img src=\"../../media/messages-icon/sendArrow.svg\">";
     textBox.appendChild(sendButton);
 
+
     sendButton.addEventListener("click", () => {
-        if (text.innerHTML == "") return;
-        renderMessage(parent, { text: textBox.querySelector("#messages-text").innerHTML, normal: true, sender: "Spelaren", canSend: false });
-        text.innerHTML = "";
-        pageHandler.handleProgression(); //move in the progression state
-        
-        if (text.textContent == "Minns bara att jag var med er, sen minns jag inget.") {
+        if (text.textContent == "Minns bara att jag var med er, sen minns jag inget." || text.textContent == "Så sjukt… vaknade precis upp på Möllan, tror jag hallucinerade.") {
+            pageHandler.handleProgression(); //move in the progression state
+
             renderMessage(parent, { text: textBox.querySelector("#messages-text").innerHTML, sender: "Spelaren" });
             text.innerHTML = "";
 
@@ -96,9 +94,7 @@ function renderMessagesSender(parent, lastMessage) {
                 renderMessage(parent, reply);
                 window.scrollTo(0, document.body.scrollHeight);
             }, 5000);
-        } else {
-            return;
-        }
+        } else { return; }
     });
 }
 
@@ -116,7 +112,7 @@ function renderMessage(parent, message) {
         return;
     }
 
-    if (message.exist){
+    if (message.exist) {
         parent.remove()
         return;
     }
