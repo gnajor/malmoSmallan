@@ -207,15 +207,18 @@ export const pageHandler = {
     },
 
     handleDrugDealerSmsNotificationRender(){
-        renderNotification(
-            this.parent, 
-            "sms", 
-            "Knarklangare", 
-            "Det är för mycket folk. Jag skriver var vi möts istället.", 
-            () => {
-                this.handleMessagesPageRender();
-            }
-        );
+        setTimeout(() => {
+
+            renderNotification(
+                this.parent, 
+                "sms", 
+                "Knarklangare", 
+                "Det är för mycket folk. Jag skriver var vi möts istället.", 
+                () => {
+                    this.handleMessagesPageRender();
+                }
+            );
+        }, 5000);
         this.handleProgression();
     },
 
