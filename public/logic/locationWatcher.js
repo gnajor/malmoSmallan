@@ -37,16 +37,19 @@ export function startBackgroundWatcher(){
                         case "start":
                             break;
                         case "park":
-                            pageHandler.handleFindBagRender();
                             pageHandler.handleProgression();
+                            pageHandler.handleFindBagRender();
                             break;
                         case "triangle":
                             pageHandler.handleProgression();
-                            pageHandler.handleSmsNotificationRender();
+                            pageHandler.handleDrugDealerSmsNotificationRender();
                             break;
                         case "market":
+                            pageHandler.handleProgression();
+                            pageHandler.handlePaymentNotificationRender();
                             break;
                         case "ending":
+                            
                             break;
                         default:
                             console.error("progression state does not exist");

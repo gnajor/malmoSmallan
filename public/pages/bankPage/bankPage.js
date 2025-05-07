@@ -61,23 +61,24 @@ export function renderBankPage(parent, transactions){
             sum: "-" + sumInputValue + ",00"
         }
 
-        renderTransaction(
-            parent.querySelector("#transactions"),
-            newTransaction
-        );
+        if(numberInputValue === "1930342"){
+            renderTransaction(
+                parent.querySelector("#transactions"),
+                newTransaction
+            );
+        }
     });
 
     for(const transaction of transactions){
         renderTransaction(
             parent.querySelector("#transactions"),
             transaction
-        )
+        );
     }
 }
 
 function renderTransaction(parent, transaction){
     const srcWd = "../../media/transaction-icons/";
-
     const transactionElement = document.createElement("div");
     transactionElement.className = "transaction";
     parent.appendChild(transactionElement);

@@ -18,6 +18,7 @@ export const progressionState = {
         park: {
             state: {
                 gps: false,
+                //objectPopUp: false,
                 foundObject: false,
                 tigerPopUp: false,
                 articleNotification: false,
@@ -42,16 +43,13 @@ export const progressionState = {
         market: {
             state: {
                 gps: false,
-                swishNotifaction: false,
-                bankAppSwished: false,
+                paymentNotifaction: false,
                 messageNotification: false,
             }
         },
 
         ending: {
             state: {
-                messageNotification: false,
-                findNumberMinigame: false,
                 bankAppCorrectNumber: false,
                 blueAndRedAnimation: false,
             }

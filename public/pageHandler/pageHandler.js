@@ -57,16 +57,20 @@ export const pageHandler = {
         pageState.setCurrentApp("Meddelanden");
         pageState.setCurrentPage(renderMessagesPage);
 
-        console.log(progressionState.currentStage, progressionState.currentStageState)
-
         if(progressionState.currentStage === "start" && progressionState.currentStageState === "userMessageSent"){
             renderMessagesPage(this.parent, gameData.friendMessages, gameData.friendMessages[1].sender);
         }
 
         else if(progressionState.currentStage === "triangle" && progressionState.currentStageState === "drugDealerConvo"){
             renderMessagesPage(this.parent, gameData.dealer, gameData.dealer[0].sender);
+            pageHandler.handleProgression();
+            pageState.setAppUnlocked("Anteckningar");
         }
 
+        else if(progressionState.currentStage === "market" && progressionState.currentStageState === "messageNotification"){
+            renderMessagesPage(this.parent, gameData.dealer, gameData.dealer[0].sender);
+            pageHandler.handleProgression();
+        }
     },
 
     handleSpecificNotesPageRender(completed){
@@ -85,6 +89,7 @@ export const pageHandler = {
         pageState.setCurrentApp("DegBanken");
 
         if(progressionState.currentStage === "start" && progressionState.currentStageState === "messageNotification"){
+            renderBankPage(this.parent, gameData.transactions);
             const messageNeeded = gameData.friendMessages.find(obj => obj.text.includes("Vad fan"));
 
             setTimeout(() => {
@@ -100,7 +105,26 @@ export const pageHandler = {
             },3000);
 
         }
-        renderBankPage(this.parent, gameData.transactions);
+
+        else if(progressionState.currentStage === "market"  && progressionState.currentStageState === "paymentNotifaction"){
+            renderBankPage(this.parent, gameData.transactions);
+            this.handleProgression();
+            setTimeout(() => {
+                renderNotification(
+                    this.parent,
+                    "sms",
+                    "Knarklangare",
+                    "Jag ångrade mig, ge mig mina pengar nu!! Mitt nummer är Möllevångstorgets staty, bussen och Indian express. ",
+                    () => {
+                        pageHandler.handleMessagesPageRender();
+                    }
+                );
+            }, 3000);
+        }
+        else{
+            renderBankPage(this.parent, gameData.transactions);
+        }
+
     },
 
     handleMessageContactPageRender(){
@@ -113,7 +137,20 @@ export const pageHandler = {
     handleNewsPageRender(){
         pageState.setCurrentApp("Malmöbladet");
         pageState.setCurrentPage(renderNewsPage);
-        renderNewsPage(this.parent, gameData.news);
+
+        if(progressionState.currentStageState === "articleNotification"){
+            renderNewsPage(this.parent, gameData.news);
+            this.handleProgression();
+
+            setTimeout(() => {
+                this.handleProgression();
+                this.handleCallPageRender();
+                pageState.setAppUnlocked("Telefon");
+            }, 3000);
+        }
+        else{
+            renderNewsPage(this.parent, gameData.news);
+        }
     },
 
     handleMapPageRender(){
@@ -132,6 +169,23 @@ export const pageHandler = {
     handleNotesPageRender(){
         pageState.setCurrentApp("Anteckningar");
         pageState.setCurrentPage(renderNotesPage);
+        
+        if(progressionState.currentStageState === "notesAppUnlocked"){
+            pageHandler.handleProgression();
+            renderNotesPage(
+                this.parent,
+                gameData.notes
+            );
+        }
+
+        if(progressionState.currentStageState === "notesAppUnlocked"){
+            pageHandler.handleProgression();
+            renderNotesPage(
+                this.parent,
+                gameData.notes
+            );
+        }
+
         renderNotesPage(
             this.parent,
             gameData.notes
@@ -151,18 +205,29 @@ export const pageHandler = {
         renderIphonePopUp(this.parent, "phoneCall");
     },
 
-    handleSmsNotificationRender(){
+    handleDrugDealerSmsNotificationRender(){
         renderNotification(
             this.parent, 
             "sms", 
             "Knarklangare", 
-            "Du måste hålla pengarna till imorgon, polisen är efter mig.", 
+            "Det är för mycket folk. Jag skriver var vi möts istället.", 
             () => {
                 this.handleMessagesPageRender();
             }
         );
         this.handleProgression();
-        
+    },
+
+    handlePaymentNotificationRender(){
+        renderNotification(
+            this.parent,
+            "bank",
+            "+10 000kr",
+            "Tack så mycket för att du hittade min tiger.",
+            () => {
+                this.handleBankPageRender();
+            }
+        );
     },
 
     handleBeforePageRender(){
@@ -178,13 +243,6 @@ export const pageHandler = {
                     "Möllantigern stulen - Ägaren erbjuder hittelön",
                     () => {
                         this.handleNewsPageRender();
-                        this.handleProgression();
-
-                        setTimeout(() => {
-                            this.handleProgression();
-                            this.handleCallPageRender();
-                            pageState.setAppUnlocked("Telefon");
-                        }, 3000);
                     }
                 );
             }, 3000);

@@ -116,6 +116,11 @@ function renderMessage(parent, message) {
         return;
     }
 
+    if (message.exist){
+        parent.remove()
+        return;
+    }
+
     const messageElement = document.createElement("div");
     messageElement.classList.add("message");
 

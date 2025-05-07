@@ -65,6 +65,8 @@ export function renderSpecifikNotesPage(parent, notes, completed = false){
         for(const minigame of minigames){
             minigame.onMiniGameComplete();
         }
+
+        pageHandler.handleProgression();
     }
 }
 

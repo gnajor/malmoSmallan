@@ -170,12 +170,13 @@ export const gameData = {
         { sender: "Alex", text: "Jag fixar!" },
         { sender: "Spelaren", text: "Kom vid 18, ta på dig något fint" },
         { sender: "Alex", text: "Vad var det för svampar igår, har mått riktigt konstigt." },
-        { sender: "Spelaren", text: "Så sjukt… vaknade precis upp på Möllan,tror jag hallucinerade.", canSend: true },
+        { sender: "Spelaren", text: "Så sjukt… vaknade precis upp på Möllan, tror jag hallucinerade.", canSend: true },
     ],
     dealer: [
         { sender: "Knarklangare", text: "Du måste hålla pengarna till imorgon, polisen är efter mig.", time: "" },
         { sender: "Knarklangare", text: "Jag tror att jag kommit undan. Möt mig på triangeln imorgon." },
-        { sender: "Knarklangare", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express." },
+        { sender: "Knarklangare", text: "Det är för mycket folk. Jag skriver var vi möts istället.", exist: false},
+        { sender: "Knarklangare", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express.", exist: false}
     ],
 
     notesMinigame: [

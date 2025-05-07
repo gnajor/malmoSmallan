@@ -26,7 +26,11 @@ export function renderCallPage(parent, caller){
                             <footer></footer>
                         </div>`;
 
-    renderFooter(parent.querySelector("footer"));
+    renderFooter(parent.querySelector("footer"), () => {
+        setTimeout(() => {
+            renderCallPage(parent, caller);
+        }, 5000);
+    });
 
     const answerButton = parent.querySelector("#answer-call");
     const declineButton = parent.querySelector("#decline-call");
