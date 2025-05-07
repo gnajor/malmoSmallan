@@ -67,6 +67,7 @@ span {
 
 .bold {
     font-weight: 600;
+    display: inline;
 }
 
 header {
