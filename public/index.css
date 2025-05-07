@@ -39,7 +39,7 @@ html {
 
 * {
     box-sizing: border-box;
-    font-family: 'Inter';
+    font-family: 'Inter', 'Arial';
 }
 
 body {
