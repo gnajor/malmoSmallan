@@ -2,33 +2,33 @@ import { startBackgroundWatcher } from "./logic/locationWatcher.js";
 import { pageHandler } from "./pageHandler/pageHandler.js";
 
 export const progressionState = {
-    currentStage: "start",
-    currentStageState: "startPopUp",
+    currentStage: "triangle",
+    currentStageState: "gps",
     progression: {
         start: {
             state: {
                 startPopUp: false,
-                //gps: false
-                //bankAppUnlocked: false,
-                messageNotification: false,
-                //messageAppUnlocked: false,
-                userMessageSent: false,
+                //gps: true
+                //bankAppUnlocked: true,
+                messageNotification: true,
+                //messageAppUnlocked: true,
+                userMessageSent: true,
             }
         },
         park: {
             state: {
-                gps: false,
-                //objectPopUp: false,
-                foundObject: false,
-                tigerPopUp: false,
-                articleNotification: false,
-                articleRead: false,
-                calling: false,
-                listenedToPhoneCall: false,
-                decryptPhoneCallPopUp: false,
-                countingStepsPopUp: false,
-                decryptCompletePopUp: false,
-                phoneAppDecryptedCall: false,
+                gps: true,
+                //objectPopUp: true,
+                foundObject: true,
+                tigerPopUp: true,
+                articleNotification: true,
+                articleRead: true,
+                calling: true,
+                listenedToPhoneCall: true,
+                decryptPhoneCallPopUp: true,
+                countingStepsPopUp: true,
+                decryptCompletePopUp: true,
+                phoneAppDecryptedCall: true,
             }
         },
         triangle: {
@@ -118,7 +118,9 @@ export const state = {
     }
 }
 
-state.startApp();
+/* state.startApp(); */
+
+pageHandler.handleNotesPageRender();
 
 
 

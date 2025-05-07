@@ -298,7 +298,7 @@ const handleMotion = (event) => {
     if (stepsRemaining === 0) {
         window.removeEventListener("devicemotion", handleMotion);
         showCompletionPopup();
-        pageHandler.handleProgression();
+        pageHandler.handleProgression();     
     }
 }
 
