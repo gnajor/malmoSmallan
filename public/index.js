@@ -2,111 +2,143 @@ import { startBackgroundWatcher } from "./logic/locationWatcher.js";
 import { pageHandler } from "./pageHandler/pageHandler.js";
 
 export const progressionState = {
-    currentStage: "triangle",
-    currentStageState: "gps",
-    progression: {
-        start: {
+    steps: [
+        {
+            id: "start-popup",
             state: {
-                startPopUp: false,
-                //gps: true
-                //bankAppUnlocked: true,
-                messageNotification: true,
-                //messageAppUnlocked: true,
-                userMessageSent: true,
+                shown: true,
             }
         },
-        park: {
+        {
+            id: "receive-first-message-notice",
             state: {
-                gps: true,
-                //objectPopUp: true,
-                foundObject: true,
-                tigerPopUp: true,
-                articleNotification: true,
-                articleRead: true,
-                calling: true,
-                listenedToPhoneCall: true,
-                decryptPhoneCallPopUp: true,
-                countingStepsPopUp: true,
-                decryptCompletePopUp: true,
-                phoneAppDecryptedCall: true,
+                notified: false,
+                messageAppUnlocked: false,
+                pressed: false,
+                messageSentBack: false,
             }
         },
-        triangle: {
+        {
+            id: "park-gps",
             state: {
-                gps: false,
-                messageNotification: false,
-                drugDealerConvo: false,
+                gpsReached: false,
+            }
+        },
+        {
+            id: "tiger-find-minigame",
+            state: {
+                popUp: false,
+                tigerPopUp: false,
+            }
+        }, 
+        {
+            id: "article-notification",
+            state: {
+                popUp: false,
+                articleAppUnlocked: false,
+                pressed: false,
+            }
+        },
+        {
+            id: "call",
+            state: {
+                listened: false,
+            }
+        },
+        {
+            id: "decryptCall",
+            state: {
+                decryptedCall: false,
+                phoneAppUnlocked: false,
+            }
+        },
+        {
+            id: "receive-first-dealer-notice",
+            state: {
+                notified: false,
+                pressed: false,
+            }
+        },
+        {
+            id: "traingle-gps",
+            state: {
+                gpsReached: false
+            }
+        },
+        {
+            id: "receive-second-dealer-notice",
+            state: {
+                notified: false,
+                pressed: false,
+            }
+        },
+        {   
+            id: "notes-minigame",
+            state: {
                 notesAppUnlocked: false,
-                notesMiniGameDone: false,
+                notesMinigameCompleted: false,
             }
         },
-        market: {
+        {
+            id: "market-gps",
             state: {
-                gps: false,
-                paymentNotifaction: false,
-                messageNotification: false,
+                gpsReached: false,
             }
         },
-
-        ending: {
+        {
+            id: "receive-payment-notice",
             state: {
-                bankAppCorrectNumber: false,
-                blueAndRedAnimation: false,
+                notified: false,
+                pressed: false,
             }
         },
-
-        afterEnding: {
+        {
+            id: "receive-third-dealer-notice",
+            state: {
+                notified: false,
+                pressed: false,
+            }
+        },
+        {
+            id: "bank-app-ending",
+            state: {
+                notified: false,
+                pressed: false,
+            }
+        },
+        {
+            id: "ending",
             state: {
                 messagesNormal: false,
-                credits: false
+            }
+        },
+        {
+            id: "end-credits",
+            state: {
+                start: false,
             }
         }
+    ],
+    
+    isUnlocked(step, key){
+        const currentStep = this.steps.find(s => s.id === step);
+        currentStep.state[key] = true;
     },
 
-    makeProgress() {
-        const keys = Object.keys(this.progression);
-        const currentObject = this.progression[this.currentStage];
-        const index = keys.indexOf(this.currentStage);
-        const stateKeys = Object.keys(currentObject.state);
+    checkStateKey(step, key){
+        const currentStep = this.steps.find(s => s.id === step).state;
 
-        const nextKey = keys[index + 1];
-        const nextStage = this.progression[nextKey].state;
-        const nextStageKey = Object.keys(nextStage)[0];
-
-        for(let i = 0; i < stateKeys.length; i++){
-            const stateKey = stateKeys[i];
-            const currentValue = currentObject.state[stateKey];
-
-            if (i === stateKeys.length - 1) {
-                this.currentStage = keys[index + 1];
-            }
-
-            if (currentValue === true) {
-                continue;
-            }
-
-            else{
-                if(!stateKeys[i + 1]){
-                    this.currentStageState = nextStageKey;
-                }
-                else{
-                    this.currentStageState = stateKeys[i + 1];
-                }
-                currentObject.state[stateKey] = true;
-                return;
-            }
+        if(currentStep[key]){
+            return true
         }
-    },
-
-    makeGpsProgress() {
-        this.progression[this.currentStage].state.gps = true;
+        return false
     }
 }
 
 export const state = {
     startApp() {
         pageHandler.handleHomePageRender();
-        startBackgroundWatcher();
+        /* startBackgroundWatcher(); */
     },
 
     setCurrentPage(renderFunc) {

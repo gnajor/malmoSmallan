@@ -17,7 +17,6 @@ import { renderIphonePopUp } from "../components/footer/iphonePopUp.js";
 export const pageState = {
     beforePage: null,
     currentPage: null,
-    currentApp: null,
     appsUnlocked: ["DegBanken"],
 
     setAppUnlocked(appName){
@@ -32,10 +31,6 @@ export const pageState = {
         }
     },
 
-    setCurrentApp(appName){
-        this.currentApp = appName;
-    },
-
     setCurrentPage(func){
         this.currentPage = func;
     }
@@ -44,34 +39,18 @@ export const pageState = {
 export const pageHandler = {
     parent: document.querySelector("#wrapper"),
     
-
     handleHomePageRender(){
-        if(progressionState.currentStage === "start" && progressionState.currentStageState === "startPopUp"){
+        if(progressionState.checkStateKey("start-popup", "shown")){
             renderHomePage(this.parent, gameData.apps, true);
-            this.handleProgression();
-            return;
         }
-        renderHomePage(this.parent, gameData.apps);
+        else{
+            renderHomePage(this.parent, gameData.apps);
+        }
     },
 
     handleMessagesPageRender(){
-        pageState.setCurrentApp("Meddelanden");
         pageState.setCurrentPage(renderMessagesPage);
-
-        if(progressionState.currentStage === "start" && progressionState.currentStageState === "userMessageSent"){
-            renderMessagesPage(this.parent, gameData.friendMessages, gameData.friendMessages[1].sender);
-        }
-
-        else if(progressionState.currentStage === "triangle" && progressionState.currentStageState === "drugDealerConvo"){
-            renderMessagesPage(this.parent, gameData.dealer, gameData.dealer[0].sender);
-            pageHandler.handleProgression();
-            pageState.setAppUnlocked("Anteckningar");
-        }
-
-        else if(progressionState.currentStage === "market" && progressionState.currentStageState === "messageNotification"){
-            renderMessagesPage(this.parent, gameData.dealer, gameData.dealer[0].sender);
-            pageHandler.handleProgression();
-        }
+        renderMessagesPage(this.parent, gameData.friendMessages, gameData.friendMessages[1].sender);
     },
 
     handleSpecificNotesPageRender(completed){
@@ -81,35 +60,32 @@ export const pageHandler = {
 
     handleCallPageRender(){
         pageState.setCurrentPage(renderCallPage);
-        this.handleProgression();
         renderCallPage(this.parent, gameData.phoneCallers.nameLess);
     },
 
     handleBankPageRender(){
         pageState.setCurrentPage(renderBankPage);
-        pageState.setCurrentApp("DegBanken");
-
-        if(progressionState.currentStage === "start" && progressionState.currentStageState === "messageNotification"){
+        if(progressionState.checkStateKey("start-popup", "shown")){
             renderBankPage(this.parent, gameData.transactions);
-            const messageNeeded = gameData.friendMessages.find(obj => obj.text.includes("Vad fan"));
 
             setTimeout(() => {
                 renderNotification(
                     this.parent, 
                     "sms", 
-                    messageNeeded.sender, 
-                    messageNeeded.text, 
+                    "Alex",
+                    "Vad fan hände med dig igår?", 
                     pageHandler.handleMessagesPageRender.bind(this)
                 );
-                this.handleProgression();
                 pageState.setAppUnlocked("Meddelanden");
             }, 3000);
+        }
 
+/*         if(progressionState.currentStage === "start" && progressionState.currentStageState === "messageNotification"){
+            renderBankPage(this.parent, gameData.transactions);
         }
 
         else if(progressionState.currentStage === "market"  && progressionState.currentStageState === "paymentNotifaction"){
             renderBankPage(this.parent, gameData.transactions);
-            this.handleProgression();
             setTimeout(() => {
                 renderNotification(
                     this.parent,
@@ -124,55 +100,48 @@ export const pageHandler = {
         }
         else{
             renderBankPage(this.parent, gameData.transactions);
-        }
+        } */
 
     },
 
     handleMessageContactPageRender(){
-        pageState.setCurrentApp("Meddelanden");
         pageState.setCurrentPage(renderMessagesContactPage);
         const lastMessage = [gameData.friendMessages[gameData.friendMessages.length - 1]];
         renderMessagesContactPage(this.parent, lastMessage);
     },
 
     handleNewsPageRender(){
-        pageState.setCurrentApp("Malmöbladet");
         pageState.setCurrentPage(renderNewsPage);
+        renderNewsPage(this.parent, gameData.news);
 
-        if(progressionState.currentStageState === "articleNotification"){
+/*         if(progressionState.currentStageState === "articleNotification"){
             renderNewsPage(this.parent, gameData.news);
-            this.handleProgression();
 
             setTimeout(() => {
-                this.handleProgression();
                 this.handleCallPageRender();
                 pageState.setAppUnlocked("Telefon");
             }, 20000);
         }
         else{
             renderNewsPage(this.parent, gameData.news);
-        }
+        } */
     },
 
     handleMapPageRender(){
-        pageState.setCurrentApp("Kartor");
         pageState.setCurrentPage(renderMapPage);
         renderMapPage(this.parent, gameData.mapCords[progressionState.currentStage].coords);
         progressionState.makeGpsProgress();
     },
 
     handlePhonePageRender(){
-        pageState.setCurrentApp("Telefon");
         pageState.setCurrentPage(renderPhonePage);
         renderPhonePage(this.parent, gameData.voicemessages);
     },
 
     handleNotesPageRender(){
-        pageState.setCurrentApp("Anteckningar");
         pageState.setCurrentPage(renderNotesPage);
-        
+/*         
         if(progressionState.currentStageState === "notesAppUnlocked"){
-            pageHandler.handleProgression();
             renderNotesPage(
                 this.parent,
                 gameData.notes
@@ -180,21 +149,16 @@ export const pageHandler = {
         }
 
         else if(progressionState.progression.triangle.state.notesMiniGameDone){
-            pageHandler.handleProgression();
             renderNotesPage(
                 this.parent,
                 gameData.notes
             );
-        }
+        } */
 
         renderNotesPage(
             this.parent,
             gameData.notes
         );
-    },
-
-    handleProgression(){
-        progressionState.makeProgress();
     },
     
     handleFindBagRender(){
@@ -216,7 +180,6 @@ export const pageHandler = {
                 this.handleMessagesPageRender();
             }
         );
-        this.handleProgression();
     },
 
     handlePaymentNotificationRender(){
@@ -232,7 +195,8 @@ export const pageHandler = {
     },
 
     handleBeforePageRender(){
-        if(progressionState.currentStageState === "articleNotification"){
+        this.handleHomePageRender();
+/*         if(progressionState.currentStageState === "articleNotification"){
             pageState.setAppUnlocked("Malmöbladet");
             this.handleHomePageRender();
 
@@ -250,11 +214,10 @@ export const pageHandler = {
         }
         else if(progressionState.currentStageState === "decryptPhoneCallPopUp"){
             pageHandler.handleDecryptCallRender();  
-            pageHandler.handleProgression();
         }
 
         else{
             this.handleHomePageRender();
-        }
+        } */
     }
 }

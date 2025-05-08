@@ -15,7 +15,7 @@ export function startBackgroundWatcher(){
             const latlong = [position.coords.latitude, position.coords.longitude];
             locationListeners.forEach(listener => listener(latlong));
 
-            if(progressionState.currentStage !== "ending" || progressionState.currentStage !== "afterEnding"){
+/*             if(progressionState.currentStage !== "ending" || progressionState.currentStage !== "afterEnding"){
                 const currentStageCoords = gameData.mapCords[progressionState.currentStage].coords;
             
                 const distance = calculateDistance(
@@ -48,13 +48,13 @@ export function startBackgroundWatcher(){
                         }
                     }
                 }
-            }
+            } */
         },
         (error) => {
             console.error("background location error", error);
         },
         {
-            /* enableHighAccuracy: true, */
+            enableHighAccuracy: true,
             maximumAge: 5000,
             timeout: 10000
         }
