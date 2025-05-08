@@ -118,9 +118,9 @@ export const state = {
     }
 }
 
-/* state.startApp(); */
+state.startApp();
 
-pageHandler.handleNotesPageRender();
+/* pageHandler.handleNotesPageRender(); */
 
 
 

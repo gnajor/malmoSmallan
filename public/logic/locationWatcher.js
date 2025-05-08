@@ -54,7 +54,7 @@ export function startBackgroundWatcher(){
             console.error("background location error", error);
         },
         {
-            enableHighAccuracy: true,
+            /* enableHighAccuracy: true, */
             maximumAge: 5000,
             timeout: 10000
         }
