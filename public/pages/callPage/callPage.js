@@ -1,5 +1,6 @@
 import { renderFooter } from "../../components/footer/footer.js";
-import { pageHandler } from "../../pageHandler/pageHandler.js";
+import { progressionState } from "../../index.js";
+import { pageHandler, pageState } from "../../pageHandler/pageHandler.js";
 
 export function renderCallPage(parent, caller){
     const srcWdIcons = "../../media/call-icons/";
@@ -63,8 +64,8 @@ export function renderCallPage(parent, caller){
             secTitle.textContent = "call ended";
 
             setTimeout(() => {
-                pageHandler.handleProgression();
-                pageHandler.handleBeforePageRender();
+                progressionState.isUnlocked("call", "listened");
+                pageHandler.handleDecryptCallRender();
             }, 1000);
 
         }, halfAnimationTime);

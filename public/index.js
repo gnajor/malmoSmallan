@@ -6,7 +6,7 @@ export const progressionState = {
         {
             id: "start-popup",
             state: {
-                shown: true,
+                shown: false,
             }
         },
         {
@@ -15,7 +15,7 @@ export const progressionState = {
                 notified: false,
                 messageAppUnlocked: false,
                 pressed: false,
-                messageSentBack: false,
+                userSentMessage: false,
             }
         },
         {
@@ -27,14 +27,14 @@ export const progressionState = {
         {
             id: "tiger-find-minigame",
             state: {
-                popUp: false,
-                tigerPopUp: false,
+                popup: false,
+                tigerPopup: false,
             }
         }, 
         {
             id: "article-notification",
             state: {
-                popUp: false,
+                popup: false,
                 articleAppUnlocked: false,
                 pressed: false,
             }
@@ -42,6 +42,7 @@ export const progressionState = {
         {
             id: "call",
             state: {
+                popup: false,
                 listened: false,
             }
         },
@@ -53,25 +54,25 @@ export const progressionState = {
             }
         },
         {
-            id: "receive-first-dealer-notice",
-            state: {
-                notified: false,
-                pressed: false,
-            }
-        },
-        {
-            id: "traingle-gps",
+            id: "triangle-gps",
             state: {
                 gpsReached: false
             }
         },
         {
-            id: "receive-second-dealer-notice",
+            id: "receive-change-position-dealer-notice",
             state: {
                 notified: false,
                 pressed: false,
             }
         },
+/*         {
+            id: "receive-second-dealer-notice",
+            state: {
+                notified: false,
+                pressed: false,
+            }
+        }, */
         {   
             id: "notes-minigame",
             state: {
@@ -126,9 +127,9 @@ export const progressionState = {
     },
 
     checkStateKey(step, key){
-        const currentStep = this.steps.find(s => s.id === step).state;
+        const currentStep = this.steps.find(s => s.id === step);
 
-        if(currentStep[key]){
+        if(currentStep.state[key]){
             return true
         }
         return false
@@ -138,7 +139,7 @@ export const progressionState = {
 export const state = {
     startApp() {
         pageHandler.handleHomePageRender();
-        /* startBackgroundWatcher(); */
+        startBackgroundWatcher();
     },
 
     setCurrentPage(renderFunc) {

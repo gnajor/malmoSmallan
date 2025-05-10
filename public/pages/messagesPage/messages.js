@@ -1,4 +1,5 @@
 import { renderFooter } from "../../components/footer/footer.js";
+import { progressionState } from "../../index.js";
 import { pageHandler } from "../../pageHandler/pageHandler.js";
 
 export function renderMessagesPage(parent, messages, sender) {
@@ -11,17 +12,11 @@ export function renderMessagesPage(parent, messages, sender) {
                             <footer></footer>
                         </div>`;
 
-    renderFooter(parent.querySelector("footer"));
-
-    renderMessagesHeader(
-        parent.querySelector("#messages-header"), sender
-    );
-
     const lastMessage = messages[messages.length - 1];
 
-    renderMessagesSender(
-        parent.querySelector("#messages-main"), lastMessage
-    );
+    renderFooter(parent.querySelector("footer"));
+    renderMessagesHeader(parent.querySelector("#messages-header"), sender);
+    renderMessagesSender(parent.querySelector("#messages-main"), lastMessage);
 
     for (let i = 0; i < messages.length - 1; i++) {
         const message = messages[i];
@@ -42,6 +37,10 @@ function renderMessagesHeader(parent, sender) {
     name.id = "messages-name";
     name.innerHTML = sender;
     parent.appendChild(name);
+
+    arrow.addEventListener("click", () => {
+        pageHandler.handleMessageContactPageRender();
+    });
 }
 
 function renderMessagesSender(parent, lastMessage) {
@@ -62,7 +61,7 @@ function renderMessagesSender(parent, lastMessage) {
 
     sendButton.addEventListener("click", () => {
         if (text.textContent == "Minns bara att jag var med er, sen minns jag inget." || text.textContent == "Så sjukt… vaknade precis upp på Möllan, tror jag hallucinerade.") {
-            pageHandler.handleProgression(); //move in the progression state
+            progressionState.isUnlocked("receive-first-message-notice", "userSentMessage");
 
             renderMessage(parent, { text: textBox.querySelector("#messages-text").innerHTML, sender: "Spelaren" });
             text.innerHTML = "";
@@ -112,8 +111,7 @@ function renderMessage(parent, message) {
         return;
     }
 
-    if (message.exist) {
-        parent.remove()
+    if (message.none) {
         return;
     }
 

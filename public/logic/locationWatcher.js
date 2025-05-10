@@ -1,3 +1,4 @@
+import { renderNotification } from "../components/footer/notification.js";
 import { progressionState } from "../index.js";
 import { gameData } from "../pageHandler/gameData.js";
 import { pageHandler } from "../pageHandler/pageHandler.js";
@@ -14,49 +15,66 @@ export function startBackgroundWatcher(){
         (position) => {
             const latlong = [position.coords.latitude, position.coords.longitude];
             locationListeners.forEach(listener => listener(latlong));
-
-/*             if(progressionState.currentStage !== "ending" || progressionState.currentStage !== "afterEnding"){
-                const currentStageCoords = gameData.mapCords[progressionState.currentStage].coords;
+            let currentStageCoords = gameData.mapCords[0];
+            let func = null
+            let startChecking = false;
             
-                const distance = calculateDistance(
-                    latlong[0], latlong[1],
-                    currentStageCoords[0], currentStageCoords[1]
-                );
-
-                if(distance < 100){
-                    console.log(progressionState.currentStageState)
-                    if(progressionState.currentStageState === "gps"){
-
-                        switch(progressionState.currentStage){
-                            case "start":
-                                break;
-                            case "park":
-                                pageHandler.handleProgression();
-                                pageHandler.handleFindBagRender();
-                                break;
-                            case "triangle":
-                                pageHandler.handleProgression();
-                                pageHandler.handleDrugDealerSmsNotificationRender();
-                                break;
-                            case "market":
-                                pageHandler.handleProgression();
-                                pageHandler.handlePaymentNotificationRender();
-                                break;
-                            default:
-                                console.error("progression state does not exist");
-                                break;
-                        }
-                    }
+            if(progressionState.checkStateKey("receive-first-message-notice", "userSentMessage")  && !progressionState.checkStateKey("park-gps", "gpsReached")){
+                currentStageCoords = gameData.mapCords[1];
+                startChecking = true;
+                func = () => {
+                    progressionState.isUnlocked("park-gps", "gpsReached");
+                    pageHandler.handleFindBagRender();
                 }
-            } */
+            }
+
+            else if(progressionState.checkStateKey("decryptCall", "phoneAppUnlocked") && !progressionState.checkStateKey("triangle-gps", "gpsReached")){
+                currentStageCoords = gameData.mapCords[2];
+                startChecking = true;
+                func = () => {
+                    progressionState.isUnlocked("triangle-gps", "gpsReached");
+                    pageHandler.handleDealerNotificationRender();
+                }
+            }
+        
+            const distance = calculateDistance(
+                latlong[0], latlong[1],
+                latlong[0], latlong[1]
+                /* currentStageCoords[0], currentStageCoords[1] */
+            );
+
+            if(distance < 100 && startChecking){
+                func();
+
+/*                 if(progressionState.currentStageState === "gps"){
+                    switch(progressionState.currentStage){
+                        case "start":
+                            break;
+                        case "park":
+                            pageHandler.handleProgression();
+                            pageHandler.handleFindBagRender();
+                            break;
+                        case "triangle":
+                            pageHandler.handleProgression();
+                            pageHandler.handleDrugDealerSmsNotificationRender();
+                            break;
+                        case "market":
+                            pageHandler.handleProgression();
+                            pageHandler.handlePaymentNotificationRender();
+                            break;
+                        default:
+                            console.error("progression state does not exist");
+                            break;
+                    }
+                } */
+            }
+
         },
         (error) => {
             console.error("background location error", error);
         },
         {
             enableHighAccuracy: true,
-            maximumAge: 5000,
-            timeout: 10000
         }
     )
 }

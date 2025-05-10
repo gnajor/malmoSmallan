@@ -49,8 +49,15 @@ function renderMessagesContactsMain(parent, lastMessage) {
             leftCon.appendChild(imgCon);
             imgCon.appendChild(img);
             messanger.addEventListener("click", () => {
-                pageHandler.handleMessagesPageRender();
-                //will need to have another func to drug dealer
+                if(lastMessage[i].sender === "Knarklangare"){
+                    pageHandler.handleDealerMessagesPageRender();
+                }
+                else if(lastMessage[i].sender === "Alex"){
+                    pageHandler.handleFriendMessagesPageRender();
+                }
+                else{
+
+                }
             });
         } else {
             name.innerHTML = "Fel";

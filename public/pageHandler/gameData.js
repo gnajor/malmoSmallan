@@ -175,8 +175,8 @@ export const gameData = {
     dealer: [
         { sender: "Knarklangare", text: "Du måste hålla pengarna till imorgon, polisen är efter mig.", time: "" },
         { sender: "Knarklangare", text: "Jag tror att jag kommit undan. Möt mig på triangeln imorgon." },
-        { sender: "Knarklangare", text: "Det är för mycket folk. Jag skriver var vi möts istället.", exist: false},
-        { sender: "Knarklangare", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express.", exist: false}
+        { sender: "Knarklangare", text: "Det är för mycket folk. Jag skriver var vi möts istället."},
+        { sender: "Knarklangare", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express.", none: true}
     ],
 
     notesMinigame: [
@@ -256,33 +256,10 @@ export const gameData = {
         "Man sålde olagliga svampar - utgav sig för att vara torghandlare"
     ],
 
-    mapCords: {
-        start: 
-            {
-                coords: [55.591563, 13.007938], 
-                func: () => {
-
-                }
-            },
-        park: 
-            {
-                coords: [55.590122, 12.998134],
-                func: () => {
-
-                }
-            },
-        triangle: 
-            {
-                coords: [55.594437, 13.000438],
-                func: () => {
-                    
-                }
-            },
-        market:             {
-            coords: [55.590688, 13.008563],
-            func: () => {
-                
-            }
-        },
-    }
+    mapCords: [
+        [55.591563, 13.007938], 
+        [55.590122, 12.998134],
+        [55.594437, 13.000438],
+        [55.590688, 13.008563],
+    ]
 }

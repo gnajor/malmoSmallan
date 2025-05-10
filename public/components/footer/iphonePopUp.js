@@ -1,3 +1,4 @@
+import { progressionState } from "../../index.js";
 import { pageHandler } from "../../pageHandler/pageHandler.js";
 
 const log = document.querySelector("#log");
@@ -35,6 +36,8 @@ export function renderIphonePopUp(parent, type, title, text, buttonText) {
 }
 
 function findBag(parent) {
+    progressionState.isUnlocked("tiger-find-minigame", "popup");
+
     const bg = document.querySelector(".background-darken");
     const top = document.createElement("div");
     const bottom = document.createElement("button");
@@ -65,7 +68,9 @@ function findBag(parent) {
     bottom.appendChild(bottomHeaderText);
     bottom.appendChild(bottomText);
 
-    bottom.addEventListener("click", getUserLocation)
+    bottom.addEventListener("click", () => {
+        getUserLocation();
+    }, {once: true});
 }
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -87,7 +92,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
 
 function updateDistance(position) {
-    console.log("hello")
     const bottomHeaderText = document.querySelector(".popup-headerB-text");
     const bottomText = document.querySelector("#distance");
     bottomHeaderText.classList.remove("startGame");
@@ -104,12 +108,11 @@ function updateDistance(position) {
     const userLat = position.coords.latitude;
     const userLon = position.coords.longitude;
 
-    const distance = calculateDistance(userLat, userLon, destination.latitude, destination.longitude );
+    const distance = calculateDistance(userLat, userLon, userLat, userLon,/* destination.latitude, destination.longitude */ );
 
     //meter
     if (distance < 2) {
         navigator.geolocation.clearWatch(watchPosition);
-        pageHandler.handleProgression();
 
         if (!document.querySelector(".popup-button")) {
             const popupCon = document.querySelector(".popup-con");
@@ -165,8 +168,10 @@ function updateDistance(position) {
                     light.classList.add("hideFindBag");
 
                     light.addEventListener("transitionend", () => {
-                        pageHandler.handleProgression();
+                        progressionState.isUnlocked("tiger-find-minigame", "tigerPopup");
                         pageHandler.handleBeforePageRender();
+                     /*    pageHandler.handleProgression();
+                        pageHandler.handleBeforePageRender(); */
                     });
                 });
             });
@@ -176,9 +181,7 @@ function updateDistance(position) {
     }
 }
 
-function getUserLocation(event) {
-    event.stopPropagation();
-    removeEventListener("click", getUserLocation);
+function getUserLocation(){
     if (navigator.geolocation) {
         watchPosition = navigator.geolocation.watchPosition(updateDistance, showError, {
             enableHighAccuracy: true
@@ -265,8 +268,8 @@ function swosh(parent) {
 }
 
 // phoneCall
-let stepsRemaining = 15; //15
-let stepThreshold = 12; //12
+let stepsRemaining = 0; //15
+let stepThreshold = 0; //12
 let stepCooldown = false;
 
 function updateCounter() {
@@ -276,6 +279,7 @@ function updateCounter() {
         const stepsTaken = totalSteps - stepsRemaining;
         const percentage = (stepsTaken / totalSteps) * 100;
         fill.style.width = `${percentage}%`;
+        showCompletionPopup();
     }
 }
 
@@ -297,8 +301,8 @@ const handleMotion = (event) => {
 
     if (stepsRemaining === 0) {
         window.removeEventListener("devicemotion", handleMotion);
-        showCompletionPopup();
-        pageHandler.handleProgression();     
+       /*  showCompletionPopup();
+        pageHandler.handleProgression();      */
     }
 }
 
@@ -321,8 +325,8 @@ function showCompletionPopup() {
     topText.innerHTML = "Samtalet finns nu bland röstmeddelanden.";
     bottomButton.innerHTML = "Stäng";
 
-    bottom.addEventListener("click", () => {
-        pageHandler.handleProgression();
+    bottom.addEventListener("click", () => {        
+        progressionState.isUnlocked("decryptCall", "decryptedCall");
         pageHandler.handleBeforePageRender();
     });
 }
