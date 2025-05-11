@@ -1,7 +1,7 @@
 import { renderFooter } from "../../components/footer/footer.js";
 import { pageHandler } from "../../pageHandler/pageHandler.js";
 
-export function renderNotesPage(parent, notes){
+export function renderNotesPage(parent, notes, completed = false){
     parent.innerHTML = `<div id="notes-page">
                             <header>
                                 <h1>Anteckningar</h1>
@@ -38,16 +38,19 @@ export function renderNotesPage(parent, notes){
 
     const yesterdayNotes = new Notes(
         parent.querySelector("#yesterday-notes .notes-container"),
-        notes.yesterday
+        notes.yesterday,
+        completed
     );
     const lastSevenDaysNotes = new Notes(
         parent.querySelector("#last-seven-days-notes .notes-container"),
-        notes.latest
+        notes.latest,
+        completed
     );
 
     const favoriteNotes = new Notes(
         parent.querySelector("#favorite-notes .notes-container"),
-        notes.favorite
+        notes.favorite,
+        completed
     );
 
     yesterdayNotes.renderNotes();
@@ -82,9 +85,10 @@ export function renderNotesPage(parent, notes){
 }
 
 class Notes{
-    constructor(parent, notesData){
+    constructor(parent, notesData, completed){
         this.parent = parent;
         this.notesData = notesData;
+        this.completed = completed;
     }
 
     renderNotes(){
@@ -105,7 +109,7 @@ class Notes{
                                    
         if(note.title === "veldgt vikigt!!"){         
             noteContainer.addEventListener("click", this.onClickSpecific);
-            noteContainer.addEventListener("transitionend", this.onTransEnd);  
+            noteContainer.addEventListener("transitionend", this.onTransEnd.bind(this));  
         }
         else{
             noteContainer.addEventListener("click", this.onClick);
@@ -124,7 +128,7 @@ class Notes{
     }
 
     onTransEnd(event){
-        pageHandler.handleSpecificNotesPageRender(false);
+        pageHandler.handleSpecificNotesPageRender(this.completed);
     }
 
     remove(){

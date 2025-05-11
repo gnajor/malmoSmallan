@@ -1,5 +1,6 @@
 import { startBackgroundWatcher } from "./logic/locationWatcher.js";
-import { pageHandler } from "./pageHandler/pageHandler.js";
+import { gameData } from "./pageHandler/gameData.js";
+import { pageHandler, pageState } from "./pageHandler/pageHandler.js";
 
 export const progressionState = {
     steps: [
@@ -124,6 +125,7 @@ export const progressionState = {
     isUnlocked(step, key){
         const currentStep = this.steps.find(s => s.id === step);
         currentStep.state[key] = true;
+        state.setStateStorage("stepState", this.steps);
     },
 
     checkStateKey(step, key){
@@ -132,22 +134,53 @@ export const progressionState = {
         if(currentStep.state[key]){
             return true
         }
-        return false
+        else{
+            return false
+        }
     }
 }
 
 export const state = {
     startApp() {
-        pageHandler.handleHomePageRender();
         startBackgroundWatcher();
+
+        if(!sessionStorage.getItem("stepState")){
+            pageHandler.handleHomePageRender();
+        }
+        else{
+            window.onload = () => {
+                const beforePage = sessionStorage.getItem("beforePage");
+                const currentPage = sessionStorage.getItem("currentPage");
+                const currentExceptionPage = sessionStorage.getItem("currentExceptionPage");
+                const newGameData = sessionStorage.getItem("gameData");
+                const stepState = sessionStorage.getItem("stepState");
+                
+                if(currentExceptionPage)pageState.setCurrentExceptionPage(pageHandler[JSON.parse(currentExceptionPage)].bind(pageHandler));
+                if(beforePage)pageState.setCurrentPage(pageHandler[JSON.parse(beforePage)].bind(pageHandler));
+                if(newGameData)Object.assign(gameData, JSON.parse(newGameData));
+                if(stepState)progressionState.steps = JSON.parse(stepState);
+                
+                //beforePage => messages
+                //currentPage => findBag
+
+                //beforePage => 
+
+                if(currentPage){
+                    pageState.setBeforePage(pageHandler[JSON.parse(currentPage)].bind(pageHandler));
+                    pageState.beforePage();
+                }
+            }
+        }
     },
 
-    setCurrentPage(renderFunc) {
-        this.currentPage = renderFunc;
-    },
+    setStateStorage(key, value){
+        if(typeof value === "string"){
+            if(value.includes("bound")){
+                value = value.split(" ")[1];
+            }
+        }
 
-    setBeforePage(renderFunc) {
-        this.beforePage = renderFunc;
+        sessionStorage.setItem(key, JSON.stringify(value))
     }
 }
 

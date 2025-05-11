@@ -170,8 +170,6 @@ function updateDistance(position) {
                     light.addEventListener("transitionend", () => {
                         progressionState.isUnlocked("tiger-find-minigame", "tigerPopup");
                         pageHandler.handleBeforePageRender();
-                     /*    pageHandler.handleProgression();
-                        pageHandler.handleBeforePageRender(); */
                     });
                 });
             });

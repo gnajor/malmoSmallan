@@ -36,6 +36,15 @@ export function startBackgroundWatcher(){
                     pageHandler.handleDealerNotificationRender();
                 }
             }
+
+            else if(progressionState.checkStateKey("notes-minigame", "notesMinigameCompleted") && !progressionState.checkStateKey("market-gps", "gpsReached")){
+                currentStageCoords = gameData.mapCords[3];
+                startChecking = true;
+                func = () => {
+                    progressionState.isUnlocked("market-gps", "gpsReached");
+                    pageHandler.handlePaymentNotificationRender();
+                }
+            }
         
             const distance = calculateDistance(
                 latlong[0], latlong[1],
@@ -45,28 +54,6 @@ export function startBackgroundWatcher(){
 
             if(distance < 100 && startChecking){
                 func();
-
-/*                 if(progressionState.currentStageState === "gps"){
-                    switch(progressionState.currentStage){
-                        case "start":
-                            break;
-                        case "park":
-                            pageHandler.handleProgression();
-                            pageHandler.handleFindBagRender();
-                            break;
-                        case "triangle":
-                            pageHandler.handleProgression();
-                            pageHandler.handleDrugDealerSmsNotificationRender();
-                            break;
-                        case "market":
-                            pageHandler.handleProgression();
-                            pageHandler.handlePaymentNotificationRender();
-                            break;
-                        default:
-                            console.error("progression state does not exist");
-                            break;
-                    }
-                } */
             }
 
         },

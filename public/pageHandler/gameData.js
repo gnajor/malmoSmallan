@@ -1,54 +1,63 @@
 import { pageHandler } from "./pageHandler.js";
 
+
+export const appFuncs = {
+    Meddelanden: () => {
+        pageHandler.handleMessageContactPageRender();
+    },
+
+    Kartor: () => {
+        pageHandler.handleMapPageRender();
+    },
+
+    Anteckningar: () => {
+        pageHandler.handleNotesPageRender();
+    },
+
+    Telefon: () => {
+        pageHandler.handlePhonePageRender();
+    },
+    
+    DegBanken: () => {
+        pageHandler.handleBankPageRender();
+    },
+
+    Malmöbladet: () => {
+        pageHandler.handleNewsPageRender();
+    }
+}
+
 export const gameData = {
     apps: [
         {
             icon: "sms-app.jpg",
             name: "Meddelanden",
             locked: true, 
-            func: () => {
-                pageHandler.handleMessageContactPageRender();
-            }
         },
         {
             icon: "maps-app.jpg",
             name: "Kartor",
             locked: false, 
-            func: () => {
-                pageHandler.handleMapPageRender();
-            }
         },
         {
             icon: "notes-app.jpg",
             name: "Anteckningar",
             locked: true, 
-            func: () => {
-                pageHandler.handleNotesPageRender();
-            }
         },
         {
             icon: "phone-app.png",
             name: "Telefon",
             locked: true, 
-            func: () => {
-                pageHandler.handlePhonePageRender();
-            }
         },
         {
             icon: "bank-app.jpg",
             name: "DegBanken",
             locked: false, 
-            func: () => {
-                pageHandler.handleBankPageRender();
-            }
         },
         {
             icon: "news-app.jpg",
             name: "Malmöbladet",
             locked: true, 
-            func: () => {
-                pageHandler.handleNewsPageRender();
-            }
         }
     ],
 

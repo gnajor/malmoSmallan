@@ -1,4 +1,5 @@
 import {renderFooter} from "../../components/footer/footer.js"; 
+import { progressionState } from "../../index.js";
 import { pageHandler } from "../../pageHandler/pageHandler.js";
 
 export function renderSpecifikNotesPage(parent, notes, completed = false){
@@ -65,8 +66,7 @@ export function renderSpecifikNotesPage(parent, notes, completed = false){
         for(const minigame of minigames){
             minigame.onMiniGameComplete();
         }
-
-        /* pageHandler.handleProgression(); */
+        progressionState.isUnlocked("notes-minigame", "notesMinigameCompleted");
     }
 }
 

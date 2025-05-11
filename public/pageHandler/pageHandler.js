@@ -8,8 +8,8 @@ import { renderNewsPage } from "../pages/newsPage/newsPage.js";
 import { renderNotesPage } from "../pages/notesPage/notesPage.js";
 import { renderSpecifikNotesPage } from "../pages/notesPage/specifikNotesPage.js";
 import { renderPhonePage } from "../pages/phonePage/phonePage.js";
-import { progressionState } from "../index.js";
-import { gameData } from "./gameData.js";
+import { progressionState, state } from "../index.js";
+import { appFuncs, gameData } from "./gameData.js";
 import { renderNotification } from "../components/footer/notification.js";
 import { renderIphonePopUp } from "../components/footer/iphonePopUp.js";
 
@@ -23,6 +23,7 @@ export const pageState = {
     setAppUnlocked(appName){
         this.appsUnlocked.push(appName);
         this.changeAppData();
+        state.setStateStorage("gameData", gameData);
     },
 
     changeAppData(){
@@ -36,6 +37,7 @@ export const pageState = {
         for(const message of gameData.friendMessages){
             if(message.canSend){
                 message.canSend = false;
+                state.setStateStorage("gameData", gameData);
             }
 
             if(message.none){
@@ -44,18 +46,45 @@ export const pageState = {
         }
 
         gameData.friendMessages.push({none: true});
+        state.setStateStorage("gameData", gameData);
+    },
+
+    changeTransactionData(){
+        gameData.transactions.push({
+            icon: "money.svg",
+            name: "Swosh",
+            date: "2025-04-06",
+            sum: "+10000,00"
+        });
+
+        state.setStateStorage("gameData", gameData);
     },
 
     setCurrentPage(func){
         this.currentPage = func;
+        state.setStateStorage("currentPage", func.name);
     },
 
     setBeforePage(func){
         this.beforePage = func;
+        state.setStateStorage("beforePage", func.name);
     },
 
     setCurrentExceptionPage(func){
-        this.beforeExceptionPage = func;
+        this.currentExceptionPage = func;
+        state.setStateStorage("currentExceptionPage", func.name);
+    },
+
+    getAppsData(){
+        const apps = gameData.apps.filter(() => true);
+
+        for(const app of apps){
+            if(appFuncs[app.name]){
+                app.func = appFuncs[app.name];
+            }
+        }
+
+        return apps;
     }
 }
 
@@ -66,16 +95,16 @@ export const pageHandler = {
     },
     
     handleHomePageRender(){ //1
-        pageState.setBeforePage(pageState.currentPage);
         pageState.setCurrentPage(this.handleHomePageRender.bind(this));
 
         if(!progressionState.checkStateKey("start-popup", "shown")){
             progressionState.isUnlocked("start-popup", "shown");
             pageState.setBeforePage(this.handleHomePageRender);
-            renderHomePage(this.parent, gameData.apps, true);
+            renderHomePage(this.parent, pageState.getAppsData(), true);
         }
         else{
-            renderHomePage(this.parent, gameData.apps);
+            renderHomePage(this.parent, pageState.getAppsData());
+            pageState.setBeforePage(pageState.currentPage);
         }
     },
 
@@ -134,7 +163,13 @@ export const pageHandler = {
         pageState.setBeforePage(pageState.currentPage);
         pageState.setCurrentPage(this.handleBankPageRender.bind(this));
 
-        if(progressionState.checkStateKey("start-popup", "shown")){
+        if(progressionState.checkStateKey("receive-payment-notice", "notified")){
+            progressionState.isUnlocked("receive-payment-notice", "pressed");
+            pageState.changeTransactionData();
+            renderBankPage(this.parent, gameData.transactions);
+        }
+        
+        else if(progressionState.checkStateKey("start-popup", "shown")){
             renderBankPage(this.parent, gameData.transactions);
             setTimeout(() => {
                 renderNotification(
@@ -180,7 +215,7 @@ export const pageHandler = {
         pageState.setBeforePage(pageState.currentPage);
         pageState.setCurrentPage(this.handleMessageContactPageRender.bind(this));
 
-        if(progressionState.checkStateKey("receive-first-dealer-notice", "notified")){
+        if(progressionState.checkStateKey("receive-change-position-dealer-notice", "notified")){
             renderMessagesContactPage(
                 this.parent, 
                 [
@@ -230,7 +265,6 @@ export const pageHandler = {
     handlePhonePageRender(){
         pageState.setBeforePage(pageState.currentPage);
         pageState.setCurrentPage(this.handlePhonePageRender);
-        console.log(progressionState.steps)
 
         if(progressionState.checkStateKey("call", "listened") && progressionState.checkStateKey("call", "decryptedCall")){
             renderPhonePage(this.parent, gameData.voicemessages);
@@ -241,40 +275,31 @@ export const pageHandler = {
         pageState.setBeforePage(pageState.currentPage);
         pageState.setCurrentPage(this.handleNotesPageRender.bind(this));
 
-        if(progressionState.checkStateKey("notes-minigame", "notesAppUnlocked") && !progressionState.checkStateKey("notes-minigame", "notesMinigameCompleted")){
+        if(progressionState.checkStateKey("notes-minigame", "notesMinigameCompleted")){
             renderNotesPage(
                 this.parent,
-                gameData.notes
+                gameData.notes,
+                true
             );
         }
-
-/*         
-        if(progressionState.currentStageState === "notesAppUnlocked"){
+        
+        else if(progressionState.checkStateKey("notes-minigame", "notesAppUnlocked")){
             renderNotesPage(
                 this.parent,
-                gameData.notes
+                gameData.notes,
+                false
             );
         }
-
-        else if(progressionState.progression.triangle.state.notesMiniGameDone){
-            renderNotesPage(
-                this.parent,
-                gameData.notes
-            );
-        } */
-
-        renderNotesPage(
-            this.parent,
-            gameData.notes
-        );
     },
     
     handleFindBagRender(){
-        pageState.setBeforePage(pageState.currentPage);
-        pageState.setCurrentPage(this.handleFindBagRender.bind(this));        
+        pageState.setBeforePage(pageState.currentPage); //messages
+        pageState.setCurrentPage(this.handleFindBagRender.bind(this)); //findBag        
 
         this.parent.innerHTML = "";
         renderIphonePopUp(this.parent, "findBag");
+
+        //
     },
 
     handleDecryptCallRender(){
@@ -294,6 +319,7 @@ export const pageHandler = {
                 this.handleBankPageRender();
             }
         );
+        progressionState.isUnlocked("receive-payment-notice", "notified");
     },
 
     handleDealerNotificationRender(){
@@ -312,7 +338,7 @@ export const pageHandler = {
     handleBeforePageRender(){
         pageState.beforePage();
         pageState.setBeforePage(pageState.currentPage);
-        pageState.setCurrentPage(pageState.beforePage.bind(this)); 
+        pageState.setCurrentPage(pageState.beforePage); 
 
         if(progressionState.checkStateKey("tiger-find-minigame", "tigerPopup") && !progressionState.checkStateKey("article-notification", "popup")){
             setTimeout(() => {
@@ -336,14 +362,5 @@ export const pageHandler = {
             pageState.setAppUnlocked("Telefon");
             progressionState.isUnlocked("decryptCall", "phoneAppUnlocked");
         }
-
-            /*
-        else if(progressionState.currentStageState === "decryptPhoneCallPopUp"){
-            pageHandler.handleDecryptCallRender();  
-        }
-
-        else{
-            this.handleHomePageRender();
-        } */
     }
 }
