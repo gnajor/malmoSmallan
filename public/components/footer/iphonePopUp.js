@@ -58,7 +58,7 @@ function findBag(parent) {
     bg.id = "findBagBg";
 
     topHeaderText.innerHTML = "Leta efter väska";
-    topText.innerHTML = "(väska med pengar, veldigt viktigt)";
+    topText.innerHTML = "(väska med pengar, väldigt viktigt)";
     bottomHeaderText.innerHTML = "Börja leta";
 
     parent.appendChild(top);
@@ -70,7 +70,7 @@ function findBag(parent) {
 
     bottom.addEventListener("click", () => {
         getUserLocation();
-    }, {once: true});
+    }, { once: true });
 }
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -108,7 +108,7 @@ function updateDistance(position) {
     const userLat = position.coords.latitude;
     const userLon = position.coords.longitude;
 
-    const distance = calculateDistance(userLat, userLon, userLat, userLon,/* destination.latitude, destination.longitude */ );
+    const distance = calculateDistance(userLat, userLon, userLat, userLon,/* destination.latitude, destination.longitude */);
 
     //meter
     if (distance < 2) {
@@ -142,6 +142,8 @@ function updateDistance(position) {
                 const tiger = document.createElement("img");
                 const light = document.createElement("img");
                 const lightBg = document.createElement("div");
+                const tigerCon = document.createElement("div");
+                const tigerCost = document.createElement("p");
 
                 light.setAttribute("src", "./media/find-bag-icons/light4.png");
                 tiger.setAttribute("src", "./media/find-bag-icons/tiger2.png");
@@ -149,18 +151,28 @@ function updateDistance(position) {
                 light.id = "findBagLight";
                 tiger.id = "findBagTiger";
                 lightBg.id = "findBagLightBg";
+                tigerCon.id = "findBagtigerCon";
+                tigerCost.id = "findBagTigerCost";
 
                 const audio = new Audio("../../media/audio-files/tigerSound.mp3");
                 audio.play();
 
+                tigerCost.innerHTML = "Värde: 20 000kr"
+
                 parent.appendChild(light);
-                parent.appendChild(tiger);
                 parent.appendChild(lightBg);
+                parent.appendChild(tigerCon);
+                tigerCon.appendChild(tiger);
+                tigerCon.appendChild(tigerCost);
 
                 setTimeout(() => {
                     tiger.classList.add("showTiger");
                     lightBg.classList.add("showLightBg");
                 }, 100);
+
+                setTimeout(() => {
+                    tigerCost.classList.add("showTigerCost");
+                }, 400)
 
                 tiger.addEventListener("click", () => {
                     tiger.classList.add("hideFindBag");
@@ -179,7 +191,7 @@ function updateDistance(position) {
     }
 }
 
-function getUserLocation(){
+function getUserLocation() {
     if (navigator.geolocation) {
         watchPosition = navigator.geolocation.watchPosition(updateDistance, showError, {
             enableHighAccuracy: true
@@ -299,8 +311,8 @@ const handleMotion = (event) => {
 
     if (stepsRemaining === 0) {
         window.removeEventListener("devicemotion", handleMotion);
-       /*  showCompletionPopup();
-        pageHandler.handleProgression();      */
+        /*  showCompletionPopup();
+         pageHandler.handleProgression();      */
     }
 }
 
@@ -323,7 +335,7 @@ function showCompletionPopup() {
     topText.innerHTML = "Samtalet finns nu bland röstmeddelanden.";
     bottomButton.innerHTML = "Stäng";
 
-    bottom.addEventListener("click", () => {        
+    bottom.addEventListener("click", () => {
         progressionState.isUnlocked("decryptCall", "decryptedCall");
         pageHandler.handleBeforePageRender();
     });

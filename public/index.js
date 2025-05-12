@@ -1,6 +1,7 @@
 import { startBackgroundWatcher } from "./logic/locationWatcher.js";
 import { gameData } from "./pageHandler/gameData.js";
 import { pageHandler, pageState } from "./pageHandler/pageHandler.js";
+import { renderIphonePopUp } from "./components/footer/iphonePopUp.js";
 
 export const progressionState = {
     steps: [
@@ -31,7 +32,7 @@ export const progressionState = {
                 popup: false,
                 tigerPopup: false,
             }
-        }, 
+        },
         {
             id: "article-notification",
             state: {
@@ -67,14 +68,14 @@ export const progressionState = {
                 pressed: false,
             }
         },
-/*         {
-            id: "receive-second-dealer-notice",
-            state: {
-                notified: false,
-                pressed: false,
-            }
-        }, */
-        {   
+        /*         {
+                    id: "receive-second-dealer-notice",
+                    state: {
+                        notified: false,
+                        pressed: false,
+                    }
+                }, */
+        {
             id: "notes-minigame",
             state: {
                 notesAppUnlocked: false,
@@ -121,20 +122,20 @@ export const progressionState = {
             }
         }
     ],
-    
-    isUnlocked(step, key){
+
+    isUnlocked(step, key) {
         const currentStep = this.steps.find(s => s.id === step);
         currentStep.state[key] = true;
         state.setStateStorage("stepState", this.steps);
     },
 
-    checkStateKey(step, key){
+    checkStateKey(step, key) {
         const currentStep = this.steps.find(s => s.id === step);
 
-        if(currentStep.state[key]){
+        if (currentStep.state[key]) {
             return true
         }
-        else{
+        else {
             return false
         }
     }
@@ -144,32 +145,32 @@ export const state = {
     startApp() {
         startBackgroundWatcher();
 
-        if(!sessionStorage.getItem("stepState")){
+        if (!sessionStorage.getItem("stepState")) {
             pageHandler.handleHomePageRender();
         }
-        else{
+        else {
             window.onload = () => {
                 const beforePage = sessionStorage.getItem("beforePage");
                 const currentPage = sessionStorage.getItem("currentPage");
                 const currentExceptionPage = sessionStorage.getItem("currentExceptionPage");
                 const newGameData = sessionStorage.getItem("gameData");
                 const stepState = sessionStorage.getItem("stepState");
-                
-                if(currentExceptionPage)pageState.setCurrentExceptionPage(pageHandler[JSON.parse(currentExceptionPage)].bind(pageHandler));
-                if(beforePage)pageState.setCurrentPage(pageHandler[JSON.parse(beforePage)].bind(pageHandler));
-                if(newGameData)Object.assign(gameData, JSON.parse(newGameData));
-                if(stepState)progressionState.steps = JSON.parse(stepState);
-                
+
+                if (currentExceptionPage) pageState.setCurrentExceptionPage(pageHandler[JSON.parse(currentExceptionPage)].bind(pageHandler));
+                if (beforePage) pageState.setCurrentPage(pageHandler[JSON.parse(beforePage)].bind(pageHandler));
+                if (newGameData) Object.assign(gameData, JSON.parse(newGameData));
+                if (stepState) progressionState.steps = JSON.parse(stepState);
+
                 //beforePage => messages
                 //currentPage => findBag
 
                 //beforePage => 
 
-                if(progressionState.checkStateKey("call", "popup") && !progressionState.checkStateKey("call", "listened")){
+                if (progressionState.checkStateKey("call", "popup") && !progressionState.checkStateKey("call", "listened")) {
                     pageState.currentExceptionPage();
                 }
-                
-                else if(currentPage){
+
+                else if (currentPage) {
                     pageState.setBeforePage(pageHandler[JSON.parse(currentPage)].bind(pageHandler));
                     pageState.beforePage();
                 }
@@ -177,9 +178,9 @@ export const state = {
         }
     },
 
-    setStateStorage(key, value){
-        if(typeof value === "string"){
-            if(value.includes("bound")){
+    setStateStorage(key, value) {
+        if (typeof value === "string") {
+            if (value.includes("bound")) {
                 value = value.split(" ")[1];
             }
         }
@@ -188,13 +189,13 @@ export const state = {
     }
 }
 
-state.startApp();
+// state.startApp();
 
 /* pageHandler.handleNotesPageRender(); */
 
 
 
-// renderIphonePopUp(document.querySelector("#wrapper"), 'other', 'Fel', 'Felmeddelande', 'Stäng');
+renderIphonePopUp(document.querySelector("#wrapper"), 'findBag');
 // renderNotification(document.querySelector("#wrapper"), 'sms', 'Alex', 'Vad fan hände med dig igår?');
 /* pageHandler.handleNotesPageRender(); */
 /* pageHandler.handleHomePageRender(); */
