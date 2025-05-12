@@ -243,7 +243,7 @@ export const pageHandler = {
         pageState.setBeforePage(pageState.currentPage);
         pageState.setCurrentPage(this.handlePhonePageRender);
 
-        if(progressionState.checkStateKey("call", "listened") && progressionState.checkStateKey("call", "decryptedCall")){
+        if(progressionState.checkStateKey("call", "listened") && !progressionState.checkStateKey("call", "decryptedCall")){
             renderPhonePage(this.parent, gameData.voicemessages);
         }
     },
@@ -261,8 +261,6 @@ export const pageHandler = {
 
         this.parent.innerHTML = "";
         renderIphonePopUp(this.parent, "findBag");
-
-        //
     },
 
     handleDecryptCallRender(){
