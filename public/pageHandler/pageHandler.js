@@ -169,7 +169,7 @@ export const pageHandler = {
             renderBankPage(this.parent, gameData.transactions);
         }
         
-        else if(progressionState.checkStateKey("start-popup", "shown")){
+        else if(progressionState.checkStateKey("start-popup", "shown") && !progressionState.checkStateKey("receive-first-message-notice", "notified")){
             renderBankPage(this.parent, gameData.transactions);
             setTimeout(() => {
                 renderNotification(
@@ -183,6 +183,10 @@ export const pageHandler = {
                 pageState.setAppUnlocked("Meddelanden");
                 progressionState.isUnlocked("receive-first-message-notice", "messageAppUnlocked");
             }, this.timeouts.sms);
+        }
+
+        else{
+            renderBankPage(this.parent, gameData.transactions);
         }
     },
 
