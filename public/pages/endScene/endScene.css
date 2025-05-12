@@ -1,0 +1,112 @@
+#endSceneBg {
+    background-image: url('../../media/backgrounds/end-background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: -1;
+}
+
+#endSceneTextCon {
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 var(--side-spacing);
+}
+
+#secPartCon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.endSceneRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 0.5rem;
+}
+
+.left .endSceneSecPartTitle {
+    text-align: right;
+}
+
+.under .endSceneSecPartTitle {
+    padding-bottom: 0.5rem;
+}
+
+.left .endSceneSecPartNameCon {
+    text-align: start;
+}
+
+.endSceneSecPartNameCon {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.endSceneLink {
+    color: var(--bank-color);
+    text-decoration: underline;
+}
+
+.endSceneLicense {
+    font-size: 12px;
+    font-style: italic;
+}
+
+.endSceneCurrentNameCon {
+    padding: 0 calc(var(--side-spacing) * 2);
+    padding-bottom: 0.25rem;
+}
+
+
+@keyframes rollCredits {
+    0% {
+        transform: translateY(20%);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+#endSceneTextCon.endSceneAnimate {
+    animation: rollCredits 75s linear forwards;
+}
+
+#endSceneLastSceneCon {
+    opacity: 0;
+    transition: opacity 5s ease;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.endSceneLastWords {
+    color: #FFF;
+    text-align: center;
+    width: calc(100vw - var(--side-spacing));
+}
+
+.endSceneLogo {
+    width: 95%;
+}
+
+.endSceneShow {
+    opacity: 1 !important;
+}
