@@ -86,11 +86,6 @@ export function renderEndScene(parent, efterTexter) {
                     text.classList.add("endSceneSecPartName");
                     text.innerHTML = name.sName;
 
-                    const link = document.createElement("a");
-                    link.classList.add("endSceneSecPartName", "endSceneLink");
-                    link.setAttribute('src', name.link);
-                    link.innerHTML = `Länk`;
-
                     const license = document.createElement("p");
                     license.classList.add("endSceneSecPartName", "endSceneLicense");
                     license.innerHTML = name.license;
