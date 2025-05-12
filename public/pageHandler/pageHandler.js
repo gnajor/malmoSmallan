@@ -164,8 +164,11 @@ export const pageHandler = {
         pageState.setCurrentPage(this.handleBankPageRender.bind(this));
 
         if(progressionState.checkStateKey("receive-payment-notice", "notified")){
+            if(!progressionState.checkStateKey("receive-payment-notice", "pressed")){
+                pageState.changeTransactionData();
+            }
+
             progressionState.isUnlocked("receive-payment-notice", "pressed");
-            pageState.changeTransactionData();
             renderBankPage(this.parent, gameData.transactions);
         }
         
