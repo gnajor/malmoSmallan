@@ -1,7 +1,6 @@
 import { startBackgroundWatcher } from "./logic/locationWatcher.js";
 import { gameData } from "./pageHandler/gameData.js";
 import { pageHandler, pageState } from "./pageHandler/pageHandler.js";
-import { renderIphonePopUp } from "./components/footer/iphonePopUp.js";
 
 export const progressionState = {
     steps: [
@@ -189,13 +188,13 @@ export const state = {
     }
 }
 
-// state.startApp();
+state.startApp();
 
 /* pageHandler.handleNotesPageRender(); */
 
 
 
-renderIphonePopUp(document.querySelector("#wrapper"), 'findBag');
+// renderIphonePopUp(document.querySelector("#wrapper"), 'findBag');
 // renderNotification(document.querySelector("#wrapper"), 'sms', 'Alex', 'Vad fan hände med dig igår?');
 /* pageHandler.handleNotesPageRender(); */
 /* pageHandler.handleHomePageRender(); */
