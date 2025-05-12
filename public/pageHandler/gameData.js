@@ -191,8 +191,8 @@ export const gameData = {
         { sender: "Spelaren", text: "Tror du råkat förlita dig på fel person, har inte några pengar kvar", time: "Idag 02:35"},
         { sender: "Okänt nummer", text: "Jag ska ha mina 20 000kr imorgon kl 15. Annars blir det konsekvenser.", time: "Idag 03:41"},
         { sender: "Okänt nummer", text: "Triangeltorget 1, 211 43 Malmö. (länk till kartapp)", none: true},
+        { sender: "Okänt nummer", text: "Det är för mycket folk. Jag skriver var vi möts istället.", none: true},
         { sender: "Okänt nummer", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express.", none: true},
-        { sender: "Okänt nummer", text: "Ett sms från knarklangaren: Det är för mycket folk. Jag skriver var vi möts istället.", none: true}
     ],
 
     notesMinigame: [

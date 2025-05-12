@@ -1,4 +1,5 @@
 import { renderFooter } from "../../components/footer/footer.js";
+import { pageHandler } from "../../pageHandler/pageHandler.js";
 
 export function renderPhonePage(parent, voiceMessages){
     const srcWdIcons = "../../media/phone-icons/";
@@ -49,8 +50,7 @@ export function renderPhonePage(parent, voiceMessages){
     for(const voiceMessage of voiceMessages){
         new Voicemessage(
             parent.querySelector("#voicemessage-container"),
-            voiceMessage,
-            true
+            voiceMessage
         );
     }
 }
@@ -90,8 +90,9 @@ class Voicemessage{
             audioMessage.play();
         });
 
-
-       
+        audioMessage.addOnEndListener(() => {  
+            pageHandler.handleDealerNotificationRender();
+        });
 
         const boxLine = document.createElement("div");
         boxLine.className = "line";

@@ -67,13 +67,13 @@ export const progressionState = {
                 gpsReached: false
             }
         },
-        {
+        /* {
             id: "receive-change-position-dealer-notice",
             state: {
                 notified: false,
                 pressed: false,
             }
-        },
+        }, */
 /*         {
             id: "receive-second-dealer-notice",
             state: {

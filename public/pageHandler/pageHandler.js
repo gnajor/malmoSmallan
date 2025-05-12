@@ -134,6 +134,7 @@ export const pageHandler = {
                 pageState.getFilteredMessages(gameData.friendMessages),
                 gameData.friendMessages[1].sender
             );
+            pageState.changeMessageToNoSend();
         }
         else{
             renderMessagesPage(
@@ -150,7 +151,15 @@ export const pageHandler = {
 
         const filteredDealerMessages = pageState.getFilteredMessages(gameData.dealer, true);
 
-        if(progressionState.checkStateKey("receive-position-dealer-notice", "notified") && !progressionState.checkStateKey("receive-position-dealer-notice", "pressed")){
+        if(progressionState.checkStateKey("receive-payment-notice", "pressed")){
+            renderMessagesPage(
+                this.parent, 
+                pageState.getFilteredMessages(gameData.dealer),
+                gameData.dealer[0].sender
+            );
+        }
+
+        else if(progressionState.checkStateKey("receive-position-dealer-notice", "notified")){
             progressionState.isUnlocked("receive-position-dealer-notice", "pressed");
             pageState.changeMessageToPerm(gameData.dealer);
             
@@ -160,13 +169,20 @@ export const pageHandler = {
                 gameData.dealer[0].sender
             );
         }
+        else{
+            renderMessagesPage(
+                this.parent, 
+                pageState.getFilteredMessages(gameData.dealer, true),
+                gameData.dealer[0].sender
+            );
+        }
 
-        else if(progressionState.checkStateKey("receive-change-position-dealer-notice", "notified") && !progressionState.checkStateKey("receive-change-position-dealer-notice", "pressed")){ 
+     /*    else if(progressionState.checkStateKey("receive-change-position-dealer-notice", "notified") && !progressionState.checkStateKey("receive-change-position-dealer-notice", "pressed")){ 
             progressionState.isUnlocked("receive-change-position-dealer-notice", "pressed");
             pageState.setAppUnlocked("Anteckningar");
             progressionState.isUnlocked("notes-minigame", "notesAppUnlocked"); 
             renderMessagesPage(this.parent, filteredDealerMessages, gameData.dealer[0].sender);
-        } 
+        }  */
     },
 
     handleSpecificNotesPageRender(){
@@ -200,8 +216,7 @@ export const pageHandler = {
             progressionState.isUnlocked("receive-payment-notice", "pressed");
 
             setTimeout(() => {
-                pageState.changeDrugDealerMessageToPerm(); 
-                console.log(gameData.dealer)
+                pageState.changeMessageToPerm(gameData.dealer); 
                 renderNotification(
                     this.parent,
                     "sms",
@@ -241,21 +256,23 @@ export const pageHandler = {
         const filteredFriendMessages = pageState.getFilteredMessages(gameData.friendMessages);
         const filteredDealerMessages = pageState.getFilteredMessages(gameData.dealer);
 
-        if(progressionState.checkStateKey("receive-first-message-notice", "notified") && !progressionState.checkStateKey("receive-first-message-notice", "pressed")){
+        console.log(progressionState.steps)
+
+        if(progressionState.checkStateKey("receive-first-message-notice", "userSentMessage")){
             renderMessagesContactPage(
                 this.parent, 
                 [
-                    filteredFriendMessages[filteredFriendMessages.length - 2],
+                    filteredFriendMessages[filteredFriendMessages.length - 1],
                     filteredDealerMessages[filteredDealerMessages.length - 1]
                 ]
             );
         }
 
-        else{
+        else if(progressionState.checkStateKey("receive-first-message-notice", "notified")){
             renderMessagesContactPage(
                 this.parent, 
                 [
-                    filteredFriendMessages[filteredFriendMessages.length - 1],
+                    filteredFriendMessages[filteredFriendMessages.length - 3],
                     filteredDealerMessages[filteredDealerMessages.length - 1]
                 ]
             );
@@ -331,11 +348,24 @@ export const pageHandler = {
     },
 
     handleDealerNotificationRender(){
-        if(progressionState.checkStateKey("decryptCall", "phoneAppUnlocked")){
+
+        if(progressionState.checkStateKey("triangle-gps", "gpsReached")){
+            renderNotification(
+                this.parent,
+                "sms",
+                "Okänt nummer",
+                "",
+                () => {
+                    this.handleDealerMessagesPageRender();
+                }
+            )
+        }
+
+        else if(progressionState.checkStateKey("decryptCall", "phoneAppUnlocked")){
             renderNotification(
                 this.parent, 
                 "sms", 
-                "Knarklangare", 
+                "Okänt nummer", 
                 "Triangeltorget 1, 211 43 Malmö.", 
                 () => {
                     this.handleDealerMessagesPageRender();
@@ -371,7 +401,6 @@ export const pageHandler = {
         if(progressionState.checkStateKey("decryptCall", "decryptedCall") && !progressionState.checkStateKey("decryptCall", "phoneAppUnlocked")){
             pageState.setAppUnlocked("Telefon");
             progressionState.isUnlocked("decryptCall", "phoneAppUnlocked");
-            this.handleDealerNotificationRender();
         }
     }
 }
