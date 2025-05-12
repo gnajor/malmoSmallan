@@ -165,7 +165,11 @@ export const state = {
 
                 //beforePage => 
 
-                if(currentPage){
+                if(progressionState.checkStateKey("call", "popup") && !progressionState.checkStateKey("call", "listened")){
+                    pageState.currentExceptionPage();
+                }
+                
+                else if(currentPage){
                     pageState.setBeforePage(pageHandler[JSON.parse(currentPage)].bind(pageHandler));
                     pageState.beforePage();
                 }

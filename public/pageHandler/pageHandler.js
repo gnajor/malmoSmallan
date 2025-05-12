@@ -138,25 +138,25 @@ export const pageHandler = {
         renderMessagesPage(this.parent, gameData.dealer, gameData.dealer[0].sender);
     },
 
-    handleSpecificNotesPageRender(completed){
+    handleSpecificNotesPageRender(){
         pageState.setBeforePage(pageState.currentPage);
         pageState.setCurrentPage(this.handleSpecificNotesPageRender.bind(this));
-        renderSpecifikNotesPage(this.parent, gameData.notesMinigame, completed);
+
+        if(progressionState.checkStateKey("notes-minigame", "notesMinigameCompleted")){
+            renderSpecifikNotesPage(this.parent, gameData.notesMinigame, true);
+        }
+        else{
+            renderSpecifikNotesPage(this.parent, gameData.notesMinigame, false);
+        }   
     },
 
     handleCallPageRender(){
         pageState.setBeforePage(pageState.currentPage);
         pageState.setCurrentExceptionPage(this.handleCallPageRender.bind(this));
 
-        if(progressionState.checkStateKey("article-notification", "pressed")){
-            setTimeout(() => {
-                renderCallPage(this.parent, gameData.phoneCallers.nameLess);
-                progressionState.isUnlocked("call", "popup");
-            }, this.timeouts.sms);
-        }
-        else{
-            renderCallPage(this.parent, gameData.phoneCallers.nameLess);
-        }
+        renderCallPage(this.parent, gameData.phoneCallers.nameLess);
+        progressionState.isUnlocked("call", "popup");
+        
     },
 
     handleBankPageRender(){ //2
@@ -184,31 +184,6 @@ export const pageHandler = {
                 progressionState.isUnlocked("receive-first-message-notice", "messageAppUnlocked");
             }, this.timeouts.sms);
         }
-
-
-
-/*         if(progressionState.currentStage === "start" && progressionState.currentStageState === "messageNotification"){
-            renderBankPage(this.parent, gameData.transactions);
-        }
-
-        else if(progressionState.currentStage === "market"  && progressionState.currentStageState === "paymentNotifaction"){
-            renderBankPage(this.parent, gameData.transactions);
-            setTimeout(() => {
-                renderNotification(
-                    this.parent,
-                    "sms",
-                    "Knarklangare",
-                    "Jag ångrade mig, ge mig mina pengar nu!! Mitt nummer är Möllevångstorgets staty, bussen och Indian express. ",
-                    () => {
-                        pageHandler.handleFriendMessagesPageRender();
-                    }
-                );
-            }, 3000);
-        }
-        else{
-            renderBankPage(this.parent, gameData.transactions);
-        } */
-
     },
 
     handleMessageContactPageRender(){
@@ -247,7 +222,9 @@ export const pageHandler = {
         if(progressionState.checkStateKey("article-notification", "popup") && !progressionState.checkStateKey("call", "popup")){
             renderNewsPage(this.parent, gameData.news);
             progressionState.isUnlocked("article-notification", "pressed");
-            this.handleCallPageRender();
+            setTimeout(() => {
+                this.handleCallPageRender();
+            }, this.timeouts.sms);
         }
         else{
             renderNewsPage(this.parent, gameData.news);
@@ -275,21 +252,7 @@ export const pageHandler = {
         pageState.setBeforePage(pageState.currentPage);
         pageState.setCurrentPage(this.handleNotesPageRender.bind(this));
 
-        if(progressionState.checkStateKey("notes-minigame", "notesMinigameCompleted")){
-            renderNotesPage(
-                this.parent,
-                gameData.notes,
-                true
-            );
-        }
-        
-        else if(progressionState.checkStateKey("notes-minigame", "notesAppUnlocked")){
-            renderNotesPage(
-                this.parent,
-                gameData.notes,
-                false
-            );
-        }
+        renderNotesPage(this.parent, gameData.notes);
     },
     
     handleFindBagRender(){

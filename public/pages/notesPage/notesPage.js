@@ -1,7 +1,7 @@
 import { renderFooter } from "../../components/footer/footer.js";
 import { pageHandler } from "../../pageHandler/pageHandler.js";
 
-export function renderNotesPage(parent, notes, completed = false){
+export function renderNotesPage(parent, notes){
     parent.innerHTML = `<div id="notes-page">
                             <header>
                                 <h1>Anteckningar</h1>
@@ -39,18 +39,15 @@ export function renderNotesPage(parent, notes, completed = false){
     const yesterdayNotes = new Notes(
         parent.querySelector("#yesterday-notes .notes-container"),
         notes.yesterday,
-        completed
     );
     const lastSevenDaysNotes = new Notes(
         parent.querySelector("#last-seven-days-notes .notes-container"),
         notes.latest,
-        completed
     );
 
     const favoriteNotes = new Notes(
         parent.querySelector("#favorite-notes .notes-container"),
         notes.favorite,
-        completed
     );
 
     yesterdayNotes.renderNotes();
@@ -85,10 +82,9 @@ export function renderNotesPage(parent, notes, completed = false){
 }
 
 class Notes{
-    constructor(parent, notesData, completed){
+    constructor(parent, notesData){
         this.parent = parent;
         this.notesData = notesData;
-        this.completed = completed;
     }
 
     renderNotes(){
@@ -128,7 +124,7 @@ class Notes{
     }
 
     onTransEnd(event){
-        pageHandler.handleSpecificNotesPageRender(this.completed);
+        pageHandler.handleSpecificNotesPageRender();
     }
 
     remove(){
