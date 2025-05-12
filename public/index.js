@@ -55,6 +55,13 @@ export const progressionState = {
             }
         },
         {
+            id: "receive-position-dealer-notice",
+            state: {
+                notified: false,
+                pressed: false
+            }
+        },
+        {
             id: "triangle-gps",
             state: {
                 gpsReached: false
@@ -95,7 +102,7 @@ export const progressionState = {
             }
         },
         {
-            id: "receive-third-dealer-notice",
+            id: "receive-dealer-code-notice",
             state: {
                 notified: false,
                 pressed: false,
@@ -130,12 +137,13 @@ export const progressionState = {
 
     checkStateKey(step, key){
         const currentStep = this.steps.find(s => s.id === step);
+        console.log(step, key)
 
         if(currentStep.state[key]){
-            return true
+            return true;
         }
         else{
-            return false
+            return false;
         }
     }
 }

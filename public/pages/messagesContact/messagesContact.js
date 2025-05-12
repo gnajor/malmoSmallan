@@ -49,14 +49,11 @@ function renderMessagesContactsMain(parent, lastMessage) {
             leftCon.appendChild(imgCon);
             imgCon.appendChild(img);
             messanger.addEventListener("click", () => {
-                if(lastMessage[i].sender === "Knarklangare"){
+                if(lastMessage[i].sender === "Okänt nummer"){
                     pageHandler.handleDealerMessagesPageRender();
                 }
                 else if(lastMessage[i].sender === "Alex"){
                     pageHandler.handleFriendMessagesPageRender();
-                }
-                else{
-
                 }
             });
         } else {

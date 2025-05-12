@@ -30,9 +30,9 @@ export const appFuncs = {
 export const gameData = {
     apps: [
         {
-            icon: "sms-app.jpg",
-            name: "Meddelanden",
-            locked: true, 
+            icon: "bank-app.jpg",
+            name: "DegBanken",
+            locked: false, 
         },
         {
             icon: "maps-app.jpg",
@@ -40,8 +40,13 @@ export const gameData = {
             locked: false, 
         },
         {
-            icon: "notes-app.jpg",
-            name: "Anteckningar",
+            icon: "sms-app.jpg",
+            name: "Meddelanden",
+            locked: true, 
+        },
+        {
+            icon: "news-app.jpg",
+            name: "Malmöbladet",
             locked: true, 
         },
         {
@@ -50,13 +55,8 @@ export const gameData = {
             locked: true, 
         },
         {
-            icon: "bank-app.jpg",
-            name: "DegBanken",
-            locked: false, 
-        },
-        {
-            icon: "news-app.jpg",
-            name: "Malmöbladet",
+            icon: "notes-app.jpg",
+            name: "Anteckningar",
             locked: true, 
         }
     ],
@@ -171,6 +171,8 @@ export const gameData = {
         { sender: "Alex", text: "Vad fan hände med dig igår?", time: "Idag 9:35" },
         { sender: "Spelaren", text: "Minns bara att jag var med er, sen minns jag inget.", canSend: true },
         { sender: "Alex", text: "Sist jag såg dig sprang du mot Pildammstornet med en svart väska. Du skrek att du behövde gömma pengar eller nåt. Du hade gps framme medan du sprang. (Du kan kolla där.)" },
+        { sender: "Alex", text: "Minns du vad som hände sen?", none: true },
+        { sender: "Alex", text: "Har du kollat anteckningar typ??", none: true },
     ],
     friendMessagesNormal: [
         { sender: "Spelaren", text: "Vi kör svamppasta, hittade riktigt fina svampar på torget" },
@@ -182,10 +184,15 @@ export const gameData = {
         { sender: "Spelaren", text: "Så sjukt… vaknade precis upp på Möllan, tror jag hallucinerade.", canSend: true },
     ],
     dealer: [
-        { sender: "Knarklangare", text: "Du måste hålla pengarna till imorgon, polisen är efter mig.", time: "" },
-        { sender: "Knarklangare", text: "Jag tror att jag kommit undan. Möt mig på triangeln imorgon." },
-        { sender: "Knarklangare", text: "Det är för mycket folk. Jag skriver var vi möts istället."},
-        { sender: "Knarklangare", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express.", none: true}
+        { sender: "Okänt nummer", text: "Du behöver hålla pengarna tills imorgon, jag har problem med polisen. Behöver natten för att fixa lite grejer.", time: "Igår 23:07" },
+        { sender: "Spelaren", text: "Har ångrat mig, vill inte tvätta några pengar, vad är ditt nummer så kan jag swosha tillbaka", time: "Idag 00:37"},
+        { sender: "Spelaren", text: "Hallå??? Är för full för detta", time: "Idag 01:18"},
+        { sender: "Okänt nummer", text: "Du måste hålla pengarna till imorgon, polisen är efter mig.", time: "Idag 01:33" },
+        { sender: "Spelaren", text: "Tror du råkat förlita dig på fel person, har inte några pengar kvar", time: "Idag 02:35"},
+        { sender: "Okänt nummer", text: "Jag ska ha mina 20 000kr imorgon kl 15. Annars blir det konsekvenser.", time: "Idag 03:41"},
+        { sender: "Okänt nummer", text: "Triangeltorget 1, 211 43 Malmö. (länk till kartapp)", none: true},
+        { sender: "Okänt nummer", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express.", none: true},
+        { sender: "Okänt nummer", text: "Ett sms från knarklangaren: Det är för mycket folk. Jag skriver var vi möts istället.", none: true}
     ],
 
     notesMinigame: [

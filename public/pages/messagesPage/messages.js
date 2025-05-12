@@ -1,6 +1,6 @@
 import { renderFooter } from "../../components/footer/footer.js";
 import { progressionState } from "../../index.js";
-import { pageHandler } from "../../pageHandler/pageHandler.js";
+import { pageHandler, pageState } from "../../pageHandler/pageHandler.js";
 
 export function renderMessagesPage(parent, messages, sender) {
     parent.innerHTML = `<div id="messages-page">
@@ -62,6 +62,7 @@ function renderMessagesSender(parent, lastMessage) {
     sendButton.addEventListener("click", () => {
         if (text.textContent == "Minns bara att jag var med er, sen minns jag inget." || text.textContent == "Så sjukt… vaknade precis upp på Möllan, tror jag hallucinerade.") {
             progressionState.isUnlocked("receive-first-message-notice", "userSentMessage");
+            pageState.changeMessageToNoSend();
 
             renderMessage(parent, { text: textBox.querySelector("#messages-text").innerHTML, sender: "Spelaren" });
             text.innerHTML = "";
@@ -105,16 +106,16 @@ function renderMessage(parent, message) {
         parent.querySelector("#messages-container").appendChild(time);
     }
 
+    if (message.none) {
+        return;
+    }
+
     if (message.canSend == true) {
         const textBox = parent.querySelector("#messages-textbox");
         const textElement = parent.querySelector("#messages-text");
         textElement.innerHTML = "Tryck för att svara..";
         textElement.style.color = "#A9A8AD";
         textBox.addEventListener("click", typeMessage);
-        return;
-    }
-
-    if (message.none) {
         return;
     }
 

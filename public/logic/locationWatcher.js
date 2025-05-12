@@ -28,12 +28,12 @@ export function startBackgroundWatcher(){
                 }
             }
 
-            else if(progressionState.checkStateKey("decryptCall", "phoneAppUnlocked") && !progressionState.checkStateKey("triangle-gps", "gpsReached")){
+            else if(progressionState.checkStateKey("receive-position-dealer-notice", "pressed") && !progressionState.checkStateKey("triangle-gps", "gpsReached")){
                 currentStageCoords = gameData.mapCords[2];
                 startChecking = true;
                 func = () => {
                     progressionState.isUnlocked("triangle-gps", "gpsReached");
-                    pageHandler.handleDealerNotificationRender();
+                    /* pageHandler.handleDealerNotificationRender(); */
                 }
             }
 
