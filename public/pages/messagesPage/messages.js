@@ -107,6 +107,9 @@ function renderMessage(parent, message) {
 
     if (message.canSend == true) {
         const textBox = parent.querySelector("#messages-textbox");
+        const textElement = parent.querySelector("#messages-text");
+        textElement.innerHTML = "Tryck för att svara..";
+        textElement.style.color = "#A9A8AD";
         textBox.addEventListener("click", typeMessage);
         return;
     }
@@ -139,6 +142,7 @@ function typeMessage() {
     const textElement = document.querySelector("#messages-text");
     textElement.innerHTML = "";
     document.getElementById("messages-send-button").classList.remove("sendBtnInactive");
+    textElement.style.color = "black";
     typeText(message.text, textElement);
 
 
