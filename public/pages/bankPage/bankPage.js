@@ -1,11 +1,18 @@
 import { renderFooter } from "../../components/footer/footer.js";
 
-export function renderBankPage(parent, transactions){
+export function renderBankPage(parent, transactions) {
     parent.innerHTML = `<div id="bank-page">   
                             <header>
                                 <h3>DegBanken</h3>
                             </header>
                             <main>
+                            <div id="swosh-warning-box">
+                                <div id="swosh-warning-top">
+                                    <img src="../../media/transaction-icons/warning.svg" alt="Warning Symbol">
+                                    <p id="swosh-warning-text">Varning!</p>
+                                </div>
+                                <p id="swosh-warning-text">Du har överskridit månadens budget på 20 000 kr.</p>
+                            </div>
                                 <div id="account-swosh-box">
                                     <div id="account-swosh">
                                         <div id="account-box">
@@ -46,7 +53,7 @@ export function renderBankPage(parent, transactions){
 
     renderFooter(
         parent.querySelector("footer"),
-        () => {}
+        () => { }
     );
 
 
@@ -61,7 +68,7 @@ export function renderBankPage(parent, transactions){
             sum: "-" + sumInputValue + ",00"
         }
 
-        if(numberInputValue === "1930342" && sumInputValue === "10000"){
+        if (numberInputValue === "1930342" && sumInputValue === "10000") {
             renderTransaction(
                 parent.querySelector("#transactions"),
                 newTransaction
@@ -74,7 +81,7 @@ export function renderBankPage(parent, transactions){
         }
     });
 
-    for(const transaction of transactions){
+    for (const transaction of transactions) {
         renderTransaction(
             parent.querySelector("#transactions"),
             transaction
@@ -82,7 +89,7 @@ export function renderBankPage(parent, transactions){
     }
 }
 
-function renderTransaction(parent, transaction){
+function renderTransaction(parent, transaction) {
     const srcWd = "../../media/transaction-icons/";
     const transactionElement = document.createElement("div");
     transactionElement.className = "transaction";
