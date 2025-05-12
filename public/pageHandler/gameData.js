@@ -17,7 +17,7 @@ export const appFuncs = {
     Telefon: () => {
         pageHandler.handlePhonePageRender();
     },
-    
+
     DegBanken: () => {
         pageHandler.handleBankPageRender();
     },
@@ -32,32 +32,32 @@ export const gameData = {
         {
             icon: "sms-app.jpg",
             name: "Meddelanden",
-            locked: true, 
+            locked: true,
         },
         {
             icon: "maps-app.jpg",
             name: "Kartor",
-            locked: false, 
+            locked: false,
         },
         {
             icon: "notes-app.jpg",
             name: "Anteckningar",
-            locked: true, 
+            locked: true,
         },
         {
             icon: "phone-app.png",
             name: "Telefon",
-            locked: true, 
+            locked: true,
         },
         {
             icon: "bank-app.jpg",
             name: "DegBanken",
-            locked: false, 
+            locked: false,
         },
         {
             icon: "news-app.jpg",
             name: "Malmöbladet",
-            locked: true, 
+            locked: true,
         }
     ],
 
@@ -184,8 +184,8 @@ export const gameData = {
     dealer: [
         { sender: "Knarklangare", text: "Du måste hålla pengarna till imorgon, polisen är efter mig.", time: "" },
         { sender: "Knarklangare", text: "Jag tror att jag kommit undan. Möt mig på triangeln imorgon." },
-        { sender: "Knarklangare", text: "Det är för mycket folk. Jag skriver var vi möts istället."},
-        { sender: "Knarklangare", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express.", none: true}
+        { sender: "Knarklangare", text: "Det är för mycket folk. Jag skriver var vi möts istället." },
+        { sender: "Knarklangare", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express.", none: true }
     ],
 
     notesMinigame: [
@@ -201,7 +201,7 @@ export const gameData = {
 
     phoneCallers: {
         nameLess: "Okänt Nummer"
-    }, 
+    },
 
     notes: {
         favorite: [
@@ -266,9 +266,95 @@ export const gameData = {
     ],
 
     mapCords: [
-        [55.591563, 13.007938], 
+        [55.591563, 13.007938],
         [55.590122, 12.998134],
         [55.594437, 13.000438],
         [55.590688, 13.008563],
-    ]
+
+        efterTexter: [
+            { title: 'Spelproducenter', names: ['Grupp 1'], position: 'left' },
+            { title: 'Speldesigners', names: ['Ella Ahlstedt'], position: 'left' },
+            { title: 'Programmerare', names: ['Leo Mühl', 'Ella Ahlstedt'], position: 'left' },
+            { title: 'Grafiska designers och animatörer', names: ['Petter Hedberg', 'Julia Blomqvist', 'Junia Axelsson Sandberg', 'Ella Ahlstedt', 'Leo Mühl'], position: 'under' },
+            { title: 'Ljuddesigner', names: ['Julia Blomqvist'], position: 'left' },
+            { title: 'Manusförfattare och berättelse utvecklare', names: ['Petter Hedberg', 'Julia Blomqvist', 'Junia Axelsson Sandberg', 'Ella Ahlstedt', 'Leo Mühl'], position: 'under' },
+            { title: 'Crossmedia-samarbeten', names: ['Phillips, T. (Director). (2009). The hangover [Film]. Warner Bros. Pictures.'], position: 'under' },
+            { title: 'Testare och QA (Quality Assurance)', names: ['Teamet som utförde tester av spelet och crossmedia-komponenterna'], position: 'under' },
+            { title: 'Marknadsföring och PR', names: ['Petter Hedberg', 'Julia Blomqvist', 'Junia Axelsson Sandberg'], position: 'under' },
+            {
+                title: 'Partners och licensgivare', names: [
+                    'Figma', 'Github', 'Visual Studio Code', 'Deno Deploy', 'Adobe Creative Cloud',
+                    'Garageband', 'Canva', 'Suno', 'Elevenlabs.com', 'Freesound.org',
+                    'Trello.com', 'Slack.com', 'Miro.com', 'Pexels.com (Foto i park av Mehmet Yasin Kabakli)'
+                ], position: 'under'
+            },
+            {
+                title: 'Ljudeffekter', names: [
+                    {
+                        sName: "Dirty Noise Groove 1.wav by DiscordantScraps",
+                        link: "https://freesound.org/s/502536/",
+                        license: "Attribution 4.0"
+                    },
+                    {
+                        sName: "getting hung up on three beeps.wav by lyd4tuna",
+                        link: "https://freesound.org/s/453267/",
+                        license: "Creative Commons 0"
+                    },
+                    {
+                        sName: "Brus_NovationNova.wav by andreas",
+                        link: "https://freesound.org/s/28275/",
+                        license: "Attribution 4.0"
+                    },
+                    {
+                        sName: "Busy Street Car Truck Peoples Mastered by szegvari",
+                        link: "https://freesound.org/s/518631/",
+                        license: "Creative Commons 0"
+                    },
+                    {
+                        sName: "Bad Radio Noise (processed) by unfa",
+                        link: "https://freesound.org/s/219822/",
+                        license: "Creative Commons 0"
+                    },
+                    {
+                        sName: "Error (Disaparaging Chimes) by SilverIllusionist",
+                        link: "https://freesound.org/s/664038/",
+                        license: "Attribution 4.0"
+                    },
+                    {
+                        sName: "BANGIN' TECHNO BEAT LOOP 130 BPM.wav by Cyclez",
+                        link: "https://freesound.org/s/504993/",
+                        license: "Attribution 4.0"
+                    },
+                    {
+                        sName: "Police Siren by TitanKaempfer",
+                        link: "https://freesound.org/s/746302/",
+                        license: "Creative Commons 0"
+                    },
+                    {
+                        sName: "police2.wav by guitarguy1985",
+                        link: "https://freesound.org/s/70938/",
+                        license: "Creative Commons 0"
+                    },
+                    {
+                        sName: "MISC Police Siren Various Stationary 001.wav by conleec",
+                        link: "https://freesound.org/s/159754/",
+                        license: "Creative Commons 0"
+                    },
+                    {
+                        sName: "Car Driving By at Night by qubodup",
+                        link: "https://freesound.org/s/219557/",
+                        license: "Attribution 4.0"
+                    },
+                    {
+                        sName: "Jingle_Win_Synth_00.wav by LittleRobotSoundFactory",
+                        link: "https://freesound.org/s/274180/",
+                        license: "Attribution 4.0"
+                    }
+                ], position: 'under'
+            },
+            { title: 'Röster och skådespelare', names: ['AI-genererad röst från Eleven Labs'], position: 'under' },
+            { title: 'Finansiärer och stöd', names: ['Malmö Universitet (Materiellt stöd)', 'Johannes Karlsson (Mentalt stöd)'], position: 'under' },
+            { title: 'Inspirationskällor och tack', names: ['Tack till Baksmällan-filmerna som inspirerat oss till denna idé. Tack till Möllantigern, utan den hade inte spelet varit där det är idag.'], position: 'under' },
+            { title: 'Community och spelare', names: ['Tack till våra klasskompisar som bidragit med feedback eller varit en del av spelets utvecklingsresa.'], position: 'under' }
+        ]
 }
