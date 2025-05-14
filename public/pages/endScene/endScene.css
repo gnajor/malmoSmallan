@@ -1,5 +1,6 @@
 #endSceneBg {
-    background-image: url('../../media/backgrounds/end-background.png');
+    background-image: url('../../media/backgrounds/end-credits-background.jpg');
+    filter: brightness(45%);
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
