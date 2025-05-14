@@ -36,10 +36,12 @@ export function renderNotesPage(parent, notes){
 
     renderFooter(parent.querySelector("footer"));
 
-    const yesterdayNotes = new Notes(
-        parent.querySelector("#yesterday-notes .notes-container"),
-        notes.yesterday,
-    );
+    if(notes.yesterday){
+        const yesterdayNotes = new Notes(
+            parent.querySelector("#yesterday-notes .notes-container"),
+            notes.yesterday,
+        );
+    }
     const lastSevenDaysNotes = new Notes(
         parent.querySelector("#last-seven-days-notes .notes-container"),
         notes.latest,

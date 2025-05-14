@@ -169,7 +169,7 @@ export const gameData = {
         { sender: "Spelaren", text: "Måste fixa en sak" },
         { sender: "Spelaren", text: "Kan du swosha mig?" },
         { sender: "Alex", text: "Vad fan hände med dig igår?", time: "Idag 9:35" },
-        { sender: "Spelaren", text: "Minns bara att jag var med er, sen minns jag inget.", canSend: true },
+        { sender: "Spelaren", text: "Minns bara att jag var med dig, sen minns jag inget.", canSend: true },
         { sender: "Alex", text: "Sist jag såg dig sprang du mot Pildammstornet med en svart väska. Du skrek att du behövde gömma pengar eller nåt. Du hade gps framme medan du sprang. (Du kan kolla där.)" },
         { sender: "Alex", text: "Minns du vad som hände sen?", none: true },
         { sender: "Alex", text: "Har du kollat anteckningar typ??", none: true },

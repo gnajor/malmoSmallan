@@ -109,10 +109,9 @@ export const progressionState = {
             }
         },
         {
-            id: "bank-app-ending",
+            id: "police-ending",
             state: {
-                notified: false,
-                pressed: false,
+                done: false
             }
         },
         {
@@ -137,8 +136,6 @@ export const progressionState = {
 
     checkStateKey(step, key){
         const currentStep = this.steps.find(s => s.id === step);
-        console.log(step, key)
-
         if(currentStep.state[key]){
             return true;
         }

@@ -1,4 +1,6 @@
 import { renderFooter } from "../../components/footer/footer.js";
+import { progressionState } from "../../index.js";
+import { pageHandler } from "../../pageHandler/pageHandler.js";
 
 export function renderBankPage(parent, transactions){
     parent.innerHTML = `<div id="bank-page">   
@@ -51,8 +53,10 @@ export function renderBankPage(parent, transactions){
 
 
     parent.querySelector("main button").addEventListener("click", () => {
-        const sumInputValue = parent.querySelector("#sum-input input").value;
-        const numberInputValue = parent.querySelector("#number-input input").value;
+        const sumInput = parent.querySelector("#sum-input input");
+        const numberInput = parent.querySelector("#number-input input");
+        const sumInputValue = sumInput.value;
+        const numberInputValue = numberInput.value;
 
         const newTransaction = {
             icon: "money.svg",
@@ -61,15 +65,37 @@ export function renderBankPage(parent, transactions){
             sum: "-" + sumInputValue + ",00"
         }
 
-        if(numberInputValue === "1930342" && sumInputValue === "10000"){
+        if(numberInputValue === "1930342" && sumInputValue === "20000"){
+            const bankPage = document.querySelector("#bank-page");
+            progressionState.isUnlocked("police-ending", "done");
+
             renderTransaction(
                 parent.querySelector("#transactions"),
                 newTransaction
             );
 
             setTimeout(() => {
-                const bankPage = document.querySelector("#bank-page");
                 bankPage.classList.add("ending");
+            }, 1000);
+
+            bankPage.addEventListener("transitionend", () => {
+                pageHandler.handlePoliceLightsRender();
+            }, {once: true});
+        } 
+
+        if(numberInputValue !== "1930342"){
+            numberInput.classList.add("shake");
+
+            numberInput.addEventListener("animationend", () => {
+                numberInput.classList.remove("shake");
+            });
+        }
+
+        if(sumInputValue !== "20000"){
+            sumInput.classList.add("shake");
+
+            sumInput.addEventListener("animationend", () => {
+                sumInput.classList.remove("shake");
             });
         }
     });

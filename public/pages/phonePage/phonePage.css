@@ -54,7 +54,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
 }
 
 #phone-page #voicemessage-container .voicemessage .left{
@@ -66,6 +65,7 @@
 #phone-page #voicemessage-container .voicemessage .right .time{
     font-size: 0.8rem;
     color: var(--note-text-color);
+    width: 2.5rem;
 }
 
 #phone-page #voicemessage-container .voicemessage .play{

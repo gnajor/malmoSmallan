@@ -20,6 +20,7 @@ export function renderMessagesPage(parent, messages, sender) {
 
     for (let i = 0; i < messages.length - 1; i++) {
         const message = messages[i];
+
         renderMessage(
             parent.querySelector("#messages-main"),
             message
@@ -60,11 +61,18 @@ function renderMessagesSender(parent, lastMessage) {
 
 
     sendButton.addEventListener("click", () => {
-        if (text.textContent == "Minns bara att jag var med er, sen minns jag inget." || text.textContent == "Så sjukt… vaknade precis upp på Möllan, tror jag hallucinerade.") {
+        if (text.textContent == "Minns bara att jag var med dig, sen minns jag inget." || text.textContent == "Så sjukt… vaknade precis upp på Möllan, tror jag hallucinerade.") {
             progressionState.isUnlocked("receive-first-message-notice", "userSentMessage");
             pageState.changeMessageToNoSend();
 
+
+
             renderMessage(parent, { text: textBox.querySelector("#messages-text").innerHTML, sender: "Spelaren" });
+            if(text.textContent == "Så sjukt… vaknade precis upp på Möllan, tror jag hallucinerade."){
+                text.innerHTML = "";
+                return;
+            }
+            
             text.innerHTML = "";
 
             const typingBubble = document.createElement("div");
@@ -115,7 +123,9 @@ function renderMessage(parent, message) {
         const textElement = parent.querySelector("#messages-text");
         textElement.innerHTML = "Tryck för att svara..";
         textElement.style.color = "#A9A8AD";
-        textBox.addEventListener("click", typeMessage);
+        textBox.addEventListener("click", () => {
+            typeMessage(message)
+        }, {once: true});
         return;
     }
 
@@ -137,9 +147,7 @@ function renderMessage(parent, message) {
     messageElement.innerHTML = `<p class="message-text">${message.text}</p>`
 }
 
-function typeMessage() {
-    const message = { sender: "Spelaren", text: "Minns bara att jag var med er, sen minns jag inget.", canSend: true };
-
+function typeMessage(message) {
     const textElement = document.querySelector("#messages-text");
     textElement.innerHTML = "";
     document.getElementById("messages-send-button").classList.remove("sendBtnInactive");
