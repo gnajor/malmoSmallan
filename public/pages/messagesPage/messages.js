@@ -61,6 +61,7 @@ function renderMessagesSender(parent, lastMessage) {
 
 
     sendButton.addEventListener("click", () => {
+        const audioEndCredits = new Audio("../../media/audio-files/endCreditsSong.mp3");
         if (text.textContent == "Minns bara att jag var med dig, sen minns jag inget." || text.textContent == "Så sjukt… vaknade precis upp på Möllan, tror jag hallucinerade.") {
             progressionState.isUnlocked("receive-first-message-notice", "userSentMessage");
             pageState.changeFriendMessageToNoSend();
@@ -71,6 +72,7 @@ function renderMessagesSender(parent, lastMessage) {
                 progressionState.isUnlocked("ending", "userSentMessage");
                 pageState.changeNormalMessageToNoSend();
                 setTimeout(() => {
+                    audioEndCredits.play();
                     pageHandler.handleEndCredits();
                 }, 10000);
                 return;

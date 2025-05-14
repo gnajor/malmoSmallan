@@ -1,7 +1,4 @@
 export function renderEndScene(parent, efterTexter) {
-    const audio = new Audio("../../media/audio-files/endCreditsSong.mp3");
-    audio.play();
-
     const bg = document.createElement("div");
     bg.id = "endSceneBg";
 
