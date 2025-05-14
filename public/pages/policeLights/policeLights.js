@@ -12,5 +12,6 @@ export function renderPoliceLights(parent) {
 
     setTimeout(() => {
         pageHandler.handleHomePageRender();
+        audio.pause();
     }, 8000);
 }
