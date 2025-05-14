@@ -55,6 +55,7 @@ export function renderPhonePage(parent, voiceMessages) {
     }
 }
 
+let intervalId;
 class Voicemessage {
     constructor(parent, voicemessageData) {
         this.parent = parent;
@@ -91,7 +92,6 @@ class Voicemessage {
         const playText = playDiv.querySelector("span");
 
         let isPlaying = false;
-        let intervalId;
 
         this.element.addEventListener("click", () => {
             if (!isPlaying) {
@@ -114,6 +114,14 @@ class Voicemessage {
         });
 
         audioMessage.addOnEndListener(() => {
+            const playDiv = document.querySelector(".play");
+            const playImg = playDiv.querySelector("img");
+            const playText = playDiv.querySelector("span");
+
+            playImg.src = `../../media/phone-icons/play.svg`;
+            playText.textContent = "Spela upp";
+            isPlaying = false;
+            clearInterval(intervalId);
             pageHandler.handleDealerNotificationRender();
         });
 
