@@ -142,6 +142,117 @@ export const gameData = {
         },
     ],
 
+    normalTransactions: [
+        {
+            icon: "shopping.svg",
+            name: "Torghandeln",
+            date: "2025-04-06",
+            sum: "-39,00"
+        },
+        {
+            icon: "shopping.svg",
+            name: "ICA Supermarket Värnhem",
+            date: "2025-04-05",
+            sum: "-537,00"
+        },
+        {
+            icon: "shopping.svg",
+            name: "Pressbyrån Malmö C",
+            date: "2025-04-05",
+            sum: "-76,00"
+        },
+        {
+            icon: "transport.svg",
+            name: "Skånetrafiken",
+            date: "2025-04-04",
+            sum: "-55,00"
+        },
+        {
+            icon: "tv.svg",
+            name: "Netflix",
+            date: "2025-04-04",
+            sum: "-99,00"
+        },
+        {
+            icon: "home.svg",
+            name: "EON",
+            date: "2025-04-03",
+            sum: "-253,00"
+        },
+        {
+            icon: "wine.svg",
+            name: "Systembolaget",
+            date: "2025-04-03",
+            sum: "-326,00"
+        },
+        {
+            icon: "home.svg",
+            name: "MKB Fastighets AB",
+            date: "2025-04-02",
+            sum: "-5823,00"
+        },
+        {
+            icon: "utensils.svg",
+            name: "Niagara Café",
+            date: "2025-04-02",
+            sum: "-62,00"
+        },
+        {
+            icon: "money.svg",
+            name: "CSN",
+            date: "2025-04-01",
+            sum: "+13500,00"
+        },
+        {
+            icon: "utensils.svg",
+            name: "7-Eleven",
+            date: "2025-03-31",
+            sum: "-51,00"
+        },
+        {
+            icon: "utensils.svg",
+            name: "Fridhems Falafel",
+            date: "2025-03-31",
+            sum: "-65,00"
+        },
+        {
+            icon: "shopping.svg",
+            name: "Coop",
+            date: "2025-03-30",
+            sum: "-289,00"
+        },
+        {
+            icon: "utensils.svg",
+            name: "Max Burgers",
+            date: "2025-03-29",
+            sum: "-149,00"
+        },
+        {
+            icon: "shopping.svg",
+            name: "Akademibokhandeln",
+            date: "2025-03-28",
+            sum: "-129,00"
+        },
+        {
+            icon: "shopping.svg",
+            name: "IKEA",
+            date: "2025-03-27",
+            sum: "-845,00"
+        },
+        {
+            icon: "utensils.svg",
+            name: "Wolt",
+            date: "2025-03-26",
+            sum: "-143,00"
+        },
+        {
+            icon: "utensils.svg",
+            name: "Subway",
+            date: "2025-03-25",
+            sum: "-64,00"
+        }
+    ],
+
     friendMessages: [
         { sender: "Spelaren", text: "Vi kör svamppasta, hittade riktigt fina svampar på torget", normal: true },
         { sender: "Alex", text: "Det blir dunder", normal: true, time: "Igår 13:37" },
