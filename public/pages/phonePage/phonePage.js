@@ -47,6 +47,11 @@ export function renderPhonePage(parent, voiceMessages) {
     voicemailAnchor.addEventListener("click", () => "");
 
     if (voiceMessages.length === 0) {
+        // voicemessage-container
+        const noMessagesText = document.createElement("p");
+        noMessagesText.id = "noMessagesText";
+        noMessagesText.textContent = "Inga Röstmeddelanden";
+        document.querySelector("#voicemessage-container").appendChild(noMessagesText)
         return;
     }
 
