@@ -1,7 +1,7 @@
 import { renderNotification } from "../components/footer/notification.js";
 import { progressionState } from "../index.js";
 import { gameData } from "../pageHandler/gameData.js";
-import { pageHandler } from "../pageHandler/pageHandler.js";
+import { pageHandler, pageState } from "../pageHandler/pageHandler.js";
 
 let backgroundWatchId = null;
 const locationListeners = new Set();
@@ -28,12 +28,16 @@ export function startBackgroundWatcher(){
                 }
             }
 
-            else if(progressionState.checkStateKey("decryptCall", "phoneAppUnlocked") && !progressionState.checkStateKey("triangle-gps", "gpsReached")){
+            else if(progressionState.checkStateKey("receive-position-dealer-notice", "pressed") && !progressionState.checkStateKey("triangle-gps", "gpsReached")){
                 currentStageCoords = gameData.mapCords[2];
                 startChecking = true;
                 func = () => {
                     progressionState.isUnlocked("triangle-gps", "gpsReached");
-                    pageHandler.handleDealerNotificationRender();
+
+                    //shouldn't be here
+                    pageState.setAppUnlocked("Anteckningar");
+                    progressionState.isUnlocked("notes-minigame", "notesAppUnlocked");
+                    /* pageHandler.handleDealerNotificationRender(); */
                 }
             }
 

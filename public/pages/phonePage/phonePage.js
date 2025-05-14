@@ -1,4 +1,5 @@
 import { renderFooter } from "../../components/footer/footer.js";
+import { pageHandler } from "../../pageHandler/pageHandler.js";
 
 export function renderPhonePage(parent, voiceMessages){
     const srcWdIcons = "../../media/phone-icons/";
@@ -49,8 +50,7 @@ export function renderPhonePage(parent, voiceMessages){
     for(const voiceMessage of voiceMessages){
         new Voicemessage(
             parent.querySelector("#voicemessage-container"),
-            voiceMessage,
-            true
+            voiceMessage
         );
     }
 }
@@ -80,7 +80,7 @@ class Voicemessage{
                                     </div>
                                     <div class="right">
                                         <span class="date">${this.voicemessageData.date}</span>
-                                        <span class="time"></span>     
+                                        <span class="time">00:12</span>     
                                     </div>`;
 
         const audioMessage = new Audio(this.element, "../../media/audio-files/decryptedCall.mp3", "encryptedMessage");
@@ -88,10 +88,25 @@ class Voicemessage{
 
         this.element.addEventListener("click", () => {
             audioMessage.play();
+
+            let counter = 1;
+            timeElement.textContent = "00:00";
+
+            const intervalId = setInterval(() => {
+                timeElement.textContent = audioMessage.makeIntoMinutes(counter);
+                counter++
+
+                const currentTime = audioMessage.getCurrentTime();
+
+                if(currentTime === audioMessage.getDuration()){
+                    clearInterval(intervalId);
+                }
+            }, 1000)
         });
 
-
-       
+        audioMessage.addOnEndListener(() => {  
+            pageHandler.handleDealerNotificationRender();
+        });
 
         const boxLine = document.createElement("div");
         boxLine.className = "line";
@@ -131,10 +146,12 @@ class Audio{
         this.audioElement.play();
     }
 
-    getDuration(){
-        console.log(this.audioElement.duration)
+    getCurrentTime(){
+        return this.audioElement.currentTime;
+    }
 
-       /*  return this.makeIntoMinutes(Number(this.audioElement.duration)); */
+    getDuration(){
+       return this.audioElement.duration; 
     }
 
     makeIntoMinutes(inputSeconds){
@@ -142,17 +159,18 @@ class Audio{
         const num = (inputSeconds / 60).toString();
         let minutes = num.substring(0, 1);
 
-        if(num > 9){
+        if(num >= 9){
             minutes = num.substring(0, 2);
         }
         else{
             minutes = "0" + minutes;
         }
 
-        if(seconds < 9){
+        if(seconds <= 9){
             seconds = "0" + seconds; 
         }
 
         return `${minutes}:${seconds}`;
     }
 }
+

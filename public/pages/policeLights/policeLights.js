@@ -1,3 +1,5 @@
+import { pageHandler } from "../../pageHandler/pageHandler.js";
+
 export function renderPoliceLights(parent) {
     parent.innerHTML = `
         <video autoplay loop class="videoElement">
@@ -7,4 +9,8 @@ export function renderPoliceLights(parent) {
     const audio = new Audio("../../media/audio-files/policeSound.mp3");
     audio.play();
     audio.loop = true;
+
+    setTimeout(() => {
+        pageHandler.handleHomePageRender();
+    }, 8000);
 }

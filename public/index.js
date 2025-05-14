@@ -55,12 +55,19 @@ export const progressionState = {
             }
         },
         {
+            id: "receive-position-dealer-notice",
+            state: {
+                notified: false,
+                pressed: false
+            }
+        },
+        {
             id: "triangle-gps",
             state: {
                 gpsReached: false
             }
         },
-        {
+        /* {
             id: "receive-change-position-dealer-notice",
             state: {
                 notified: false,
@@ -95,17 +102,16 @@ export const progressionState = {
             }
         },
         {
-            id: "receive-third-dealer-notice",
+            id: "receive-dealer-code-notice",
             state: {
                 notified: false,
                 pressed: false,
             }
         },
         {
-            id: "bank-app-ending",
+            id: "police-ending",
             state: {
-                notified: false,
-                pressed: false,
+                done: false
             }
         },
         {
@@ -130,12 +136,11 @@ export const progressionState = {
 
     checkStateKey(step, key) {
         const currentStep = this.steps.find(s => s.id === step);
-
-        if (currentStep.state[key]) {
-            return true
+        if(currentStep.state[key]){
+            return true;
         }
-        else {
-            return false
+        else{
+            return false;
         }
     }
 }
@@ -167,8 +172,8 @@ export const state = {
 
                 if (progressionState.checkStateKey("call", "popup") && !progressionState.checkStateKey("call", "listened")) {
                     pageState.currentExceptionPage();
-                }
-
+                } 
+                
                 else if (currentPage) {
                     pageState.setBeforePage(pageHandler[JSON.parse(currentPage)].bind(pageHandler));
                     pageState.beforePage();
