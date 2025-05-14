@@ -90,7 +90,7 @@ export const gameData = {
             icon: "money.svg",
             name: "Bankomat",
             date: "2025-04-06",
-            sum: "+10000,00"
+            sum: "+20000,00"
         },
         {
             icon: "utensils.svg",
