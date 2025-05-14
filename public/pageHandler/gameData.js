@@ -162,7 +162,7 @@ export const gameData = {
             sum: "-76,00"
         },
         {
-            icon: "transport.svg",
+            icon: "truck.svg",
             name: "Skånetrafiken",
             date: "2025-04-04",
             sum: "-55,00"
@@ -298,11 +298,11 @@ export const gameData = {
         { sender: "Spelaren", text: "Har ångrat mig, vill inte tvätta några pengar, vad är ditt nummer så kan jag swosha tillbaka", time: "Idag 00:37" },
         { sender: "Spelaren", text: "Hallå??? Är för full för detta", time: "Idag 01:18" },
         { sender: "Okänt nummer", text: "Du måste hålla pengarna till imorgon, polisen är efter mig.", time: "Idag 01:33" },
-        { sender: "Spelaren", text: "Tror du råkat förlita dig på fel person, har inte några pengar kvar", time: "Idag 02:35"},
-        { sender: "Okänt nummer", text: "Jag ska ha mina 20 000kr imorgon kl 15. Annars blir det konsekvenser.", time: "Idag 03:41"},
-        { sender: "Okänt nummer", text: "Triangeltorget 1, 211 43 Malmö.", none: true},
-        { sender: "Okänt nummer", text: "Det är för mycket folk. Måste dra. Jag skickar mitt nummer sen. Om du inte har fixat fram mina pengar då så kommer det bli stora konsekvenser", none: true},
-        { sender: "Okänt nummer", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express.", none: true},
+        { sender: "Spelaren", text: "Tror du råkat förlita dig på fel person, har inte några pengar kvar", time: "Idag 02:35" },
+        { sender: "Okänt nummer", text: "Jag ska ha mina 20 000kr imorgon kl 15. Annars blir det konsekvenser.", time: "Idag 03:41" },
+        { sender: "Okänt nummer", text: "Triangeltorget 1, 211 43 Malmö.", none: true },
+        { sender: "Okänt nummer", text: "Det är för mycket folk. Måste dra. Jag skickar mitt nummer sen. Om du inte har fixat fram mina pengar då så kommer det bli stora konsekvenser", none: true },
+        { sender: "Okänt nummer", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express.", none: true },
     ],
 
     notesMinigame: [
