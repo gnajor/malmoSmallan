@@ -48,8 +48,7 @@ export function startBackgroundWatcher(){
         
             const distance = calculateDistance(
                 latlong[0], latlong[1],
-                latlong[0], latlong[1]
-                /* currentStageCoords[0], currentStageCoords[1] */
+                currentStageCoords[0], currentStageCoords[1]
             );
 
             if(distance < 100 && startChecking){

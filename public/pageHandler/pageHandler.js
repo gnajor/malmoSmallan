@@ -94,7 +94,7 @@ export const pageState = {
             icon: "money.svg",
             name: "Swosh",
             date: "2025-04-06",
-            sum: "+10000,00"
+            sum: "+20000,00"
         });
 
         state.setStateStorage("gameData", gameData);
@@ -143,6 +143,7 @@ export const pageHandler = {
         pageState.setCurrentPage(this.handleHomePageRender.bind(this));
 
         if(progressionState.checkStateKey("police-ending", "done")){
+            console.log("fuck you")
             progressionState.isUnlocked("ending", "messagesNormal");
             console.log(progressionState.steps);
             renderHomePage(this.parent, pageState.getAppsData());
@@ -284,7 +285,12 @@ export const pageHandler = {
         pageState.setBeforePage(pageState.currentPage);
         pageState.setCurrentPage(this.handleBankPageRender.bind(this));
 
-        if(progressionState.checkStateKey("receive-payment-notice", "notified") && !progressionState.checkStateKey("receive-payment-notice", "pressed")){
+        if(progressionState.checkStateKey("ending", "messagesNormal")){
+            console.log(progressionState.steps);
+            renderBankPage(this.parent, gameData.normalTransactions);
+        }
+
+        else if(progressionState.checkStateKey("receive-payment-notice", "notified") && !progressionState.checkStateKey("receive-payment-notice", "pressed")){
             pageState.changeTransactionData();
             renderBankPage(this.parent, gameData.transactions);
             progressionState.isUnlocked("receive-payment-notice", "pressed");
@@ -392,7 +398,7 @@ export const pageHandler = {
         pageState.setBeforePage(pageState.currentPage);
         pageState.setCurrentPage(this.handleNotesPageRender.bind(this));
 
-        if(progressionState.isUnlocked("ending", "messagesNormal")){
+        if(progressionState.checkStateKey("ending", "messagesNormal")){
             pageState.changeNotesData();
             renderNotesPage(this.parent, gameData.notes);
         }

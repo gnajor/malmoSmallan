@@ -280,8 +280,8 @@ function swosh(parent) {
 }
 
 // phoneCall
-let stepsRemaining = 0; //15
-let stepThreshold = 0; //12
+let stepsRemaining = 15; //15
+let stepThreshold = 12; //12
 let stepCooldown = false;
 
 function updateCounter() {
@@ -291,7 +291,7 @@ function updateCounter() {
         const stepsTaken = totalSteps - stepsRemaining;
         const percentage = (stepsTaken / totalSteps) * 100;
         fill.style.width = `${percentage}%`;
-        showCompletionPopup();
+        //showCompletionPopup();
     }
 }
 
@@ -313,8 +313,8 @@ const handleMotion = (event) => {
 
     if (stepsRemaining === 0) {
         window.removeEventListener("devicemotion", handleMotion);
-        /*  showCompletionPopup();
-         pageHandler.handleProgression();      */
+        showCompletionPopup();
+        pageHandler.handleProgression();     
     }
 }
 

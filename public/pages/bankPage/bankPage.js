@@ -58,7 +58,6 @@ export function renderBankPage(parent, transactions) {
         () => { }
     );
 
-
     parent.querySelector("main button").addEventListener("click", () => {
         const sumInput = parent.querySelector("#sum-input input");
         const numberInput = parent.querySelector("#number-input input");
@@ -108,6 +107,14 @@ export function renderBankPage(parent, transactions) {
     });
 
     for (const transaction of transactions) {
+        if(transaction.sum === "+20000,00" && transaction.name === "Swosh"){
+            parent.querySelector("#right-side span").textContent = "20004,20";
+        }
+
+        else if(transaction.sum === "-20000,00" && transaction.name === "Swosh"){
+            parent.querySelector("#right-side span").textContent = "4,20";
+        }
+
         renderTransaction(
             parent.querySelector("#transactions"),
             transaction

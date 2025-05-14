@@ -120,12 +120,6 @@ export const progressionState = {
                 messagesNormal: false,
                 userSentMessage: false,
             }
-        },
-        {
-            id: "end-credits",
-            state: {
-                start: false,
-            }
         }
     ],
 
