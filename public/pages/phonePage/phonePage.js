@@ -46,7 +46,12 @@ export function renderPhonePage(parent, voiceMessages) {
     keypadAnchor.addEventListener("click", () => "");
     voicemailAnchor.addEventListener("click", () => "");
 
-    if(voiceMessages.length === 0){
+    if (voiceMessages.length === 0) {
+        // voicemessage-container
+        const noMessagesText = document.createElement("p");
+        noMessagesText.id = "noMessagesText";
+        noMessagesText.textContent = "Inga Röstmeddelanden";
+        document.querySelector("#voicemessage-container").appendChild(noMessagesText)
         return;
     }
 
@@ -87,7 +92,7 @@ class Voicemessage {
                                         <span class="time">00:12</span>     
                                     </div>`;
 
-        const audioMessage = new Audio(this.element, "../../media/audio-files/decryptedCall.mp3", "encryptedMessage");
+        const audioMessage = new Audio("../../media/audio-files/decryptedCall.mp3");
         const timeElement = this.element.querySelector(".time");
 
         const playDiv = this.element.querySelector(".play");
@@ -104,7 +109,11 @@ class Voicemessage {
                 isPlaying = true;
 
                 intervalId = setInterval(() => {
-                    timeElement.textContent = audioMessage.makeIntoMinutes(Math.floor(audioMessage.getCurrentTime()));
+                    const seconds = Math.floor(audioMessage.currentTime);
+                    const minutes = Math.floor(seconds / 60);
+                    const formattedSeconds = (seconds % 60).toString().padStart(2, "0");
+                    const formattedMinutes = minutes.toString().padStart(2, "0");
+                    timeElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
                 }, 1000);
             } else {
                 audioMessage.pause();
@@ -116,7 +125,7 @@ class Voicemessage {
             }
         });
 
-        audioMessage.addOnEndListener(() => {
+        audioMessage.addEventListener("ended", () => {
             const playDiv = document.querySelector(".play");
             const playImg = playDiv.querySelector("img");
             const playText = playDiv.querySelector("span");
@@ -126,71 +135,10 @@ class Voicemessage {
             isPlaying = false;
             clearInterval(intervalId);
             pageHandler.handleDealerNotificationRender();
-        });
+        })
 
         const boxLine = document.createElement("div");
         boxLine.className = "line";
         this.parent.appendChild(boxLine);
     }
 }
-
-class Audio {
-    constructor(parent, src, id) {
-        this.src = src;
-        this.parent = parent;
-        this.id = id;
-        this.audioElement = null;
-        this.render();
-    }
-
-    render() {
-        const audioElement = document.createElement("audio");
-        this.audioElement = audioElement;
-        audioElement.id = this.id;
-        this.parent.appendChild(audioElement);
-        /*         audioElement.setAttribute("controls", true) */
-
-        audioElement.innerHTML = `<source src="${this.src}" type="audio/mpeg">
-                                "Your browser does not support the audio element"`;
-    }
-
-    addOnEndListener(func) {
-        this.audioElement.addEventListener("ended", func);
-    }
-
-    pause() {
-        this.audioElement.pause();
-    }
-
-    play() {
-        this.audioElement.play();
-    }
-
-    getCurrentTime() {
-        return this.audioElement.currentTime;
-    }
-
-    getDuration() {
-        return this.audioElement.duration;
-    }
-
-    makeIntoMinutes(inputSeconds) {
-        let seconds = inputSeconds % 60;
-        const num = (inputSeconds / 60).toString();
-        let minutes = num.substring(0, 1);
-
-        if (num >= 9) {
-            minutes = num.substring(0, 2);
-        }
-        else {
-            minutes = "0" + minutes;
-        }
-
-        if (seconds <= 9) {
-            seconds = "0" + seconds;
-        }
-
-        return `${minutes}:${seconds}`;
-    }
-}
-

@@ -199,6 +199,11 @@
     align-self: center;
 }
 
+#notes-page #latest,
+#notes-page #favorite {
+    color: black;
+}
+
 #note-specific-page header a#notes-back-button img {
     height: 1.125rem;
     align-self: center;
