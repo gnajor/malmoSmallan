@@ -1,3 +1,5 @@
+import { pageHandler } from "../../pageHandler/pageHandler.js";
+
 export function renderStartVy(parent) {
     const bg = document.createElement("div");
     const startViewCon = document.createElement("div");
@@ -66,4 +68,8 @@ export function renderStartVy(parent) {
 
     startViewCon.appendChild(luckText);
     startViewCon.appendChild(startGameBtn);
+
+    startGameBtn.addEventListener("click", () => {
+        pageHandler.handleHomePageRender();
+    });
 }

@@ -70,6 +70,9 @@ function renderMessagesSender(parent, lastMessage) {
                 text.innerHTML = "";
                 progressionState.isUnlocked("ending", "userSentMessage");
                 pageState.changeNormalMessageToNoSend();
+                setTimeout(() => {
+                    pageHandler.handleEndCredits();
+                }, 10000);
                 return;
             }
             

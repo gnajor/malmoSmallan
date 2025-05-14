@@ -1,23 +1,13 @@
 import { renderFooter } from "../../components/footer/footer.js";
 import { renderIphonePopUp } from "../../components/footer/iphonePopUp.js";
 
-export function renderHomePage(parent, apps, start = false){
+export function renderHomePage(parent, apps){
     parent.innerHTML = `<div id="home-page">
                             <main id="app-container"></main>
                             <footer></footer>
                         </div>`;
 
     renderFooter(parent.querySelector("footer"));
-
-    if(start){
-        renderIphonePopUp(
-            parent.querySelector("#home-page"),
-            "startVy",
-            null,
-            null,
-            null,
-        );
-    }
 
     for(const app of apps){
         renderApps(

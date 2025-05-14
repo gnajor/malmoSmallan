@@ -13,6 +13,8 @@ import { appFuncs, gameData } from "./gameData.js";
 import { renderNotification } from "../components/footer/notification.js";
 import { renderIphonePopUp } from "../components/footer/iphonePopUp.js";
 import { renderPoliceLights } from "../pages/policeLights/policeLights.js";
+import { renderStartVy } from "../pages/startVy/startVy.js";
+import { renderEndScene } from "../pages/endScene/endScene.js";
 
 
 export const pageState = {
@@ -130,8 +132,14 @@ export const pageHandler = {
     timeouts: {
         sms: 3000
     },
+
+    handleStartPageRender(){
+        pageState.setCurrentPage(this.handleStartPageRender.bind(this));
+        renderStartVy(this.parent);
+        progressionState.isUnlocked("start-popup", "shown");
+    },
     
-    handleHomePageRender(){ //1
+    handleHomePageRender(){
         pageState.setCurrentPage(this.handleHomePageRender.bind(this));
 
         if(progressionState.checkStateKey("police-ending", "done")){
@@ -139,13 +147,7 @@ export const pageHandler = {
             console.log(progressionState.steps);
             renderHomePage(this.parent, pageState.getAppsData());
         }
-        else if(!progressionState.checkStateKey("start-popup", "shown")){
-            progressionState.isUnlocked("start-popup", "shown");
-            pageState.setBeforePage(this.handleHomePageRender);
-            renderHomePage(this.parent, pageState.getAppsData(), true);
-        }
         else{
-            console.log("hello")
             renderHomePage(this.parent, pageState.getAppsData());
             pageState.setBeforePage(pageState.currentPage);
         }
@@ -485,6 +487,12 @@ export const pageHandler = {
         pageState.setBeforePage(pageState.currentPage);
         pageState.setCurrentPage(this.handlePoliceLightsRender.bind(this)); 
         renderPoliceLights(this.parent);
+    },
+
+    handleEndCredits(){
+        pageState.setBeforePage(pageState.currentPage);
+        pageState.setCurrentPage(this.handleEndCredits.bind(this)); 
+        renderEndScene(this.parent, gameData.efterTexter);
     },
 
     handleBeforePageRender(){

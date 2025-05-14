@@ -9,7 +9,7 @@ export function renderEndScene(parent, efterTexter) {
     textCon.id = "endSceneTextCon";
 
     //firstpart
-
+    parent.innerHTML = ``;
     const firstPart = document.createElement("p");
     firstPart.id = "endSceneFirstPart";
     firstPart.innerHTML = `

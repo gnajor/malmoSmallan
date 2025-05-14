@@ -151,7 +151,7 @@ export const state = {
         startBackgroundWatcher();
 
         if (!sessionStorage.getItem("stepState")) {
-            pageHandler.handleHomePageRender();
+            pageHandler.handleStartPageRender();
         }
         else {
             window.onload = () => {
@@ -165,11 +165,6 @@ export const state = {
                 if (beforePage) pageState.setCurrentPage(pageHandler[JSON.parse(beforePage)].bind(pageHandler));
                 if (newGameData) Object.assign(gameData, JSON.parse(newGameData));
                 if (stepState) progressionState.steps = JSON.parse(stepState);
-
-                //beforePage => messages
-                //currentPage => findBag
-
-                //beforePage => 
 
                 if (progressionState.checkStateKey("call", "popup") && !progressionState.checkStateKey("call", "listened")) {
                     pageState.currentExceptionPage();
@@ -189,7 +184,6 @@ export const state = {
                 value = value.split(" ")[1];
             }
         }
-
         sessionStorage.setItem(key, JSON.stringify(value))
     }
 }
