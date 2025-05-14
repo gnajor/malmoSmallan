@@ -1,7 +1,7 @@
 import { renderFooter } from "../../components/footer/footer.js";
 import { pageHandler } from "../../pageHandler/pageHandler.js";
 
-export function renderPhonePage(parent, voiceMessages){
+export function renderPhonePage(parent, voiceMessages) {
     const srcWdIcons = "../../media/phone-icons/";
 
     parent.innerHTML = `<div id="phone-page">
@@ -36,10 +36,10 @@ export function renderPhonePage(parent, voiceMessages){
 
     renderFooter(parent.querySelector("footer"));
 
-    const latestAnchor = parent.querySelector("a#latest"); 
-    const contactAnchor = parent.querySelector("a#contact"); 
-    const keypadAnchor = parent.querySelector("a#keypad"); 
-    const voicemailAnchor = parent.querySelector("a#voicemail"); 
+    const latestAnchor = parent.querySelector("a#latest");
+    const contactAnchor = parent.querySelector("a#contact");
+    const keypadAnchor = parent.querySelector("a#keypad");
+    const voicemailAnchor = parent.querySelector("a#voicemail");
 
     latestAnchor.addEventListener("click", () => "");
     contactAnchor.addEventListener("click", () => "");
@@ -50,7 +50,7 @@ export function renderPhonePage(parent, voiceMessages){
         return;
     }
 
-    for(const voiceMessage of voiceMessages){
+    for (const voiceMessage of voiceMessages) {
         new Voicemessage(
             parent.querySelector("#voicemessage-container"),
             voiceMessage
@@ -58,8 +58,9 @@ export function renderPhonePage(parent, voiceMessages){
     }
 }
 
-class Voicemessage{
-    constructor(parent, voicemessageData){
+let intervalId;
+class Voicemessage {
+    constructor(parent, voicemessageData) {
         this.parent = parent;
         this.voicemessageData = voicemessageData;
         this.srcWdIcons = "../../media/phone-icons/";
@@ -68,13 +69,13 @@ class Voicemessage{
         this.render();
     }
 
-    render(){
+    render() {
         const voiceMessageBox = document.createElement("div");
         this.element = voiceMessageBox;
         voiceMessageBox.className = "voicemessage";
         this.parent.appendChild(voiceMessageBox);
 
-        voiceMessageBox.innerHTML =`<div class="left">
+        voiceMessageBox.innerHTML = `<div class="left">
                                         <span>${this.voicemessageData.caller}</span>
                                         <div class="play">
                                             <img src="${this.srcWdIcons}play.svg">
@@ -89,36 +90,52 @@ class Voicemessage{
         const audioMessage = new Audio(this.element, "../../media/audio-files/decryptedCall.mp3", "encryptedMessage");
         const timeElement = this.element.querySelector(".time");
 
+        const playDiv = this.element.querySelector(".play");
+        const playImg = playDiv.querySelector("img");
+        const playText = playDiv.querySelector("span");
+
+        let isPlaying = false;
+
         this.element.addEventListener("click", () => {
-            audioMessage.play();
+            if (!isPlaying) {
+                audioMessage.play();
+                playImg.src = `${this.srcWdIcons}pause.svg`;
+                playText.textContent = "Pausa";
+                isPlaying = true;
 
-            let counter = 1;
-            timeElement.textContent = "00:00";
+                intervalId = setInterval(() => {
+                    timeElement.textContent = audioMessage.makeIntoMinutes(Math.floor(audioMessage.getCurrentTime()));
+                }, 1000);
+            } else {
+                audioMessage.pause();
+                playImg.src = `${this.srcWdIcons}play.svg`;
+                playText.textContent = "Spela upp";
+                isPlaying = false;
 
-            const intervalId = setInterval(() => {
-                timeElement.textContent = audioMessage.makeIntoMinutes(counter);
-                counter++
-
-                const currentTime = audioMessage.getCurrentTime();
-
-                if(currentTime === audioMessage.getDuration()){
-                    clearInterval(intervalId);
-                }
-            }, 1000)
+                clearInterval(intervalId);
+            }
         });
 
-        audioMessage.addOnEndListener(() => {  
+        audioMessage.addOnEndListener(() => {
+            const playDiv = document.querySelector(".play");
+            const playImg = playDiv.querySelector("img");
+            const playText = playDiv.querySelector("span");
+
+            playImg.src = `../../media/phone-icons/play.svg`;
+            playText.textContent = "Spela upp";
+            isPlaying = false;
+            clearInterval(intervalId);
             pageHandler.handleDealerNotificationRender();
         });
 
         const boxLine = document.createElement("div");
         boxLine.className = "line";
         this.parent.appendChild(boxLine);
-    } 
+    }
 }
 
-class Audio{
-    constructor(parent, src, id){
+class Audio {
+    constructor(parent, src, id) {
         this.src = src;
         this.parent = parent;
         this.id = id;
@@ -126,51 +143,51 @@ class Audio{
         this.render();
     }
 
-    render(){
+    render() {
         const audioElement = document.createElement("audio");
         this.audioElement = audioElement;
         audioElement.id = this.id;
         this.parent.appendChild(audioElement);
-/*         audioElement.setAttribute("controls", true) */
+        /*         audioElement.setAttribute("controls", true) */
 
         audioElement.innerHTML = `<source src="${this.src}" type="audio/mpeg">
-                                "Your browser does not support the audio element"`; 
+                                "Your browser does not support the audio element"`;
     }
 
-    addOnEndListener(func){
+    addOnEndListener(func) {
         this.audioElement.addEventListener("ended", func);
     }
-    
-    pause(){
+
+    pause() {
         this.audioElement.pause();
     }
 
-    play(){
+    play() {
         this.audioElement.play();
     }
 
-    getCurrentTime(){
+    getCurrentTime() {
         return this.audioElement.currentTime;
     }
 
-    getDuration(){
-       return this.audioElement.duration; 
+    getDuration() {
+        return this.audioElement.duration;
     }
 
-    makeIntoMinutes(inputSeconds){
+    makeIntoMinutes(inputSeconds) {
         let seconds = inputSeconds % 60;
         const num = (inputSeconds / 60).toString();
         let minutes = num.substring(0, 1);
 
-        if(num >= 9){
+        if (num >= 9) {
             minutes = num.substring(0, 2);
         }
-        else{
+        else {
             minutes = "0" + minutes;
         }
 
-        if(seconds <= 9){
-            seconds = "0" + seconds; 
+        if (seconds <= 9) {
+            seconds = "0" + seconds;
         }
 
         return `${minutes}:${seconds}`;

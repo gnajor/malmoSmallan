@@ -1,8 +1,8 @@
-import {renderFooter} from "../../components/footer/footer.js"; 
+import { renderFooter } from "../../components/footer/footer.js";
 import { progressionState } from "../../index.js";
 import { pageHandler } from "../../pageHandler/pageHandler.js";
 
-export function renderSpecifikNotesPage(parent, notes, completed = false){
+export function renderSpecifikNotesPage(parent, notes, completed = false) {
     const srcWdIcon = "../../media/note-icons/"
 
     parent.innerHTML = `<div id="note-specific-page">
@@ -17,6 +17,10 @@ export function renderSpecifikNotesPage(parent, notes, completed = false){
                                 </a>
                             </header>
                             <main>
+                                <div id="notes-intructions">
+                                <p id="notes-instructions-header">Instruktioner:</p>
+                                <p id="notes-instructions-text">Det är inte lätt att hitta rätt på tangentbordet på fyllan… pussla ihop anteckningarna från igår</p>
+                                </div>
                                 <h1>veldgt vikigt!!</h1>
                                 <div id="notes-minigames-container"></div>
                             </main>
@@ -25,10 +29,10 @@ export function renderSpecifikNotesPage(parent, notes, completed = false){
 
     renderFooter(parent.querySelector("footer"));
 
- 
+
     const minigames = [];
 
-    for(const note of notes){
+    for (const note of notes) {
         const minigame = new notesMinigame(
             parent.querySelector("#notes-minigames-container"),
             note.rightWord,
@@ -36,7 +40,7 @@ export function renderSpecifikNotesPage(parent, notes, completed = false){
             checkIfMiniGamesDone
         )
 
-        if(completed){
+        if (completed) {
             minigame.completed();
         }
 
@@ -49,21 +53,21 @@ export function renderSpecifikNotesPage(parent, notes, completed = false){
         page.classList.add("animationStart");
         page.addEventListener("transitionend", () => {
             pageHandler.handleNotesPageRender();
-        }, {once: true});
+        }, { once: true });
     });
 
-    function checkIfMiniGamesDone(){
+    function checkIfMiniGamesDone() {
         const inputs = parent.querySelector("#notes-minigames-container").querySelectorAll("input");
 
-        for(let i = 0; i < inputs.length; i++){
+        for (let i = 0; i < inputs.length; i++) {
             const element = inputs[i];
-            
-            if(element.classList[1] !== "done"){
+
+            if (element.classList[1] !== "done") {
                 return;
             }
         }
 
-        for(const minigame of minigames){
+        for (const minigame of minigames) {
             minigame.onMiniGameComplete();
         }
         progressionState.isUnlocked("notes-minigame", "notesMinigameCompleted");
@@ -71,8 +75,8 @@ export function renderSpecifikNotesPage(parent, notes, completed = false){
 }
 
 
-class notesMinigame{
-    constructor(parent, rightWord, scrambledWord, checkIfMiniGamesDone){
+class notesMinigame {
+    constructor(parent, rightWord, scrambledWord, checkIfMiniGamesDone) {
         this.parent = parent;
         this.element = null;
         this.container = null;
@@ -82,33 +86,33 @@ class notesMinigame{
         this.render();
     }
 
-    render(){  
+    render() {
         const notesMinigame = document.createElement("div");
         notesMinigame.className = "notes-mini-game";
         this.container = notesMinigame;
         this.element = notesMinigame;
         this.parent.appendChild(notesMinigame);
-    
+
         notesMinigame.innerHTML = `<h2 class="word-title">${this.scrambledWord}</h2>
                                    <div class="word-input-container"></div>`;
-    
+
         const wordInputContainer = notesMinigame.querySelector(".word-input-container");
 
         let wordDiv = document.createElement("div");
         wordDiv.className = "word";
         wordInputContainer.appendChild(wordDiv);
-    
+
         let counter = 0;
-        for(let i = 0; i < this.rightWord.length; i++){
+        for (let i = 0; i < this.rightWord.length; i++) {
             const letter = this.rightWord[i];
-    
-            if(letter === " "){
+
+            if (letter === " ") {
                 wordDiv = document.createElement("div");
                 wordDiv.className = "word";
                 wordInputContainer.appendChild(wordDiv);
                 counter--;
             }
-            else{
+            else {
                 this.renderInput(wordDiv, letter, counter);
             }
             counter++;
@@ -117,44 +121,44 @@ class notesMinigame{
         this.setHeight(wordInputContainer);
     }
 
-    renderInput(parent, rightLetter, inputIndex){
+    renderInput(parent, rightLetter, inputIndex) {
         const inputDom = document.createElement("input");
         inputDom.setAttribute("minlength", "1");
         inputDom.setAttribute("maxlength", "1");
         inputDom.className = "letter-input";
 
         parent.appendChild(inputDom);
-    
+
         inputDom.addEventListener("keyup", (event) => {
-            if(event.target.value.toLowerCase() === rightLetter.toLowerCase()){
+            if (event.target.value.toLowerCase() === rightLetter.toLowerCase()) {
                 inputDom.classList.add("done");
                 inputDom.classList.remove("wrong");
                 this.setNextIndexFocus(parent.parentElement, inputIndex);
             }
-            else{
+            else {
                 inputDom.classList.remove("done");
                 inputDom.classList.add("wrong");
             }
-    
+
             this.checkIfMiniGamesDone();
         });
     }
 
-    setNextIndexFocus(parent, inputIndex){
+    setNextIndexFocus(parent, inputIndex) {
         const allInputs = parent.querySelectorAll("input")
 
-        if(allInputs[inputIndex + 1]){
+        if (allInputs[inputIndex + 1]) {
             const nextInput = allInputs[inputIndex + 1];
-            nextInput.focus(); 
-        } 
+            nextInput.focus();
+        }
     }
 
-    onMiniGameComplete(){
+    onMiniGameComplete() {
         const wordTitle = this.element.querySelector(".word-title");
         wordTitle.classList.add("move");
         wordTitle.addEventListener("transitionend", () => {
             wordTitle.textContent = this.rightWord;
-        }, {once: true});  
+        }, { once: true });
 
 
         const inputs = this.shuffle(this.element.querySelectorAll("input"));
@@ -163,32 +167,32 @@ class notesMinigame{
         let counter = 0;
         let newAmountSameTime = amountSameTime;
 
-        for(let i = 0; i < inputs.length/amountSameTime; i++){
+        for (let i = 0; i < inputs.length / amountSameTime; i++) {
             const startValue = 120;
             const increase = i * 350;
 
-            if((inputs.length) % amountSameTime === inputs.length - (i * amountSameTime)){
+            if ((inputs.length) % amountSameTime === inputs.length - (i * amountSameTime)) {
                 newAmountSameTime = (inputs.length % amountSameTime);
             }
 
-            for(let y = 0; y < newAmountSameTime; y++){
+            for (let y = 0; y < newAmountSameTime; y++) {
 
                 const input = inputs[counter];
                 input.style.transition = `left 2000ms ease-in-out ${increase}ms`;
                 input.style.left = `${startValue - i}vw`;
-    
-                if((inputs.length) % amountSameTime === newAmountSameTime && y === newAmountSameTime - 1){
+
+                if ((inputs.length) % amountSameTime === newAmountSameTime && y === newAmountSameTime - 1) {
                     input.addEventListener("transitionend", (event) => {
-                        wordTitle.classList.remove("move");  
-                        wordTitle.addEventListener("transitionend", () => {this.containerAnimation();}, {once: true});  
-                    }, {once: true});
+                        wordTitle.classList.remove("move");
+                        wordTitle.addEventListener("transitionend", () => { this.containerAnimation(); }, { once: true });
+                    }, { once: true });
                 }
                 counter++;
-            }  
+            }
         }
     }
     //height animation left
-    containerAnimation(){
+    containerAnimation() {
         this.parent.classList.add("smaller-gap")
         const wordInputContainer = this.element.querySelector(".word-input-container");
         wordInputContainer.style.height = "0px";
@@ -196,24 +200,24 @@ class notesMinigame{
             setTimeout(() => {
                 wordInputContainer.remove();
             }, 1000);
-        }, {once: true});
+        }, { once: true });
     }
-    
-    completed(){
+
+    completed() {
         this.element.querySelector(".word-title").textContent = this.rightWord;
         this.element.querySelector(".word-input-container").remove();
         this.parent.classList.add("smaller-gap-no-animation");
     }
 
-    setHeight(element){
+    setHeight(element) {
         element.style.height = element.offsetHeight + "px";
     }
 
-    getRandomInt(max){
+    getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
 
-    shuffle(array){
+    shuffle(array) {
         const newArray = [];
         const result = [];
 
@@ -221,13 +225,13 @@ class notesMinigame{
             newArray.push(element);
         });
 
-        for(let i = 0; newArray.length; i++){
+        for (let i = 0; newArray.length; i++) {
             const randomInt = this.getRandomInt(newArray.length);
             result.push(newArray[randomInt]);
             newArray.splice(randomInt, 1);
         }
 
         return result;
-    }    
+    }
 }
 

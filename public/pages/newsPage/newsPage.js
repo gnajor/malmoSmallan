@@ -1,10 +1,12 @@
 import { renderFooter } from "../../components/footer/footer.js";
 import { renderIphonePopUp } from "../../components/footer/iphonePopUp.js";
 
-export function renderNewsPage(parent, otherNews){
+export function renderNewsPage(parent, otherNews) {
+    window.scrollTo(0, 0);
+
     const srcWdMedia = "../../media/news-media/";
 
-    parent.innerHTML =  `<div id="news-page">
+    parent.innerHTML = `<div id="news-page">
                                             <header>
                                                 <button id="back-button">
                                                     <img src="${srcWdMedia}back.svg">
@@ -16,7 +18,7 @@ export function renderNewsPage(parent, otherNews){
                                                     <h1>JUST NU: Möllantigern stulen - Ägaren erbjuder hittelön</h1>
                                                     <span>Idag 05:00</span>
                                                 </div>
-                                                <p id="subtitle">Natten till idag blev möllantigern stulen, nu vänder sig ägaren till allmänheten och erbjuder en hittelön för att tigern ska hitta hem igen.</p>
+                                                <p id="subtitle">Natten till idag blev möllantigern stulen, nu erbjuder ägaren en hittelön på 20 000 kr för att tigern ska hitta hem igen.</p>
                                                 <div id="author-button-box">
                                                     <div id="author-box">
                                                         <img src="${srcWdMedia}author.png">
@@ -39,12 +41,10 @@ export function renderNewsPage(parent, otherNews){
                                                 </div>
                                                 <div id="text-section">
                                                     <p>I över tio år har den stått utanför butiken på hörnan på Claesgatan och Sofielundsvägen, ett gosedjur av en tiger som definitivt sett bättre dagar. </p>
-                                                    <p>Möllantigern har stått utanför butiken MalmöMarket i ur och skur, den har träffats av oräkneliga regndroppar, blivit blekt av solen och stått emot tuggor av hungriga fåglar. Den slitna tigern har trots spåren av regn, sol och fåglar samlat beundrare över hela Sverige och blivit en ikon i Malmö.</p>
-                                                    <p>Men när butiksägaren öppnade butiken insåg han att tigern var försvunnen. Förtvivlad kontaktade han först polisen och sedan oss. Nu vädjar han till allmänheten för hjälp att hitta tigern. Han erbjuder även en hittelön på 20 000kr för att gosedjuret ska komma hem.</p>
-                                                    <p>Men det är inte första gången Möllantigern har försvunnit, den första gången tog en kvinna den över axeln och sprang iväg, den gången han ägaren ifatt. Andra gången hade de glömt att ta in den i butiken över natten, då hade en hjälpsam granne tagit in den för att undvika att den skulle bli stulen. Denna gången har tigern inte haft samma tur.</p>
-                                                    <p>- Jag hade hoppats på att det var något liknande som hade hänt idag, men jag kollade runt med grannar och personer som gick förbi om de hade sett något. Men ingen visste något, säger butiksägaren.</p>
-                                                    <p>Istället behövde ägaren konstatera att det var skarpt läge och att tigern faktiskt är borta. Polisen berättar att de inte har några spår för tillfället, men att de undersöker och uppskattar alla tips de kan få.</p>
-                                                    <p>- Det är såklart en tragedi för Malmö om tigern skulle försvinna. Vi behandlar detta som en kidnappning och kommer göra allt i vår makt för att se till att tigern kommer hem igen, säger Phil Wenneck presstalesperson på polisen.</p>
+                                                    <p>Men när butiksägaren öppnade butiken insåg han att tigern var försvunnen. Förtvivlad kontaktade han polisen. Nu vädjar han till allmänheten för hjälp att hitta tigern. Han erbjuder även en hittelön på 20 000kr för att gosedjuret ska komma hem.</p>
+                                                    <p>-Jag kollade runt med grannar och personer som gick förbi om de hade sett något. Men ingen visste något, säger butiksägaren. </p>
+                                                    <p>Polisen berättar att de inte har några spår för tillfället, men att de undersöker och uppskattar alla tips de kan få.</p>
+                                                    <p>-Det är såklart en tragedi för Malmö om tigern skulle försvinna. Vi behandlar detta som en kidnappning och kommer göra allt i vår makt för att se till att tigern kommer hem igen, säger Phil Wenneck presstalesperson på polisen.</p>
                                                     <p>Tigern ska enligt polisen ha blivit stulen runt klockan 03. Det finns för tillfället ingen misstänkt för stölden, polisen söker vittnen till händelsen.</p>
                                                 </div>
                                                 <div id="other-news-container">
@@ -53,12 +53,13 @@ export function renderNewsPage(parent, otherNews){
                                                 </div>
                                                 <div id="bottom-info">
                                                     <h2>Om Malmöbladet</h2>
-                                                    <p>Malmöbladet, grundad 1965 av Sid garner, är Malmö innerstads tredje största morgontidning. I 60 år har Malmöbladet förmedlat  nyher i närmiljön, men också runt i hela Malmö. Malmöbladet är inte den största, inte ens den bästa, men kanske en  av de sämsta tidningarna i hela Malmö. Om du tror att du hallucinerar, så kanske det stämmer. Är något logiskt nu för tiden? Går det att lita på någon? Förmodligen inte. Men vi rapporterar om det ändå.</p>
+                                                    <p>Malmöbladet, grundad 1965 av Sid Garner,
+                                                        är Malmö innerstads tredje största morgontidning. I 60 år har Malmöbladet förmedlat nyheter i närmiljön, men också runt i hela Malmö. Malmöbladet är inte den största, inte ens den bästa, men kanske en  av de sämsta tidningarna i hela Malmö. Om du tror att du hallucinerar, så kanske det stämmer. Är något logiskt nu för tiden? Går det att lita på någon? Förmodligen inte. Men vi rapporterar om det ändå.</p>
                                                 </div>
                                             </main>
                                             <footer></footer>
                                         </div>`;
-    
+
     renderFooter(parent.querySelector("footer"));
 
     const followButton = parent.querySelector("#follow-button");
@@ -70,11 +71,11 @@ export function renderNewsPage(parent, otherNews){
     backButton.addEventListener("click", renderErrorPopUp);
 
 
-    for(let i = 0; i < otherNews.length; i++){
+    for (let i = 0; i < otherNews.length; i++) {
         const otherNewsTitle = otherNews[i];
         let shouldLineExist = false;
-        
-        if(i !== otherNews.length - 1){
+
+        if (i !== otherNews.length - 1) {
             shouldLineExist = true
         }
 
@@ -86,7 +87,7 @@ export function renderNewsPage(parent, otherNews){
     }
 }
 
-function renderOtherNews(parent, otherNewsTitle, line = false){
+function renderOtherNews(parent, otherNewsTitle, line = false) {
     const newsElement = document.createElement("div");
     newsElement.className = "other-news-item";
     parent.appendChild(newsElement);
@@ -94,7 +95,7 @@ function renderOtherNews(parent, otherNewsTitle, line = false){
     newsElement.innerHTML = `<h3>${otherNewsTitle}</h3>
                              <span>Malmö</span>`;
 
-    if(line){
+    if (line) {
         const lineElement = document.createElement("div");
         lineElement.className = "line";
         parent.appendChild(lineElement);
@@ -105,7 +106,7 @@ function renderOtherNews(parent, otherNewsTitle, line = false){
     });
 }
 
-function renderErrorPopUp(){
+function renderErrorPopUp() {
     renderIphonePopUp(
         document.querySelector("#news-page"),
         "other",
