@@ -145,6 +145,7 @@ export const pageHandler = {
             renderHomePage(this.parent, pageState.getAppsData(), true);
         }
         else{
+            console.log("hello")
             renderHomePage(this.parent, pageState.getAppsData());
             pageState.setBeforePage(pageState.currentPage);
         }
@@ -152,8 +153,7 @@ export const pageHandler = {
 
     handleFriendMessagesPageRender(){ //3
         pageState.setBeforePage(pageState.currentPage);
-        pageState.setCurrentPage(this.handleFriendMessagesPageRender.bind(this)); 
-        console.log(progressionState.steps)       
+        pageState.setCurrentPage(this.handleFriendMessagesPageRender.bind(this));      
 
         if(progressionState.checkStateKey("ending", "userSentMessage")){
             gameData.friendMessagesNormal.push({none: true});
@@ -176,7 +176,6 @@ export const pageHandler = {
         else if(progressionState.checkStateKey("receive-friend-help-notice", "notified") && !progressionState.checkStateKey("receive-friend-help-notice", "pressed")){
             progressionState.isUnlocked("receive-friend-help-notice", "pressed");
             pageState.changeMessageToPerm(gameData.friendMessages);
-            console.log(pageState.getFilteredMessages(gameData.friendMessages));
             renderMessagesPage(
                 this.parent, 
                 pageState.getFilteredMessages(gameData.friendMessages, true),
@@ -433,7 +432,7 @@ export const pageHandler = {
             this.parent,
             "bank",
             "+20 000kr",
-            "Tack så mycket för att du hittade min tiger.",
+            "Tack för att återfann tigern!",
             () => {
                 this.handleBankPageRender();
             }

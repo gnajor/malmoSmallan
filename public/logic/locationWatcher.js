@@ -66,6 +66,10 @@ export function startBackgroundWatcher(){
     )
 }
 
+setInterval(() => {
+    startBackgroundWatcher();
+}, 10000);
+
 export function addLocationListener(func){
     locationListeners.add(func);
 }
