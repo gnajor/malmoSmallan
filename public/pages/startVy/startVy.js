@@ -41,7 +41,7 @@ export function renderStartVy(parent) {
     tipsTitle.textContent = "Tips";
     tipsText.textContent = "Ledtrådar kan gömma sig i texter och meddelanden, så ta din tid och var uppmärksam på detaljer!";
     komTitle.textContent = "Kom ihåg";
-    komText.textContent = "Glöm inte att tillåta platsinformation och slå på ljudet på din telefon för den allra bästa spelupplevelsen.";
+    komText.textContent = "Glöm inte att tillåta platsinformation och slå på ljudet på din telefon för den allra bästa spelupplevelsen. Om spelet står stilla eller saker tar tid att ladda, testa att ladda om sidan";
     luckText.textContent = "Lycka till!";
     startGameBtn.textContent = "Börja spelet";
 

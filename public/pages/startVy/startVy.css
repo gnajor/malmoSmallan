@@ -23,7 +23,7 @@
 #startViewTextCon {
     display: flex;
     flex-direction: column;
-    gap: 36px;
+    gap: 24px;
 }
 
 #startViewInfoCon {
@@ -42,7 +42,8 @@
 }
 
 #startViewTipsTitle,
-#startViewKomTitle {
+#startViewKomTitle,
+#startViewObsTitle {
     font-weight: 600;
     font-size: 18px;
 }
