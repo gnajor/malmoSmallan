@@ -66,16 +66,18 @@ function renderMessagesSender(parent, lastMessage) {
             pageState.changeFriendMessageToNoSend();
 
             renderMessage(parent, { text: textBox.querySelector("#messages-text").innerHTML, sender: "Spelaren" });
-            if(text.textContent == "Så sjukt… vaknade precis upp på Möllan, tror jag hallucinerade."){
+            if (text.textContent == "Så sjukt… vaknade precis upp på Möllan, tror jag hallucinerade.") {
                 text.innerHTML = "";
                 progressionState.isUnlocked("ending", "userSentMessage");
                 pageState.changeNormalMessageToNoSend();
                 setTimeout(() => {
+                    const audio = new Audio("../../media/audio-files/endCreditsSong.mp3");
+                    audio.play();
                     pageHandler.handleEndCredits();
                 }, 10000);
                 return;
             }
-            
+
             text.innerHTML = "";
 
             const typingBubble = document.createElement("div");
@@ -128,7 +130,7 @@ function renderMessage(parent, message) {
         textElement.style.color = "#A9A8AD";
         textBox.addEventListener("click", () => {
             typeMessage(message)
-        }, {once: true});
+        }, { once: true });
         return;
     }
 
