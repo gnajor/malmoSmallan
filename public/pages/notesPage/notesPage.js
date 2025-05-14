@@ -41,6 +41,7 @@ export function renderNotesPage(parent, notes){
             parent.querySelector("#yesterday-notes .notes-container"),
             notes.yesterday,
         );
+        yesterdayNotes.renderNotes();
     }
     const lastSevenDaysNotes = new Notes(
         parent.querySelector("#last-seven-days-notes .notes-container"),
@@ -52,7 +53,6 @@ export function renderNotesPage(parent, notes){
         notes.favorite,
     );
 
-    yesterdayNotes.renderNotes();
     lastSevenDaysNotes.renderNotes();
 
     const titleContainer = parent.querySelector("#title-container");
