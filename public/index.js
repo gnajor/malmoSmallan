@@ -1,7 +1,6 @@
 import { startBackgroundWatcher } from "./logic/locationWatcher.js";
 import { gameData } from "./pageHandler/gameData.js";
 import { pageHandler, pageState } from "./pageHandler/pageHandler.js";
-import { renderEndScene } from "./pages/endScene/endScene.js";
 
 export const progressionState = {
     steps: [
@@ -75,7 +74,7 @@ export const progressionState = {
                 pressed: false,
             }
         },
-        {  
+        {
             id: "receive-friend-help-notice",
             state: {
                 notified: false,
@@ -195,9 +194,7 @@ export const state = {
     }
 }
 
-// state.startApp();
-
-renderEndScene(document.querySelector("#wrapper"), gameData.efterTexter);
+state.startApp();
 
 /* pageHandler.handleNotesPageRender(); */
 
