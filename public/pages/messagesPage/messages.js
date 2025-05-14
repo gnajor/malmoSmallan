@@ -71,8 +71,6 @@ function renderMessagesSender(parent, lastMessage) {
                 progressionState.isUnlocked("ending", "userSentMessage");
                 pageState.changeNormalMessageToNoSend();
                 setTimeout(() => {
-                    const audio = new Audio("../../media/audio-files/endCreditsSong.mp3");
-                    audio.play();
                     pageHandler.handleEndCredits();
                 }, 10000);
                 return;
