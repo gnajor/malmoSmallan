@@ -70,6 +70,8 @@ function findBag(parent) {
 
     bottom.addEventListener("click", () => {
         getUserLocation();
+        bottomHeaderText.innerHTML = "Laddar...";
+        bottomHeaderText.style.color = "#A1A1A1";
     }, { once: true });
 }
 
