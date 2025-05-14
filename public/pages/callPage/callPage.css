@@ -1,15 +1,15 @@
-#call-page{
+#call-page {
     background-color: var(--black-color);
     overflow: hidden;
 }
 
-#call-page main{
+#call-page main {
     padding-top: 5rem;
     padding-bottom: 2rem;
-    padding-left:2rem;
-    padding-right:2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 
-    height:calc(100dvh - var(--footer-header-height));
+    height: calc(100dvh - var(--footer-header-height));
     background: linear-gradient(180deg, #47392E 0%, #27221E 100%);
 
     display: flex;
@@ -19,80 +19,79 @@
     transition: 600ms transform linear;
 }
 
-#wrapper #call-page main #caller-box .gone{
+#wrapper #call-page main #caller-box .gone {
     display: none;
 }
 
-#call-page main.rotate{
+#call-page main.rotate {
     transform: rotate(180deg);
 }
 
-#call-page main.rotate.rotate-again{
+#call-page main.rotate.rotate-again {
     transform: rotate(360deg);
 }
 
-#call-page main img{
+#call-page main img {
     width: 4.5rem;
 }
 
-#call-page main #caller-box{
+#call-page main #caller-box {
     text-align: center;
     color: var(--white-color);
 }
 
-#call-page main #caller-box h2{
+#call-page main #caller-box h2 {
     font-weight: normal;
     font-size: 2rem;
     transform: rotateY(180deg);
 }
 
-#call-page main #caller-box span{
+#call-page main #caller-box span {
     opacity: 0.7;
     transform: rotate(180deg);
 }
 
-#call-page main #answer-decline-box{
+#call-page main #answer-decline-box {
     display: flex;
     justify-content: space-between;
 }
 
-#call-page main #answer-decline-box button{
+#call-page main #answer-decline-box button {
     color: var(--white-color);
     font-size: 0.8rem;
-    
+
     display: flex;
     flex-direction: column;
-    gap:0.4rem;
+    gap: 0.4rem;
 }
 
-#call-page main #answer-decline-box #decline-call{
+#call-page main #answer-decline-box #decline-call {
     position: relative;
-    right:0%;
+    right: 0%;
     transition: 500ms right linear;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-#call-page main #answer-decline-box #answer-call{
+#call-page main #answer-decline-box #answer-call {
     opacity: 1;
     transition: 200ms opacity linear;
 }
 
-#call-page main #answer-decline-box.answered #answer-call{
+#call-page main #answer-decline-box.answered #answer-call {
     opacity: 0;
 }
 
-#call-page main #answer-decline-box.answered #decline-call{
+#call-page main #answer-decline-box.answered #decline-call {
     right: 39%;
 }
 
-#call-page main #answer-decline-box.answered #decline-call img{
+#call-page main #answer-decline-box.answered #decline-call img {
     transform: rotate(135deg);
 }
 
-#call-page main #answer-decline-box button span{
+#call-page main #answer-decline-box button span {
     transform: rotate(180deg);
 }
-
-
-
-
-
