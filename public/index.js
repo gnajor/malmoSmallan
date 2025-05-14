@@ -67,20 +67,20 @@ export const progressionState = {
                 gpsReached: false
             }
         },
-        /* {
-            id: "receive-change-position-dealer-notice",
+        {
+            id: "receive-avoid-position-dealer-notice",
             state: {
                 notified: false,
                 pressed: false,
             }
         },
-        /*         {
-                    id: "receive-second-dealer-notice",
-                    state: {
-                        notified: false,
-                        pressed: false,
-                    }
-                }, */
+        {  
+            id: "receive-friend-help-notice",
+            state: {
+                notified: false,
+                pressed: false,
+            }
+        },
         {
             id: "notes-minigame",
             state: {
@@ -118,6 +118,7 @@ export const progressionState = {
             id: "ending",
             state: {
                 messagesNormal: false,
+                userSentMessage: false,
             }
         },
         {

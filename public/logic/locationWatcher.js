@@ -33,11 +33,7 @@ export function startBackgroundWatcher(){
                 startChecking = true;
                 func = () => {
                     progressionState.isUnlocked("triangle-gps", "gpsReached");
-
-                    //shouldn't be here
-                    pageState.setAppUnlocked("Anteckningar");
-                    progressionState.isUnlocked("notes-minigame", "notesAppUnlocked");
-                    /* pageHandler.handleDealerNotificationRender(); */
+                    pageHandler.handleDealerNotificationRender();
                 }
             }
 

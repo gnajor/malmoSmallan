@@ -44,15 +44,23 @@ function renderMessagesContactsMain(parent, lastMessage) {
         arrow.src = "../../media/messages-contacts-icon/arrow.svg";
 
         if (lastMessage[i]) {
-            name.innerHTML = lastMessage[i].sender;
+            if(lastMessage[i].sender === "Spelaren"){
+                name.innerHTML = "Alex";
+            }
+            else{
+                name.innerHTML = lastMessage[i].sender;
+            }
+            
+
             message.innerHTML = lastMessage[i].text.substring(0, 30) + "...";
             leftCon.appendChild(imgCon);
             imgCon.appendChild(img);
+
             messanger.addEventListener("click", () => {
                 if(lastMessage[i].sender === "Okänt nummer"){
                     pageHandler.handleDealerMessagesPageRender();
                 }
-                else if(lastMessage[i].sender === "Alex"){
+                else if(lastMessage[i].sender === "Alex" || lastMessage[i].sender === "Spelaren"){
                     pageHandler.handleFriendMessagesPageRender();
                 }
             });

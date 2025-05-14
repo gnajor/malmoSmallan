@@ -46,6 +46,9 @@ export function renderPhonePage(parent, voiceMessages){
     keypadAnchor.addEventListener("click", () => "");
     voicemailAnchor.addEventListener("click", () => "");
 
+    if(voiceMessages.length === 0){
+        return;
+    }
 
     for(const voiceMessage of voiceMessages){
         new Voicemessage(

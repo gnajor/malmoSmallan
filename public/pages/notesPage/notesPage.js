@@ -43,6 +43,9 @@ export function renderNotesPage(parent, notes){
         );
         yesterdayNotes.renderNotes();
     }
+    else{
+        parent.querySelector("#yesterday-notes h2").style.display = "none";
+    }
     const lastSevenDaysNotes = new Notes(
         parent.querySelector("#last-seven-days-notes .notes-container"),
         notes.latest,
@@ -61,7 +64,9 @@ export function renderNotesPage(parent, notes){
     const latestNotes = parent.querySelector("#latest-notes");
 
     parent.querySelector("button#latest").addEventListener("click", (event) => {
-        yesterdayNotes.renderNotes();
+        if(notes.yesterday){
+            yesterdayNotes.renderNotes();
+        }  
         lastSevenDaysNotes.renderNotes();
         favoriteNotes.remove();
 
@@ -72,8 +77,11 @@ export function renderNotesPage(parent, notes){
     });
 
     parent.querySelector("button#favorite").addEventListener("click", (event) => {
+        if(notes.yesterday){
+            yesterdayNotes.remove();
+        }  
+
         favoriteNotes.renderNotes();
-        yesterdayNotes.remove();
         lastSevenDaysNotes.remove();
         
         titleContainer.classList.add("gone");

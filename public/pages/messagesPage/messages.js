@@ -63,13 +63,13 @@ function renderMessagesSender(parent, lastMessage) {
     sendButton.addEventListener("click", () => {
         if (text.textContent == "Minns bara att jag var med dig, sen minns jag inget." || text.textContent == "Så sjukt… vaknade precis upp på Möllan, tror jag hallucinerade.") {
             progressionState.isUnlocked("receive-first-message-notice", "userSentMessage");
-            pageState.changeMessageToNoSend();
-
-
+            pageState.changeFriendMessageToNoSend();
 
             renderMessage(parent, { text: textBox.querySelector("#messages-text").innerHTML, sender: "Spelaren" });
             if(text.textContent == "Så sjukt… vaknade precis upp på Möllan, tror jag hallucinerade."){
                 text.innerHTML = "";
+                progressionState.isUnlocked("ending", "userSentMessage");
+                pageState.changeNormalMessageToNoSend();
                 return;
             }
             

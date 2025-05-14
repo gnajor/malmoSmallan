@@ -40,11 +40,20 @@ export const pageState = {
         return messages;
     },
 
-    changeMessageToNoSend(){
+    changeFriendMessageToNoSend(){
         for(const message of gameData.friendMessages){
             if(message.canSend){
                 message.canSend = false;
                 state.setStateStorage("gameData", gameData)
+            }
+        }
+    },
+
+    changeNormalMessageToNoSend(){
+        for(const message of gameData.friendMessagesNormal){
+            if(message.canSend){
+                message.canSend = false;
+                state.setStateStorage("gameData", gameData);
             }
         }
     },
@@ -104,8 +113,6 @@ export const pageState = {
         state.setStateStorage("currentExceptionPage", func.name);
     },
 
-
-
     getAppsData(){
         const apps = gameData.apps.filter(() => true);
 
@@ -114,7 +121,6 @@ export const pageState = {
                 app.func = appFuncs[app.name];
             }
         }
-
         return apps;
     }
 }
@@ -130,6 +136,7 @@ export const pageHandler = {
 
         if(progressionState.checkStateKey("police-ending", "done")){
             progressionState.isUnlocked("ending", "messagesNormal");
+            console.log(progressionState.steps);
             renderHomePage(this.parent, pageState.getAppsData());
         }
         else if(!progressionState.checkStateKey("start-popup", "shown")){
@@ -145,16 +152,39 @@ export const pageHandler = {
 
     handleFriendMessagesPageRender(){ //3
         pageState.setBeforePage(pageState.currentPage);
-        pageState.setCurrentPage(this.handleFriendMessagesPageRender.bind(this));
-        console.log(gameData.friendMessages);
+        pageState.setCurrentPage(this.handleFriendMessagesPageRender.bind(this)); 
+        console.log(progressionState.steps)       
 
-        if(progressionState.checkStateKey("ending", "messagesNormal")){
+        if(progressionState.checkStateKey("ending", "userSentMessage")){
             gameData.friendMessagesNormal.push({none: true});
             renderMessagesPage(
                 this.parent, 
                 gameData.friendMessagesNormal,
                 gameData.friendMessagesNormal[1].sender
             );
+        }
+
+        else if(progressionState.checkStateKey("ending", "messagesNormal")){
+            gameData.friendMessagesNormal.push({none: true});
+            renderMessagesPage(
+                this.parent, 
+                gameData.friendMessagesNormal,
+                gameData.friendMessagesNormal[1].sender
+            );
+        }
+
+        else if(progressionState.checkStateKey("receive-friend-help-notice", "notified") && !progressionState.checkStateKey("receive-friend-help-notice", "pressed")){
+            progressionState.isUnlocked("receive-friend-help-notice", "pressed");
+            pageState.changeMessageToPerm(gameData.friendMessages);
+            console.log(pageState.getFilteredMessages(gameData.friendMessages));
+            renderMessagesPage(
+                this.parent, 
+                pageState.getFilteredMessages(gameData.friendMessages, true),
+                gameData.friendMessages[1].sender
+            );
+
+            pageState.setAppUnlocked("Anteckningar");
+            progressionState.isUnlocked("notes-minigame", "notesAppUnlocked"); 
         }
 
         else if(progressionState.checkStateKey("receive-first-message-notice", "notified") && !progressionState.checkStateKey("receive-first-message-notice", "pressed")){
@@ -164,7 +194,7 @@ export const pageHandler = {
                 pageState.getFilteredMessages(gameData.friendMessages),
                 gameData.friendMessages[1].sender
             );
-            pageState.changeMessageToNoSend();
+            pageState.changeFriendMessageToNoSend();
         }
         else{
             renderMessagesPage(
@@ -190,6 +220,23 @@ export const pageHandler = {
             );
         }
 
+        
+        else if(progressionState.checkStateKey("receive-avoid-position-dealer-notice", "notified") && !progressionState.checkStateKey("receive-avoid-position-dealer-notice", "pressed")){
+            progressionState.isUnlocked("receive-avoid-position-dealer-notice", "pressed");
+            pageState.changeMessageToPerm(gameData.dealer);
+            
+            renderMessagesPage(
+                this.parent, 
+                pageState.getFilteredMessages(gameData.dealer, true),
+                gameData.dealer[0].sender
+            );
+
+            setTimeout(() => {
+                this.handleFriendHelpNoticeRender();
+            }, 5000);
+        }
+        
+
         else if(progressionState.checkStateKey("receive-position-dealer-notice", "notified") && !progressionState.checkStateKey("receive-position-dealer-notice", "pressed")){
             progressionState.isUnlocked("receive-position-dealer-notice", "pressed");
             pageState.changeMessageToPerm(gameData.dealer);
@@ -208,13 +255,6 @@ export const pageHandler = {
                 gameData.dealer[0].sender
             );
         }
-
-     /*    else if(progressionState.checkStateKey("receive-change-position-dealer-notice", "notified") && !progressionState.checkStateKey("receive-change-position-dealer-notice", "pressed")){ 
-            progressionState.isUnlocked("receive-change-position-dealer-notice", "pressed");
-            pageState.setAppUnlocked("Anteckningar");
-            progressionState.isUnlocked("notes-minigame", "notesAppUnlocked"); 
-            renderMessagesPage(this.parent, filteredDealerMessages, gameData.dealer[0].sender);
-        }  */
     },
 
     handleSpecificNotesPageRender(){
@@ -222,6 +262,7 @@ export const pageHandler = {
         pageState.setCurrentPage(this.handleSpecificNotesPageRender.bind(this));
 
         if(progressionState.checkStateKey("notes-minigame", "notesMinigameCompleted")){
+            pageState.changeNotesData();
             renderSpecifikNotesPage(this.parent, gameData.notesMinigame, true);
         }
         else{
@@ -279,11 +320,12 @@ export const pageHandler = {
         pageState.setCurrentPage(this.handleMessageContactPageRender.bind(this));
         const filteredFriendMessages = pageState.getFilteredMessages(gameData.friendMessages);
         const filteredDealerMessages = pageState.getFilteredMessages(gameData.dealer);
+        const filteredNormalMessage = pageState.getFilteredMessages(gameData.friendMessagesNormal);
 
         if(progressionState.checkStateKey("police-ending", "done")){
             renderMessagesContactPage(
                 this.parent,
-                [gameData.friendMessagesNormal[gameData.friendMessagesNormal.length - 2]]
+                [filteredNormalMessage[filteredNormalMessage.length - 1]]
             );
         }
 
@@ -336,7 +378,11 @@ export const pageHandler = {
         pageState.setBeforePage(pageState.currentPage);
         pageState.setCurrentPage(this.handlePhonePageRender);
 
-        if(progressionState.checkStateKey("call", "listened") && !progressionState.checkStateKey("call", "decryptedCall")){
+        if(progressionState.checkStateKey("ending", "messagesNormal")){
+            renderPhonePage(this.parent, []);
+        }
+
+        else if(progressionState.checkStateKey("call", "listened") && !progressionState.checkStateKey("call", "decryptedCall")){
             renderPhonePage(this.parent, gameData.voicemessages);
         }
     },
@@ -347,7 +393,7 @@ export const pageHandler = {
 
         if(progressionState.isUnlocked("ending", "messagesNormal")){
             pageState.changeNotesData();
-            renderNotesPage
+            renderNotesPage(this.parent, gameData.notes);
         }
         else{
             renderNotesPage(this.parent, gameData.notes);
@@ -369,11 +415,24 @@ export const pageHandler = {
         renderIphonePopUp(this.parent, "phoneCall");
     },
 
+    handleFriendHelpNoticeRender(){
+        renderNotification(
+            this.parent,
+            "sms",
+            "Alex",
+            "Minns du vad som hände sen? Har du kollat anteckningar typ??",
+            () => {
+                this.handleFriendMessagesPageRender();
+            }
+        );
+        progressionState.isUnlocked("receive-friend-help-notice", "notified");
+    },
+
     handlePaymentNotificationRender(){
         renderNotification(
             this.parent,
             "bank",
-            "+10 000kr",
+            "+20 000kr",
             "Tack så mycket för att du hittade min tiger.",
             () => {
                 this.handleBankPageRender();
@@ -387,7 +446,7 @@ export const pageHandler = {
             renderNotification(
                 this.parent,
                 "sms",
-                "Knarklangare",
+                "Okänt nummer",
                 "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express.",
                 () => {
                     this.handleDealerMessagesPageRender();
@@ -401,14 +460,15 @@ export const pageHandler = {
                 this.parent,
                 "sms",
                 "Okänt nummer",
-                "",
+                "Det är för mycket folk. Måste dra. Jag skickar mitt nummer sen. Om du inte har fixat fram mina pengar då så kommer det bli stora konsekvenser",
                 () => {
                     this.handleDealerMessagesPageRender();
                 }
-            )
+            );
+            progressionState.isUnlocked("receive-avoid-position-dealer-notice", "notified");
         }
 
-        else if(progressionState.checkStateKey("decryptCall", "phoneAppUnlocked")){
+        else if(progressionState.checkStateKey("decryptCall", "phoneAppUnlocked") && !progressionState.checkStateKey("receive-position-dealer-notice", "notified")){
             renderNotification(
                 this.parent, 
                 "sms", 
