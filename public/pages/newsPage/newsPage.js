@@ -2,6 +2,8 @@ import { renderFooter } from "../../components/footer/footer.js";
 import { renderIphonePopUp } from "../../components/footer/iphonePopUp.js";
 
 export function renderNewsPage(parent, otherNews) {
+    window.scrollTo(0, 0);
+
     const srcWdMedia = "../../media/news-media/";
 
     parent.innerHTML = `<div id="news-page">
