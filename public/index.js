@@ -1,6 +1,7 @@
 import { startBackgroundWatcher } from "./logic/locationWatcher.js";
 import { gameData } from "./pageHandler/gameData.js";
 import { pageHandler, pageState } from "./pageHandler/pageHandler.js";
+import { renderEndScene } from "./pages/endScene/endScene.js";
 
 export const progressionState = {
     steps: [
@@ -136,10 +137,10 @@ export const progressionState = {
 
     checkStateKey(step, key) {
         const currentStep = this.steps.find(s => s.id === step);
-        if(currentStep.state[key]){
+        if (currentStep.state[key]) {
             return true;
         }
-        else{
+        else {
             return false;
         }
     }
@@ -172,8 +173,8 @@ export const state = {
 
                 if (progressionState.checkStateKey("call", "popup") && !progressionState.checkStateKey("call", "listened")) {
                     pageState.currentExceptionPage();
-                } 
-                
+                }
+
                 else if (currentPage) {
                     pageState.setBeforePage(pageHandler[JSON.parse(currentPage)].bind(pageHandler));
                     pageState.beforePage();
@@ -193,7 +194,9 @@ export const state = {
     }
 }
 
-state.startApp();
+// state.startApp();
+
+renderEndScene(document.querySelector("#wrapper"), gameData.efterTexter);
 
 /* pageHandler.handleNotesPageRender(); */
 

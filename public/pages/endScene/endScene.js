@@ -1,4 +1,7 @@
 export function renderEndScene(parent, efterTexter) {
+    const audio = new Audio("../../media/audio-files/endCreditsSong.mp3");
+    audio.play();
+
     const bg = document.createElement("div");
     bg.id = "endSceneBg";
 
@@ -93,7 +96,6 @@ export function renderEndScene(parent, efterTexter) {
                     nameCon.appendChild(currentNameCon);
                     currentNameCon.appendChild(text);
                     currentNameCon.appendChild(license);
-                    currentNameCon.appendChild(link);
                 } else {
                     const text = document.createElement("p");
                     text.classList.add("endSceneSecPartName");
@@ -122,6 +124,16 @@ export function renderEndScene(parent, efterTexter) {
     logo.classList.add('endSceneLogo');
     logo.setAttribute("src", "../../media/end-scene/logo.png");
     lastSceneCon.appendChild(logo);
+
+    const restartBtn = document.createElement("button");
+    restartBtn.classList.add('endSceneRestartBtn');
+    restartBtn.textContent = "Spela igen";
+    lastSceneCon.appendChild(restartBtn);
+
+    restartBtn.addEventListener("click", () => {
+        sessionStorage.clear();
+        window.location.reload();
+    });
 
     document.querySelector("body").style.overflow = "hidden";
 
