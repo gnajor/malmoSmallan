@@ -5,27 +5,28 @@
     --truck-color: #3683C2;
 }
 
-#bank-page::before{
+#bank-page::before {
     content: "";
     inset: 0;
-    bottom: 100%;
-    opacity: 1;
+    bottom: 0;
+    opacity: 0;
     background-color: black;
     position: fixed;
-    z-index: 1001;
+    z-index: -1;
 
     transition: 1500ms all ease-in-out;
 }
 
-body:has(.ending){
+body:has(.ending) {
     overflow: hidden;
 }
 
-#bank-page.ending::before{
-    bottom: 0;
+#bank-page.ending::before {
+    opacity: 1;
+    z-index: 10001;
 }
 
-#bank-page h3{
+#bank-page h3 {
     font-size: var(--header-font-size);
 }
 
@@ -196,84 +197,80 @@ body:has(.ending){
     gap: 4px;
     font-weight: 600;
 }
-#bank-page main #account-swosh-box input{
+
+#bank-page main #account-swosh-box input {
     position: relative;
-    right:0;
+    right: 0;
     animation-duration: 400ms;
 }
 
-#wrapper #bank-page main #account-swosh-box #inputs-box .shake{
+#wrapper #bank-page main #account-swosh-box #inputs-box .shake {
     animation-name: shakeError;
 }
 
 @keyframes shakeError {
-    6.25%{
+    6.25% {
         right: 1rem;
     }
 
-    12.5%{
+    12.5% {
         right: 0;
     }
 
-    18.75%{
-        right:-1rem;
+    18.75% {
+        right: -1rem;
     }
 
-    25%{
-        right:0;
+    25% {
+        right: 0;
     }
 
-    31.25%{
+    31.25% {
         right: 1rem;
     }
 
-    37.5%{
+    37.5% {
         right: 0;
     }
 
-    43.75%{
-        right:-1rem;
+    43.75% {
+        right: -1rem;
     }
 
-    50%{
-        right:0;
+    50% {
+        right: 0;
         box-shadow: inset 0 0 0 2px red;
     }
 
-    56.25%{
+    56.25% {
         right: 1rem;
     }
 
-    62.5%{
+    62.5% {
         right: 0;
     }
 
-    68.75%{
-        right:-1rem;
+    68.75% {
+        right: -1rem;
     }
 
-    75%{
-        right:0;
+    75% {
+        right: 0;
     }
 
-    81.25%{
+    81.25% {
         right: 1rem;
     }
 
-    87.5%{
+    87.5% {
         right: 0;
     }
 
-    93.75%{
-        right:-1rem;
+    93.75% {
+        right: -1rem;
     }
 
-    100%{
-        right:0;
+    100% {
+        right: 0;
     }
 }
-
-
-
-
-
