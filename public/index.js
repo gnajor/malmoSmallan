@@ -74,7 +74,7 @@ export const progressionState = {
                 pressed: false,
             }
         },
-        {  
+        {
             id: "receive-friend-help-notice",
             state: {
                 notified: false,
@@ -137,10 +137,10 @@ export const progressionState = {
 
     checkStateKey(step, key) {
         const currentStep = this.steps.find(s => s.id === step);
-        if(currentStep.state[key]){
+        if (currentStep.state[key]) {
             return true;
         }
-        else{
+        else {
             return false;
         }
     }
@@ -173,8 +173,8 @@ export const state = {
 
                 if (progressionState.checkStateKey("call", "popup") && !progressionState.checkStateKey("call", "listened")) {
                     pageState.currentExceptionPage();
-                } 
-                
+                }
+
                 else if (currentPage) {
                     pageState.setBeforePage(pageHandler[JSON.parse(currentPage)].bind(pageHandler));
                     pageState.beforePage();

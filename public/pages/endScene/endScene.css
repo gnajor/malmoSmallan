@@ -1,5 +1,6 @@
 #endSceneBg {
-    background-image: url('../../media/backgrounds/end-background.png');
+    background-image: url('../../media/backgrounds/end-credits-background.jpg');
+    filter: brightness(45%);
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
@@ -77,7 +78,7 @@
 }
 
 #endSceneTextCon.endSceneAnimate {
-    animation: rollCredits 75s linear forwards;
+    animation: rollCredits 85s linear forwards;
 }
 
 #endSceneLastSceneCon {
@@ -109,4 +110,13 @@
 
 .endSceneShow {
     opacity: 1 !important;
+}
+
+.endSceneRestartBtn {
+    background-color: #433070;
+    color: #fff;
+    padding: 12px 28px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 24px;
+    font-size: 14px;
 }
