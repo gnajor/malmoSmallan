@@ -110,7 +110,7 @@ function updateDistance(position) {
     const userLat = position.coords.latitude;
     const userLon = position.coords.longitude;
 
-    const distance = calculateDistance(userLat, userLon, userLat, userLon,/* destination.latitude, destination.longitude */);
+    const distance = calculateDistance(userLat, userLon, destination.latitude, destination.longitude);
 
     //meter
     if (distance < 2) {
