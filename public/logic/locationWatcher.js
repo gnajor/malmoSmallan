@@ -1,4 +1,3 @@
-import { renderNotification } from "../components/footer/notification.js";
 import { progressionState } from "../index.js";
 import { gameData } from "../pageHandler/gameData.js";
 import { pageHandler, pageState } from "../pageHandler/pageHandler.js";
@@ -18,10 +17,23 @@ export function startBackgroundWatcher(){
             let currentStageCoords = gameData.mapCords[0];
             let func = null
             let startChecking = false;
+            let distanceWithin = 0;
+
+            if(progressionState.checkStateKey("start-popup", "shown") && !progressionState.checkStateKey("möllan-gps", "gpsReached")){
+                currentStageCoords = gameData.mapCords[0];
+                startChecking = true;
+                distanceWithin = 100;
+                func = () => {
+                    progressionState.isUnlocked("möllan-gps", "gpsReached");
+                    pageState.setAppUnlocked("DegBanken");
+                    pageHandler.handleCurrentPageRender();
+                }
+            }
             
-            if(progressionState.checkStateKey("receive-first-message-notice", "userSentMessage")  && !progressionState.checkStateKey("park-gps", "gpsReached")){
+            else if(progressionState.checkStateKey("receive-first-message-notice", "userSentMessage")  && !progressionState.checkStateKey("park-gps", "gpsReached")){
                 currentStageCoords = gameData.mapCords[1];
                 startChecking = true;
+                distanceWithin = 100;
                 func = () => {
                     progressionState.isUnlocked("park-gps", "gpsReached");
                     pageHandler.handleFindBagRender();
@@ -31,6 +43,7 @@ export function startBackgroundWatcher(){
             else if(progressionState.checkStateKey("receive-position-dealer-notice", "pressed") && !progressionState.checkStateKey("triangle-gps", "gpsReached")){
                 currentStageCoords = gameData.mapCords[2];
                 startChecking = true;
+                distanceWithin = 50;
                 func = () => {
                     progressionState.isUnlocked("triangle-gps", "gpsReached");
                     pageHandler.handleDealerNotificationRender();
@@ -40,6 +53,7 @@ export function startBackgroundWatcher(){
             else if(progressionState.checkStateKey("notes-minigame", "notesMinigameCompleted") && !progressionState.checkStateKey("market-gps", "gpsReached")){
                 currentStageCoords = gameData.mapCords[3];
                 startChecking = true;
+                distanceWithin = 25;
                 func = () => {
                     progressionState.isUnlocked("market-gps", "gpsReached");
                     pageHandler.handlePaymentNotificationRender();
@@ -51,7 +65,7 @@ export function startBackgroundWatcher(){
                 currentStageCoords[0], currentStageCoords[1]
             );
 
-            if(distance < 100 && startChecking){
+            if(distance < distanceWithin && startChecking){
                 func();
             }
 

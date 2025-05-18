@@ -47,7 +47,14 @@ export function renderNotification(parent, app, title, text, func) {
     appName.textContent = name;
     time.textContent = "Nu";
     bottomHeader.textContent = title;
-    bottomText.textContent = text;
+
+    if(text.length >= 34){
+        bottomText.textContent = text.slice(0, 34) + "...";
+    }
+    else{
+        bottomText.textContent = text;
+    }
+
 
     appImg.setAttribute("src", appSrc);
 

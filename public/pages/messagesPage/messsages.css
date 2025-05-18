@@ -2,6 +2,23 @@
     padding-bottom: calc(1.8 * var(--footer-header-height));
 }
 
+#messages-page::before {
+    content: "";
+    inset: 0;
+    bottom: 0;
+    opacity: 0;
+    background-color: black;
+    position: fixed;
+    z-index: -1;
+
+    transition: 2000ms all ease-in-out;
+}
+
+#messages-page.ending::before {
+    opacity: 1;
+    z-index: 10001;
+}
+
 #messages-header {
     background: rgba(247, 247, 247, 0.65);
     background-blend-mode: color-dodge, normal;

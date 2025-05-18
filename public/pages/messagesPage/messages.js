@@ -71,10 +71,13 @@ function renderMessagesSender(parent, lastMessage) {
                 text.innerHTML = "";
                 progressionState.isUnlocked("ending", "userSentMessage");
                 pageState.changeNormalMessageToNoSend();
-                setTimeout(() => {
+
+                const messagePage = document.querySelector("#messages-page");
+                messagePage.classList.add("ending");
+                messagePage.addEventListener("transitionend", () => {
                     audioEndCredits.play();
                     pageHandler.handleEndCredits();
-                }, 10000);
+                })
                 return;
             }
 

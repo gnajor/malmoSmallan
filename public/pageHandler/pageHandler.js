@@ -21,7 +21,7 @@ export const pageState = {
     beforePage: null,
     currentPage: null,
     currentExceptionPage: null,
-    appsUnlocked: ["DegBanken"],
+    appsUnlocked: [],
 
     setAppUnlocked(appName){
         this.appsUnlocked.push(appName);
@@ -79,7 +79,7 @@ export const pageState = {
         const notes = gameData.notes;
         delete notes.yesterday;
 
-        for(let i = 0; i < notes.favorite; i++){
+        for(let i = 0; i < notes.favorite.length; i++){
             const note = notes.favorite[i];
 
             if(note.title === "veldgt vikigt!!"){
@@ -115,6 +115,10 @@ export const pageState = {
         state.setStateStorage("currentExceptionPage", func.name);
     },
 
+    setNewsPaperToLocked(){
+        gameData.apps[3].locked = true;
+    },
+
     getAppsData(){
         const apps = gameData.apps.filter(() => true);
 
@@ -130,7 +134,11 @@ export const pageState = {
 export const pageHandler = {
     parent: document.querySelector("#wrapper"),
     timeouts: {
-        sms: 3000
+        news: 3000,
+        friendSentHelpMessage: 5000, 
+        dealerCode: 4000,
+        firstMessage: 10000, 
+        call: 40000,
     },
 
     handleStartPageRender(){
@@ -143,11 +151,11 @@ export const pageHandler = {
         pageState.setCurrentPage(this.handleHomePageRender.bind(this));
 
         if(progressionState.checkStateKey("police-ending", "done")){
-            console.log("fuck you")
             progressionState.isUnlocked("ending", "messagesNormal");
-            console.log(progressionState.steps);
-            renderHomePage(this.parent, pageState.getAppsData());
+            pageState.setNewsPaperToLocked();
+            renderHomePage(this.parent, pageState.getAppsData(), true);
         }
+
         else{
             renderHomePage(this.parent, pageState.getAppsData());
             pageState.setBeforePage(pageState.currentPage);
@@ -235,7 +243,7 @@ export const pageHandler = {
 
             setTimeout(() => {
                 this.handleFriendHelpNoticeRender();
-            }, 5000);
+            }, this.timeouts.friendSentHelpMessage);
         }
         
 
@@ -264,7 +272,6 @@ export const pageHandler = {
         pageState.setCurrentPage(this.handleSpecificNotesPageRender.bind(this));
 
         if(progressionState.checkStateKey("notes-minigame", "notesMinigameCompleted")){
-            pageState.changeNotesData();
             renderSpecifikNotesPage(this.parent, gameData.notesMinigame, true);
         }
         else{
@@ -286,8 +293,7 @@ export const pageHandler = {
         pageState.setCurrentPage(this.handleBankPageRender.bind(this));
 
         if(progressionState.checkStateKey("ending", "messagesNormal")){
-            console.log(progressionState.steps);
-            renderBankPage(this.parent, gameData.normalTransactions);
+            renderBankPage(this.parent, gameData.normalTransactions, false);
         }
 
         else if(progressionState.checkStateKey("receive-payment-notice", "notified") && !progressionState.checkStateKey("receive-payment-notice", "pressed")){
@@ -298,7 +304,7 @@ export const pageHandler = {
 
             setTimeout(() => {
                 this.handleDealerNotificationRender();
-            }, 3000);
+            }, this.timeouts.dealerCode);
         }
         
         else if(progressionState.checkStateKey("start-popup", "shown") && !progressionState.checkStateKey("receive-first-message-notice", "notified")){
@@ -314,7 +320,7 @@ export const pageHandler = {
                 progressionState.isUnlocked("receive-first-message-notice", "notified");
                 pageState.setAppUnlocked("Meddelanden");
                 progressionState.isUnlocked("receive-first-message-notice", "messageAppUnlocked");
-            }, this.timeouts.sms);
+            }, this.timeouts.firstMessage);
         }
 
         else{
@@ -332,7 +338,8 @@ export const pageHandler = {
         if(progressionState.checkStateKey("police-ending", "done")){
             renderMessagesContactPage(
                 this.parent,
-                [filteredNormalMessage[filteredNormalMessage.length - 1]]
+                [filteredNormalMessage[filteredNormalMessage.length - 1]],
+                true
             );
         }
 
@@ -366,7 +373,7 @@ export const pageHandler = {
             progressionState.isUnlocked("article-notification", "pressed");
             setTimeout(() => {
                 this.handleCallPageRender();
-            }, this.timeouts.sms);
+            }, this.timeouts.call);
         }
         else{
             renderNewsPage(this.parent, gameData.news);
@@ -377,8 +384,25 @@ export const pageHandler = {
         pageState.setBeforePage(pageState.currentPage);
         pageState.setCurrentPage(this.handleMapPageRender.bind(this));
         
-        renderMapPage(this.parent, gameData.mapCords[progressionState.currentStage].coords);
-        progressionState.makeGpsProgress();
+        if(progressionState.checkStateKey("notes-minigame", "notesMinigameCompleted") && !progressionState.checkStateKey("market-gps", "gpsReached")){
+            renderMapPage(this.parent, gameData.mapCords[3]);
+        }
+
+        else if(progressionState.checkStateKey("receive-position-dealer-notice", "notified") && !progressionState.checkStateKey("triangle-gps", "gpsReached")){
+            renderMapPage(this.parent, gameData.mapCords[2]);
+        }
+
+        else if(progressionState.checkStateKey("receive-first-message-notice", "userSentMessage") && !progressionState.checkStateKey("park-gps", "gpsReached")){
+            renderMapPage(this.parent, gameData.mapCords[1]);
+        }
+
+        else if(progressionState.checkStateKey("start-popup", "shown") && !progressionState.checkStateKey("receive-first-message-notice", "notified")){
+            renderMapPage(this.parent, gameData.mapCords[0]);
+        }
+
+        else{
+            renderMapPage(this.parent, null, null);
+        }
     },
 
     handlePhonePageRender(){
@@ -402,6 +426,11 @@ export const pageHandler = {
             pageState.changeNotesData();
             renderNotesPage(this.parent, gameData.notes);
         }
+
+        else if(progressionState.checkStateKey("notes-minigame", "notesMinigameCompleted")){
+            renderNotesPage(this.parent, gameData.notes, false);
+        }
+
         else{
             renderNotesPage(this.parent, gameData.notes);
         }
@@ -501,6 +530,12 @@ export const pageHandler = {
         renderEndScene(this.parent, gameData.efterTexter);
     },
 
+    handleCurrentPageRender(){
+        if(!pageState.currentPage.name.includes("handleMapPageRender")){
+            pageState.currentPage();
+        }
+    },
+
     handleBeforePageRender(){
         pageState.beforePage();
         pageState.setBeforePage(pageState.currentPage);
@@ -520,7 +555,7 @@ export const pageHandler = {
                 progressionState.isUnlocked("article-notification", "popup");
                 pageState.setAppUnlocked("Malmöbladet");
                 progressionState.isUnlocked("article-notification", "articleAppUnlocked");
-            }, this.timeouts.sms);
+            }, this.timeouts.news);
         }
 
         

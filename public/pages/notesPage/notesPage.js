@@ -1,7 +1,7 @@
 import { renderFooter } from "../../components/footer/footer.js";
 import { pageHandler } from "../../pageHandler/pageHandler.js";
 
-export function renderNotesPage(parent, notes){
+export function renderNotesPage(parent, notes, blinking = true){
     parent.innerHTML = `<div id="notes-page">
                             <header>
                                 <h1>Anteckningar</h1>
@@ -35,13 +35,20 @@ export function renderNotesPage(parent, notes){
                         </div>`;
 
     renderFooter(parent.querySelector("footer"));
+    let yesterdayNotes = null;
 
     if(notes.yesterday){
-        const yesterdayNotes = new Notes(
+        yesterdayNotes = new Notes(
             parent.querySelector("#yesterday-notes .notes-container"),
             notes.yesterday,
         );
         yesterdayNotes.renderNotes();
+        
+        if(!blinking){
+            const note = parent.querySelector(".notes-container .note:first-child");
+            note.style.animation = "none";
+            note.style.border = "none";
+        }
     }
     else{
         parent.querySelector("#yesterday-notes h2").style.display = "none";
@@ -111,7 +118,6 @@ class Notes{
         noteContainer.innerHTML = `<h3 class="note-title">${note.title}</h3>
                                    <span class="note-date">${note.date}</span>
                                    <p class="class-content">${note.text}</p>`;
-
                                    
         if(note.title === "veldgt vikigt!!"){         
             noteContainer.addEventListener("click", this.onClickSpecific);

@@ -1,7 +1,7 @@
 import { renderFooter } from "../../components/footer/footer.js";
 import { pageHandler } from "../../pageHandler/pageHandler.js";
 
-export function renderMessagesContactPage(parent, messages) {
+export function renderMessagesContactPage(parent, messages, noErrors=false) {
     parent.innerHTML = `<div id="messages-contact-page">
                             <header id="messages-contacts-header"></header>
                             <main id="messages-contacts-main"></main>
@@ -10,7 +10,7 @@ export function renderMessagesContactPage(parent, messages) {
 
     renderFooter(parent.querySelector("footer"));
     renderMessagesContactsHeader(parent.querySelector("header"));
-    renderMessagesContactsMain(parent.querySelector("main"), messages);
+    renderMessagesContactsMain(parent.querySelector("main"), messages, noErrors);
 }
 
 function renderMessagesContactsHeader(parent) {
@@ -20,7 +20,7 @@ function renderMessagesContactsHeader(parent) {
     parent.appendChild(header);
 }
 
-function renderMessagesContactsMain(parent, lastMessage) {
+function renderMessagesContactsMain(parent, lastMessage, noErrors) {
     for (let i = 0; i < 5; i++) {
         const messanger = document.createElement("div");
         const imgCon = document.createElement("div");
@@ -50,8 +50,6 @@ function renderMessagesContactsMain(parent, lastMessage) {
             else{
                 name.innerHTML = lastMessage[i].sender;
             }
-            
-
             message.innerHTML = lastMessage[i].text.substring(0, 30) + "...";
             leftCon.appendChild(imgCon);
             imgCon.appendChild(img);
@@ -65,6 +63,10 @@ function renderMessagesContactsMain(parent, lastMessage) {
                 }
             });
         } else {
+            if(noErrors){
+                continue;
+            }
+            
             name.innerHTML = "Fel";
             message.innerHTML = "Kunde inte hitta konversationen";
             messanger.classList.add("error");

@@ -2,7 +2,7 @@ import { renderFooter } from "../../components/footer/footer.js";
 import { progressionState } from "../../index.js";
 import { pageHandler } from "../../pageHandler/pageHandler.js";
 
-export function renderBankPage(parent, transactions) {
+export function renderBankPage(parent, transactions, warning = true) {
     parent.innerHTML = `<div id="bank-page">   
                             <header>
                                 <h3>DegBanken</h3>
@@ -53,6 +53,11 @@ export function renderBankPage(parent, transactions) {
                             <footer></footer>
                         </div>`;
 
+    if(!warning){
+        parent.querySelector("#swosh-warning-box").remove();
+    }
+
+
     renderFooter(
         parent.querySelector("footer"),
         () => { }
@@ -71,7 +76,7 @@ export function renderBankPage(parent, transactions) {
             sum: "-" + sumInputValue + ",00"
         }
 
-        if(numberInputValue === "1930342" && sumInputValue === "20000"){
+        if(numberInputValue === "1930342" && sumInputValue === "20000" && warning){
             const bankPage = document.querySelector("#bank-page");
             progressionState.isUnlocked("police-ending", "done");
 
@@ -89,7 +94,7 @@ export function renderBankPage(parent, transactions) {
             }, {once: true});
         } 
 
-        if(numberInputValue !== "1930342"){
+        if(numberInputValue !== "1930342" || !warning){
             numberInput.classList.add("shake");
 
             numberInput.addEventListener("animationend", () => {
@@ -97,7 +102,7 @@ export function renderBankPage(parent, transactions) {
             });
         }
 
-        if(sumInputValue !== "20000"){
+        if(sumInputValue !== "20000" || !warning){
             sumInput.classList.add("shake");
 
             sumInput.addEventListener("animationend", () => {

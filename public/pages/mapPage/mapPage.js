@@ -5,7 +5,7 @@ let map;
 let routeControl;
 let userMarker = null;
 
-export function renderMapPage(parent, cords){
+export function renderMapPage(parent, cords, exists = true){
     parent.innerHTML = `<div id="map-page">
                             <div id="map"></div>
                             <footer></footer>
@@ -15,7 +15,7 @@ export function renderMapPage(parent, cords){
         removeLocationListener(updateMapLocation);
     });
     
-    map = L.map('map').setView([55.48, 13.49], 13);
+    map = L.map('map').setView([55.6041, 12.9970], 13);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         subdomains: 'abcd',
         maxZoom: 19
@@ -26,7 +26,7 @@ export function renderMapPage(parent, cords){
         const userPosition = L.latLng(userCords[0], userCords[1]);
         const destination = L.latLng(cords[0], cords[1]);
     
-        if (!userMarker) {
+        if(!userMarker) {
             userMarker = L.circleMarker(userPosition, {
                 radius: 8,
                 fillColor: "#3388ff",
@@ -35,31 +35,37 @@ export function renderMapPage(parent, cords){
                 opacity: 1,
                 fillOpacity: 1
             }).addTo(map);
-        } else {
+        }
+        else{
             userMarker.setLatLng(userPosition); 
         }
     
-        if (routeControl) {
-            routeControl.setWaypoints([userPosition, destination]);
+        if(routeControl) {
+            map.removeControl(routeControl);
         }
-        else{
-            routeControl = L.Routing.control({
-                waypoints: [userPosition, destination],
-                createMarker: (i, wp, n) => {
-                    if (i === 0) return null; 
-                    return L.marker(wp.latLng);
-                },
-                routeWhileDragging: false,
+
+        routeControl = L.Routing.control({
+            waypoints: [userPosition, destination],
+            createMarker: (i, wp, n) => {
+                if (i === 0) return null; 
+                return L.marker(wp.latLng);
+            },
+            routeWhileDragging: false,
+            addWaypoints: false,
+            draggableWaypoints: false,
+            fitSelectedRoutes: false,
+            show: false,
+            lineOptions: {
                 addWaypoints: false,
-                draggableWaypoints: false,
-                fitSelectedRoutes: true,
-                show: false,
-                lineOptions: {
-                    addWaypoints: false,
-                    styles: [{ color: '#3388ff', weight: 5 }]
-                }
-            }).addTo(map);
-        }
+                styles: [{ color: '#3388ff', weight: 5 }]
+            }
+        }).addTo(map);
     }
-    addLocationListener(updateMapLocation);
+
+    if(exists){
+        addLocationListener(updateMapLocation);
+    }
+    else{
+        parent.querySelector("#map").classList.add("no-work");
+    }
 }

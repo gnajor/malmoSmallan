@@ -280,8 +280,8 @@ function swosh(parent) {
 }
 
 // phoneCall
-let stepsRemaining = 15; //15
-let stepThreshold = 12; //12
+let stepsRemaining = 15;
+let stepThreshold = 12; 
 let stepCooldown = false;
 
 function updateCounter() {

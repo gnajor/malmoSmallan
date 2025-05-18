@@ -1,13 +1,17 @@
 import { renderFooter } from "../../components/footer/footer.js";
-import { renderIphonePopUp } from "../../components/footer/iphonePopUp.js";
 
-export function renderHomePage(parent, apps){
+export function renderHomePage(parent, apps, ending = false){
     parent.innerHTML = `<div id="home-page">
                             <main id="app-container"></main>
                             <footer></footer>
                         </div>`;
 
     renderFooter(parent.querySelector("footer"));
+
+    if(ending){
+        parent.classList.add("background");
+        parent.style.animation = "fadeOut 5s";
+    }
 
     for(const app of apps){
         renderApps(

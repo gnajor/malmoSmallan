@@ -11,6 +11,12 @@ export const progressionState = {
             }
         },
         {
+            id: "möllan-gps",
+            state: {
+                gpsReached: false
+            }
+        },
+        {
             id: "receive-first-message-notice",
             state: {
                 notified: false,

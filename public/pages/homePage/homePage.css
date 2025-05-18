@@ -1,7 +1,36 @@
+body:has(#home-page){
+    background-color: #000;
+}
+
 #home-page{
     min-height: 100dvh;
     background-image: url("../../media/backgrounds/home-background.jpg");
     background-size: cover;
+}
+
+#home-page::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    opacity: 0;
+    background-color: #000;
+    z-index: -1;
+}
+
+@keyframes fadeOut {
+    0%{
+        z-index: -1;
+        opacity: 0;
+    }
+
+    100%{
+        z-index: 1001;
+        opacity: 1;
+    }
+}
+
+#wrapper.background #home-page{
+    background-image: url("../../media/backgrounds/second-background.png");
 }
 
 #home-page main{

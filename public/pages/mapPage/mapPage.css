@@ -3,3 +3,21 @@
     width: 100%;
 }
 
+#map.no-work .leaflet-top,
+#map.no-work .leaflet-bottom{
+    z-index: 999;
+    pointer-events: none;
+}
+
+#map.no-work::before{
+    content:"Du är redan på den rätta positionen";
+    position: fixed;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.493);
+    height: calc(100% - var(--footer-header-height));
+    display: flex;
+    text-align: center;
+    align-items: center;
+    font-size: 2rem;
+    color: white;
+}

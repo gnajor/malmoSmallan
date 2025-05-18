@@ -4,14 +4,9 @@ export function renderPoliceLights(parent) {
     parent.innerHTML = `
         <video autoplay loop class="videoElement">
             <source src="../../media/video-files/policeLights.mov">
-        </video>
-    `;
-    // const audio = new Audio("../../media/audio-files/policeSound.mp3");
-    // audio.play();
-    // audio.loop = true;
+        </video>`;
 
     setTimeout(() => {
         pageHandler.handleHomePageRender();
-        // audio.pause();
     }, 8000);
 }

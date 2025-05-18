@@ -5,6 +5,8 @@ export function renderEndScene(parent, efterTexter) {
     const textCon = document.createElement("div");
     textCon.id = "endSceneTextCon";
 
+    parent.style.animation = "fadeOut 5s";
+
     //firstpart
     parent.innerHTML = ``;
     const firstPart = document.createElement("p");

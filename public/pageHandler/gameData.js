@@ -30,14 +30,14 @@ export const appFuncs = {
 export const gameData = {
     apps: [
         {
-            icon: "bank-app.jpg",
-            name: "DegBanken",
-            locked: false,
-        },
-        {
             icon: "maps-app.jpg",
             name: "Kartor",
             locked: false,
+        },
+        {
+            icon: "bank-app.jpg",
+            name: "DegBanken",
+            locked: true,
         },
         {
             icon: "sms-app.jpg",
