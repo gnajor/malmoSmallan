@@ -22,7 +22,7 @@ export function startBackgroundWatcher(){
             if(progressionState.checkStateKey("start-popup", "shown") && !progressionState.checkStateKey("möllan-gps", "gpsReached")){
                 currentStageCoords = gameData.mapCords[0];
                 startChecking = true;
-                distanceWithin = 100;
+                distanceWithin = 50;
                 func = () => {
                     progressionState.isUnlocked("möllan-gps", "gpsReached");
                     pageState.setAppUnlocked("DegBanken");
