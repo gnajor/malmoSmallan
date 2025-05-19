@@ -1,4 +1,5 @@
 import { renderFooter } from "../../components/footer/footer.js";
+import { pageHandler } from "../../pageHandler/pageHandler.js";
 
 export function renderHomePage(parent, apps, ending = false){
     parent.innerHTML = `<div id="home-page">
@@ -12,6 +13,8 @@ export function renderHomePage(parent, apps, ending = false){
         parent.classList.add("background");
         parent.style.animation = "fadeOut 5s";
     }
+    
+    pageHandler.handleMapAppRender();
 
     for(const app of apps){
         renderApps(
@@ -19,6 +22,7 @@ export function renderHomePage(parent, apps, ending = false){
             app
         );
     }
+
 }
 
 function renderApps(parent, app){
@@ -29,7 +33,7 @@ function renderApps(parent, app){
     appElement.id = app.name;
     parent.appendChild(appElement);
 
-    appElement.innerHTML = `<img src="${srcWd + app.icon}" alt="a image of the app ${app.name}">
+    appElement.innerHTML += `<img src="${srcWd + app.icon}" alt="a image of the app ${app.name}">
                             <span>${app.name}</span>`;
 
     if(!app.locked){
@@ -39,3 +43,5 @@ function renderApps(parent, app){
         appElement.classList.add("locked");
     }
 }
+
+//renderApps if renderPage

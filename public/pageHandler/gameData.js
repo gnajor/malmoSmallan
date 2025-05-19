@@ -30,11 +30,6 @@ export const appFuncs = {
 export const gameData = {
     apps: [
         {
-            icon: "maps-app.jpg",
-            name: "Kartor",
-            locked: false,
-        },
-        {
             icon: "bank-app.jpg",
             name: "DegBanken",
             locked: true,
@@ -60,6 +55,13 @@ export const gameData = {
             locked: true,
         }
     ],
+
+    mapApp: {
+            icon: "maps-app.jpg",
+            name: "Kartor",
+            locked: false,
+        },
+    
 
     transactions: [
         {
@@ -300,7 +302,7 @@ export const gameData = {
         { sender: "Okänt nummer", text: "Du måste hålla pengarna till imorgon, polisen är efter mig.", time: "Idag 01:33" },
         { sender: "Spelaren", text: "Tror du råkat förlita dig på fel person, har inte några pengar kvar", time: "Idag 02:35" },
         { sender: "Okänt nummer", text: "Jag ska ha mina 20 000kr imorgon kl 15. Annars blir det konsekvenser.", time: "Idag 03:41" },
-        { sender: "Okänt nummer", text: "Triangeltorget 1, 211 43 Malmö.", none: true },
+        { sender: "Okänt nummer", text: "Triangelkupolen norra ingången", none: true },
         { sender: "Okänt nummer", text: "Det är för mycket folk. Måste dra. Jag skickar mitt nummer sen. Om du inte har fixat fram mina pengar då så kommer det bli stora konsekvenser", none: true },
         { sender: "Okänt nummer", text: "Ge mig mina pengar. Mitt nummer är Möllevångstorgets staty, bussen och Indian express.", none: true },
     ],
@@ -374,6 +376,13 @@ export const gameData = {
             caller: "Okänt nummer",
             date: "Idag",
         }
+    ],
+
+    links: [
+        "https://maps.app.goo.gl/KFPM8gd2QauXmBos7",
+        "https://maps.app.goo.gl/654HZT5LYKPHNxpV9",
+        "https://maps.app.goo.gl/ZrHxUuAvkdChWfNQ8",
+        "https://maps.app.goo.gl/cpU12pQSt9nTrdQPA"
     ],
 
     news: [

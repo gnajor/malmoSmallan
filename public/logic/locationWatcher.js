@@ -14,7 +14,7 @@ export function startBackgroundWatcher(){
         (position) => {
             const latlong = [position.coords.latitude, position.coords.longitude];
             locationListeners.forEach(listener => listener(latlong));
-            let currentStageCoords = gameData.mapCords[0];
+            let currentStageCoords = null;
             let func = null
             let startChecking = false;
             let distanceWithin = 0;
@@ -43,7 +43,7 @@ export function startBackgroundWatcher(){
             else if(progressionState.checkStateKey("receive-position-dealer-notice", "pressed") && !progressionState.checkStateKey("triangle-gps", "gpsReached")){
                 currentStageCoords = gameData.mapCords[2];
                 startChecking = true;
-                distanceWithin = 50;
+                distanceWithin = 100;
                 func = () => {
                     progressionState.isUnlocked("triangle-gps", "gpsReached");
                     pageHandler.handleDealerNotificationRender();
@@ -53,7 +53,7 @@ export function startBackgroundWatcher(){
             else if(progressionState.checkStateKey("notes-minigame", "notesMinigameCompleted") && !progressionState.checkStateKey("market-gps", "gpsReached")){
                 currentStageCoords = gameData.mapCords[3];
                 startChecking = true;
-                distanceWithin = 25;
+                distanceWithin = 50;
                 func = () => {
                     progressionState.isUnlocked("market-gps", "gpsReached");
                     pageHandler.handlePaymentNotificationRender();
@@ -65,10 +65,9 @@ export function startBackgroundWatcher(){
                 currentStageCoords[0], currentStageCoords[1]
             );
 
-            if(distance < distanceWithin && startChecking){
+            if((distance <= distanceWithin) && startChecking){
                 func();
             }
-
         },
         (error) => {
             console.error("background location error", error);
@@ -78,10 +77,6 @@ export function startBackgroundWatcher(){
         }
     )
 }
-
-setInterval(() => {
-    startBackgroundWatcher();
-}, 10000);
 
 export function addLocationListener(func){
     locationListeners.add(func);

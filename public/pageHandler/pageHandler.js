@@ -1,7 +1,7 @@
 import { renderBankPage } from "../pages/bankPage/bankPage.js";
 import { renderCallPage } from "../pages/callPage/callPage.js";
 import { renderHomePage } from "../pages/homePage/homePage.js"
-import { renderMapPage } from "../pages/mapPage/mapPage.js";
+import { renderMapApp} from "../pages/mapApp/mapApp.js";
 import { renderMessagesContactPage } from "../pages/messagesContact/messagesContact.js";
 import { renderMessagesPage } from "../pages/messagesPage/messages.js";
 import { renderNewsPage } from "../pages/newsPage/newsPage.js";
@@ -116,7 +116,8 @@ export const pageState = {
     },
 
     setNewsPaperToLocked(){
-        gameData.apps[3].locked = true;
+        gameData.apps[2].locked = true;
+        gameData.mapApp.locked = true;
     },
 
     getAppsData(){
@@ -138,7 +139,7 @@ export const pageHandler = {
         friendSentHelpMessage: 5000, 
         dealerCode: 4000,
         firstMessage: 10000, 
-        call: 40000,
+        call: 40000, 
     },
 
     handleStartPageRender(){
@@ -159,6 +160,46 @@ export const pageHandler = {
         else{
             renderHomePage(this.parent, pageState.getAppsData());
             pageState.setBeforePage(pageState.currentPage);
+        }
+    },
+
+    handleMapAppRender(){
+        const parent = this.parent.querySelector("#app-container");
+
+        if(progressionState.checkStateKey("notes-minigame", "notesMinigameCompleted")){
+            renderMapApp(
+                parent, 
+                gameData.mapApp,
+                gameData.links[3]
+            );
+        }
+
+        else if(progressionState.checkStateKey("receive-position-dealer-notice", "notified")){
+            renderMapApp(
+                parent, 
+                gameData.mapApp,
+                gameData.links[2]
+            );
+        }
+
+        else if(progressionState.checkStateKey("receive-first-message-notice", "userSentMessage")){
+            renderMapApp(
+                parent, 
+                gameData.mapApp,
+                gameData.links[1]
+            );
+        }
+
+        else if(progressionState.checkStateKey("start-popup", "shown")){
+            renderMapApp(
+                parent, 
+                gameData.mapApp,
+                gameData.links[0]
+            );
+        }
+
+        else{
+            console.warn("this is not supposed to happen")
         }
     },
 
@@ -380,31 +421,6 @@ export const pageHandler = {
         }
     },
 
-    handleMapPageRender(){
-        pageState.setBeforePage(pageState.currentPage);
-        pageState.setCurrentPage(this.handleMapPageRender.bind(this));
-        
-        if(progressionState.checkStateKey("notes-minigame", "notesMinigameCompleted") && !progressionState.checkStateKey("market-gps", "gpsReached")){
-            renderMapPage(this.parent, gameData.mapCords[3]);
-        }
-
-        else if(progressionState.checkStateKey("receive-position-dealer-notice", "notified") && !progressionState.checkStateKey("triangle-gps", "gpsReached")){
-            renderMapPage(this.parent, gameData.mapCords[2]);
-        }
-
-        else if(progressionState.checkStateKey("receive-first-message-notice", "userSentMessage") && !progressionState.checkStateKey("park-gps", "gpsReached")){
-            renderMapPage(this.parent, gameData.mapCords[1]);
-        }
-
-        else if(progressionState.checkStateKey("start-popup", "shown") && !progressionState.checkStateKey("receive-first-message-notice", "notified")){
-            renderMapPage(this.parent, gameData.mapCords[0]);
-        }
-
-        else{
-            renderMapPage(this.parent, null, null);
-        }
-    },
-
     handlePhonePageRender(){
         pageState.setBeforePage(pageState.currentPage);
         pageState.setCurrentPage(this.handlePhonePageRender);
@@ -509,7 +525,7 @@ export const pageHandler = {
                 this.parent, 
                 "sms", 
                 "Okänt nummer", 
-                "Triangeltorget 1, 211 43 Malmö.", 
+                "Triangelkupolen norra ingången", 
                 () => {
                     this.handleDealerMessagesPageRender();
                 }
@@ -531,9 +547,7 @@ export const pageHandler = {
     },
 
     handleCurrentPageRender(){
-        if(!pageState.currentPage.name.includes("handleMapPageRender")){
-            pageState.currentPage();
-        }
+        pageState.currentPage();  
     },
 
     handleBeforePageRender(){

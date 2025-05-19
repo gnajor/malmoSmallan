@@ -110,7 +110,7 @@ function updateDistance(position) {
     const userLat = position.coords.latitude;
     const userLon = position.coords.longitude;
 
-    const distance = calculateDistance(userLat, userLon, destination.latitude, destination.longitude);
+    const distance = calculateDistance(userLat, userLon, userLat, userLon /* destination.latitude, destination.longitude */);
 
     //meter
     if (distance < 2) {
@@ -276,12 +276,12 @@ function swosh(parent) {
     bottom.addEventListener("click", () => {
         document.querySelector(".background-darken").remove();
         parent.remove();
-    });
+    }, {once: true});
 }
 
 // phoneCall
-let stepsRemaining = 15;
-let stepThreshold = 12; 
+let stepsRemaining = 15; //15
+let stepThreshold = 12; //12 
 let stepCooldown = false;
 
 function updateCounter() {
@@ -291,7 +291,6 @@ function updateCounter() {
         const stepsTaken = totalSteps - stepsRemaining;
         const percentage = (stepsTaken / totalSteps) * 100;
         fill.style.width = `${percentage}%`;
-        //showCompletionPopup();
     }
 }
 
@@ -314,7 +313,6 @@ const handleMotion = (event) => {
     if (stepsRemaining === 0) {
         window.removeEventListener("devicemotion", handleMotion);
         showCompletionPopup();
-        pageHandler.handleProgression();     
     }
 }
 
@@ -340,7 +338,8 @@ function showCompletionPopup() {
     bottom.addEventListener("click", () => {
         progressionState.isUnlocked("decryptCall", "decryptedCall");
         pageHandler.handleBeforePageRender();
-    });
+        showCompletionPopup();
+    }, {once: true});
 }
 
 function phoneCall(parent) {
